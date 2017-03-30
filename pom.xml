@@ -4,7 +4,7 @@
 	<groupId>ar.com.xyz</groupId>
 	<artifactId>simple-demo</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>xyz-demo</name>
 	<url>http://maven.apache.org</url>
 
@@ -22,11 +22,11 @@
 			<artifactId>game-engine</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>slick</groupId>
-			<artifactId>slick</artifactId>
+		<!-- dependency>
+			<groupId>slick-util</groupId>
+			<artifactId>slick-util</artifactId>
 			<version>239</version>
-		</dependency>
+		</dependency -->
 		<dependency>
 			<groupId>org.lwjgl.lwjgl</groupId>
 			<artifactId>lwjgl</artifactId>
@@ -63,9 +63,15 @@
 	
 	<repositories>
 		<repository>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
 			<id>xyz.com.ar</id>
-			<url>https://dl.dropbox.com/sh/a0hbduey8srs487/AAC5HAOCpeVYvG9MeYE4ZLGYa?dl=0</url>
-			 <snapshots>
+			<!-- url>https://drive.google.com/open?id=0B4I2KiB1yC5RdnhZc2ctbGROUms</url -->
+			<!-- url>https://dl.dropbox.com/sh/a0hbduey8srs487/AAC5HAOCpeVYvG9MeYE4ZLGYa?raw=1</url -->
+			<url>https://raw.githubusercontent.com/xyzjge/repository/master</url>
+			<snapshots>
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
