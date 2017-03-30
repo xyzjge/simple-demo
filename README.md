@@ -17,3 +17,9 @@ space: jump
 
 In eclipse, Right click on XYZDemoMainGameLoop, and go to Run As -> Run Configurations ...  
 Go to Arguments -> VM arguments: and type "-Djava.library.path=<path to lwjgl native libs>" ie. "-Djava.library.path=/opt/lwjgl/lwjgl-2.9.1/native/linux"
+
+## Run from command line
+
+Point library.path in pom.xml to the lwjgl native libs
+
+mvn exec:exec
