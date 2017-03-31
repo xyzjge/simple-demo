@@ -7,7 +7,7 @@ Uses an FPS camera with basic functions to walk around a simple environment
 ## Controls
 
 wasd or arrows: forward, strafe left, backward, strafe right  
-Mouse movement: aim  
+mouse movement: aim  
 z: crouch  
 space: jump  
 mouse wheel: move camera ahead or behind the character swept sphere
