@@ -35,29 +35,31 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 		{
 			EntitySpec entitySpec ;
 			entitySpec = new EntitySpec("box") ;
-			entitySpec.setDebug(true);
 			entitySpec.setTexture("woodenBox.jpg");
 			entitySpec.setRotation(new Vector3f(0, 0, 90)) ;
 			entitySpec.setPosition(new Vector3f(0,4.75f,-1.5f)) ;
 			entitySpec.setScale(new Vector3f(.5f, .5f, .5f));
-			entitySpec.setEntityController(new RotEntityController(1,1,1));
+			RotEntityController rec = new RotEntityController(1,1,1) ;
+			entitySpec.setEntityController(rec);
 			entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
 			entitySpec.setSweepSphereInAABBHandler(new UpdateHUDSweepSphereInAABBHandler(this));
 			createEntity(entitySpec);
+			this.enableDebug(rec.getEntity());
 		}
 		
 		{
 			EntitySpec entitySpec ;
 			entitySpec = new EntitySpec("box") ;
-			entitySpec.setDebug(true);
 			entitySpec.setTexture("woodenBox.jpg");
 			entitySpec.setRotation(new Vector3f(0, 0, 90)) ;
 			entitySpec.setPosition(new Vector3f(6f, .75f,-6f)) ;
 			entitySpec.setScale(new Vector3f(.5f, .5f, .5f));
-			entitySpec.setEntityController(new RotEntityController(1,1,1));
+			RotEntityController rec = new RotEntityController(1,1,1) ;
+			entitySpec.setEntityController(rec);
 			entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
 			entitySpec.setSweepSphereInAABBHandler(new RemoveEntitySweepSphereInAABBHandler(this));
 			createEntity(entitySpec);
+			this.enableDebug(rec.getEntity());
 		}
 		
 		levelGameStateDefaultPlayerInputHandler = new LevelGameStateDefaultPlayerInputHandler(mainGameLoop, getPlayer(), getCamera(), this, null, null) ;
@@ -76,6 +78,11 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 		this.getGuis().add(sweepSphereInAABBGuiTexture) ;
 	}
 
+	float seconds = 0 ;
+	float secondsDebug = 0 ;
+	boolean crear = true ;
+	RotEntityController recc = null;
+	
 	@Override
 	public void tick(float tpf) {
 		levelGameStateDefaultPlayerInputHandler.handlePlayerInput();
@@ -84,6 +91,41 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 			sweepSphereInAABB = false ;
 		} else {
 			sweepSphereInAABBGuiTexture.setTexture(SingletonManager.getInstance().getTextureManager().loadTexture("cube-wireframe-black")) ;
+		}
+		
+		seconds += tpf ;
+		secondsDebug += tpf ;
+		if (seconds > 20) {
+			seconds = 0;
+			if (crear) {
+				EntitySpec entitySpec ;
+				entitySpec = new EntitySpec("box") ;
+				entitySpec.setTexture("woodenBox.jpg");
+				entitySpec.setRotation(new Vector3f(0, 0, 90)) ;
+				entitySpec.setPosition(new Vector3f(6,0,7f)) ;
+				entitySpec.setScale(new Vector3f(.5f, .5f, .5f));
+				recc = new RotEntityController(1,1,1) ;
+				entitySpec.setEntityController(recc);
+				entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
+				entitySpec.setSweepSphereInAABBHandler(new UpdateHUDSweepSphereInAABBHandler(this));
+				// Si no tiene SweepSphereInAABBHandler no la agrega a ... y getAabbManager().getNonSolidAabb(asociatedEntity) retorna null ...
+				createEntity(entitySpec);
+				this.enableDebug(recc.getEntity());
+			} else {
+				this.scheduleEntityForRemoval(recc.getEntity());
+			}
+			crear = !crear ;
+		} else {
+			if (!crear) {
+				if (secondsDebug > 5) {
+					secondsDebug = 0 ;
+					if (this.isDebugEnabled(recc.getEntity())) {
+						this.disableDebug(recc.getEntity());
+					} else {
+						this.enableDebug(recc.getEntity());
+					}
+				}
+			}
 		}
 	}
 
@@ -100,6 +142,7 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 
 		getCamera().decPitch(-90);
 		
+		this.enableDebug(getPlayer());
 	}
 
 	public void setSweepSphereInAABB(boolean sweepSphereInAABB) {
