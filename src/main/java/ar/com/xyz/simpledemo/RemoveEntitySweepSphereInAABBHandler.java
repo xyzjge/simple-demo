@@ -16,12 +16,13 @@ public class RemoveEntitySweepSphereInAABBHandler implements SweepSphereInAABBHa
 
 	@Override
 	public void handleSweepSphereInAABB(SweepSphereCollisionEntity sweepSphere) {
-		System.out.println("XYZDemoSweepSphereInAABBHandler: AABB solapado con AABB de " + sweepSphere);
+		System.out.println("RemoveEntitySweepSphereInAABBHandler: AABB solapado con AABB de " + sweepSphere);
 		if (sweepSphere.equals(xyzDemoLevelGameState.getPlayer())) {
-			System.out.println("XYZDemoSweepSphereInAABBHandler: colision con el player");
+			System.out.println("RemoveEntitySweepSphereInAABBHandler: colision con el player");
 			xyzDemoLevelGameState.scheduleEntityForRemoval(entity);
+			xyzDemoLevelGameState.addNotification("PICKED UP BOX");
 		} else {
-			System.out.println("XYZDemoSweepSphereInAABBHandler: colision con " + sweepSphere);
+			System.out.println("RemoveEntitySweepSphereInAABBHandler: colision con " + sweepSphere);
 		}
 	}
 

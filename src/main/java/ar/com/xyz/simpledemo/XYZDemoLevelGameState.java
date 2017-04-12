@@ -18,7 +18,7 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 	
 	private LevelGameStateDefaultPlayerInputHandler levelGameStateDefaultPlayerInputHandler ;
 	
-	private GuiTexture guiFireArmor100 ;
+	private GuiTexture sweepSphereInAABBGuiTexture ;
 	private boolean sweepSphereInAABB ;
 	
 	protected XYZDemoLevelGameState(AbstractMainGameLoop mainGameLoop) {
@@ -67,23 +67,23 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 		setShowFps(true);
 		setShowPlayerPosition(true);
 
-		guiFireArmor100 = new GuiTexture(
+		sweepSphereInAABBGuiTexture = new GuiTexture(
 			SingletonManager.getInstance().getTextureManager().loadTexture("cube-wireframe-black"), 
 			new Vector2f(0.80f, -0.76f), 
 			new Vector2f(.1f, .1f)
 		) ;
 		
-		this.getGuis().add(guiFireArmor100) ;
+		this.getGuis().add(sweepSphereInAABBGuiTexture) ;
 	}
 
 	@Override
 	public void tick(float tpf) {
 		levelGameStateDefaultPlayerInputHandler.handlePlayerInput();
 		if (sweepSphereInAABB) {
-			guiFireArmor100.setTexture(SingletonManager.getInstance().getTextureManager().loadTexture("cube-wireframe-white")) ;
+			sweepSphereInAABBGuiTexture.setTexture(SingletonManager.getInstance().getTextureManager().loadTexture("cube-wireframe-white")) ;
 			sweepSphereInAABB = false ;
 		} else {
-			guiFireArmor100.setTexture(SingletonManager.getInstance().getTextureManager().loadTexture("cube-wireframe-black")) ;
+			sweepSphereInAABBGuiTexture.setTexture(SingletonManager.getInstance().getTextureManager().loadTexture("cube-wireframe-black")) ;
 		}
 	}
 

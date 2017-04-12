@@ -10,20 +10,18 @@ public class UpdateHUDSweepSphereInAABBHandler implements SweepSphereInAABBHandl
 
 	private XYZDemoLevelGameState xyzDemoLevelGameState ;
 	
-	public UpdateHUDSweepSphereInAABBHandler(XYZDemoLevelGameState xyzBloodLevelGameState) {
-		this.xyzDemoLevelGameState = xyzBloodLevelGameState ;
+	public UpdateHUDSweepSphereInAABBHandler(XYZDemoLevelGameState xyzDemoLevelGameState) {
+		this.xyzDemoLevelGameState = xyzDemoLevelGameState ;
 	}
 
 	@Override
 	public void handleSweepSphereInAABB(SweepSphereCollisionEntity sweepSphere) {
-		System.out.println("XYZDemoSweepSphereInAABBHandler: AABB solapado con AABB de " + sweepSphere);
+		System.out.println("UpdateHUDSweepSphereInAABBHandler: AABB solapado con AABB de " + sweepSphere);
 		if (sweepSphere.equals(xyzDemoLevelGameState.getPlayer())) {
-			System.out.println("XYZDemoSweepSphereInAABBHandler: colision con el player");
-//			xyzBloodLevelGameState.scheduleEntityForRemoval(entity);
+			System.out.println("UpdateHUDSweepSphereInAABBHandler: colision con el player");
 			xyzDemoLevelGameState.setSweepSphereInAABB(true);
-//			xyzDemoLevelGameState.addNotification("PICKED UP BODY ARMOR");
 		} else {
-			System.out.println("XYZDemoSweepSphereInAABBHandler: colision con " + sweepSphere);
+			System.out.println("UpdateHUDSweepSphereInAABBHandler: colision con " + sweepSphere);
 		}
 	}
 
