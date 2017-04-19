@@ -10,9 +10,8 @@ wasd or arrows: forward, strafe left, backward, strafe right
 mouse movement: aim  
 z: crouch  
 space: jump  
-mouse wheel: move camera ahead or behind the character swept sphere
-shiftL + shiftR: restore camera position
-
+mouse wheel: move camera ahead or behind the character swept sphere  
+shiftL + shiftR: restore camera position  
 
 ## Run from eclipse
 
