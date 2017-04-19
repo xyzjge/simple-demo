@@ -2,7 +2,19 @@
 
 ## Introduction
 XYZ game engine basic demo.
+
 Uses an FPS camera with basic functions to walk around a simple environment
+
+Features:
+
+* FPS camera
+* SOLID_STATIC collision type entities (ie. the level)
+* SWEPT_SPHERE collision type entites (ie. the player)
+* NONE collision type entities (ie. the moving boxes)
+* SweepSphereInAABBHandler
+* Simple HUD demo
+* Adding and removing NONE collision type entities dinamically from the game state
+* Enabling and disabling graphic AABB debug on NONE collision type entities
 
 ## Controls
 
@@ -26,4 +38,4 @@ Go to Arguments -> VM arguments: and type "-Djava.library.path=<path to lwjgl na
 
 Point library.path in pom.xml to the lwjgl native libs
 
-mvn exec:exec
+mvn clean install exec:exec
