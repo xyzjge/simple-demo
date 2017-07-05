@@ -8,7 +8,7 @@ Kd 0.8 0.8 0.8
 Ks 0.8 0.8 0.8
 d 1
 illum 2
-map_Kd /home/alfredo/Dropbox/blender/model/simple-environment/images/brickWall.jpg
+map_Kd brickWall.jpg
 
 newmtl None_dirtGround.jpg
 Ns 0
@@ -17,7 +17,7 @@ Kd 0.8 0.8 0.8
 Ks 0.8 0.8 0.8
 d 1
 illum 2
-map_Kd /home/alfredo/Dropbox/blender/model/simple-environment/images/dirtGround.jpg
+map_Kd dirtGround.jpg
 
 newmtl None_woodenBox.jpg
 Ns 0
@@ -26,4 +26,4 @@ Kd 0.8 0.8 0.8
 Ks 0.8 0.8 0.8
 d 1
 illum 2
-map_Kd /home/alfredo/Dropbox/blender/model/simple-environment/images/woodenBox.jpg
+map_Kd woodenBox.jpg

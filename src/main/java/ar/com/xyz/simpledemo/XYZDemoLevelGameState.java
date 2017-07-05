@@ -62,6 +62,22 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 			this.enableDebug(rec.getEntity());
 		}
 		
+		
+		{
+			EntitySpec entitySpec ;
+			entitySpec = new EntitySpec("box") ;
+			entitySpec.setTexture("stone.png");
+			entitySpec.setRotation(new Vector3f(0, 0, 90)) ;
+			entitySpec.setPosition(new Vector3f(-6f, .75f,6f)) ;
+			entitySpec.setScale(new Vector3f(.5f, .5f, .5f));
+			SimpleDemoEntityController rec = new SimpleDemoEntityController() ;
+			entitySpec.setEntityController(rec);
+			entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.SOLID_DYNAMIC);
+//			entitySpec.setSweepSphereInAABBHandler(new RemoveEntitySweepSphereInAABBHandler(this));
+			createEntity(entitySpec);
+			this.enableDebug(rec.getEntity());
+		}
+		
 		levelGameStateDefaultPlayerInputHandler = new LevelGameStateDefaultPlayerInputHandler(mainGameLoop, getPlayer(), getCamera(), this, null, null) ;
 		
 		grabMouseIfNotGrabbed() ;
@@ -142,6 +158,8 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 
 		getCamera().decPitch(-90);
 		
+		
+		getPlayer().setCrushController(new SimpleDemoPlayerCrushController(this));
 		this.enableDebug(getPlayer());
 	}
 
