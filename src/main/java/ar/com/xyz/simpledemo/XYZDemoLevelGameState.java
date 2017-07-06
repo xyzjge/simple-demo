@@ -159,7 +159,7 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 		getCamera().decPitch(-90);
 		
 		
-		getPlayer().setCrushController(new SimpleDemoPlayerCrushController(this));
+		getPlayer().setCrushController(new SimpleDemoPlayerCrushController(mainGameLoop, this));
 		this.enableDebug(getPlayer());
 	}
 

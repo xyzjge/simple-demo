@@ -1,12 +1,8 @@
 package ar.com.xyz.simpledemo;
 
-import org.lwjgl.util.vector.Vector2f;
-
 import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.entity.CrushController;
-import ar.com.xyz.gameengine.font.fontMeshCreator.FontType;
-import ar.com.xyz.gameengine.font.fontMeshCreator.GUIText;
-import ar.com.xyz.gameengine.singleton.SingletonManager;
 
 /**
  * 
@@ -17,13 +13,21 @@ public class SimpleDemoPlayerCrushController implements CrushController {
 
 	private AbstractGameState gameState ;
 	
-	public SimpleDemoPlayerCrushController(AbstractGameState gameState) {
+	private AbstractMainGameLoop mainGameLoop ;
+	
+	public SimpleDemoPlayerCrushController(AbstractMainGameLoop mainGameLoop, AbstractGameState gameState) {
 		this.gameState = gameState ;
+		this.mainGameLoop = mainGameLoop ;
 	}
 
 	@Override
 	public void crush() {
 
+		// Asi cada vez que muere vuelve a arrancar, estaría ok ...
+//		mainGameLoop.setNextGameState(new XYZDemoLevelGameState(mainGameLoop));
+		
+		mainGameLoop.setNextGameState(new SimpleDemoMenuGameState(mainGameLoop)) ;
+/*
 		// TODO: Hacer algo similar a lo que hago con xyzDemoLevelGameState.setSweepSphereInAABB(true); para que se vaya refrescando constantemente ?
 		
 		// Mostrar mensaje ?
@@ -33,6 +37,7 @@ public class SimpleDemoPlayerCrushController implements CrushController {
 		fps.show();
 		
 //		gameState.scheduleEntityForRemoval(getEntity());
+ */
 	}
 
 }
