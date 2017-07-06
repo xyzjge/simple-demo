@@ -9,13 +9,13 @@ import ar.com.xyz.gameengine.entity.CrushController;
  * @author alfredo
  *
  */
-public class SimpleDemoPlayerCrushController implements CrushController {
+public class PlayerDeathHandler implements CrushController {
 
 	private AbstractGameState gameState ;
 	
 	private AbstractMainGameLoop mainGameLoop ;
 	
-	public SimpleDemoPlayerCrushController(AbstractMainGameLoop mainGameLoop, AbstractGameState gameState) {
+	public PlayerDeathHandler(AbstractMainGameLoop mainGameLoop, AbstractGameState gameState) {
 		this.gameState = gameState ;
 		this.mainGameLoop = mainGameLoop ;
 	}
@@ -23,10 +23,7 @@ public class SimpleDemoPlayerCrushController implements CrushController {
 	@Override
 	public void crush() {
 
-		// Asi cada vez que muere vuelve a arrancar, estaría ok ...
-//		mainGameLoop.setNextGameState(new XYZDemoLevelGameState(mainGameLoop));
-		
-		mainGameLoop.setNextGameState(new SimpleDemoMenuGameState(mainGameLoop)) ;
+		handlePlayerDeath();
 /*
 		// TODO: Hacer algo similar a lo que hago con xyzDemoLevelGameState.setSweepSphereInAABB(true); para que se vaya refrescando constantemente ?
 		
@@ -38,6 +35,19 @@ public class SimpleDemoPlayerCrushController implements CrushController {
 		
 //		gameState.scheduleEntityForRemoval(getEntity());
  */
+	}
+
+	private void handlePlayerDeath() {
+		// Asi cada vez que muere vuelve a arrancar, estaría ok ...
+//		mainGameLoop.setNextGameState(new XYZDemoLevelGameState(mainGameLoop));
+		
+		mainGameLoop.setNextGameState(new SimpleDemoMenuGameState(mainGameLoop, "arial", "ZIPCLOSE.wav", "stone.png")) ;
+	}
+
+	public void tick() {
+		if (gameState.getPlayer().getPosition().y < -100) {
+			handlePlayerDeath() ;
+		}
 	}
 
 }

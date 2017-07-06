@@ -26,33 +26,31 @@ public class SimpleDemoMenuGameState extends AbstractGameState {
 	private Source source ;
 	private int buffer ;
 	
-	public SimpleDemoMenuGameState(AbstractMainGameLoop mainGameLoop) {
+	private String font ;
+	private String sound ;
+	private String background ;
+	
+	public SimpleDemoMenuGameState(AbstractMainGameLoop mainGameLoop, String font, String sound, String background) {
 		super(mainGameLoop) ;
-//		loadEntities() ;
-//		loadPlayerAndCamera() ;
-		loadGuis();
 		
+		this.font = font ;
+		this.sound = sound ;
+		this.background = background ;
+		
+		loadGuis();
 		setupMenu();
-
 	}
 
 	private void setupMenu() {
-		// arial, calibri, harrington, sans, segoe, segoeUI, tahoma
-		// FontType font = SingletonManager.getInstance().getFontTypeManager().getFontType("arial") ;
-		// FontType font = SingletonManager.getInstance().getFontTypeManager().getFontType("calibri") ;
-		// FontType font = SingletonManager.getInstance().getFontTypeManager().getFontType("harrington") ;
-		// FontType font = SingletonManager.getInstance().getFontTypeManager().getFontType("sans") ;
-		// FontType font = SingletonManager.getInstance().getFontTypeManager().getFontType("segoe") ;
-		// FontType font = SingletonManager.getInstance().getFontTypeManager().getFontType("segoeUI") ;
-		FontType font = SingletonManager.getInstance().getFontTypeManager().getFontType("tahoma") ;
+		FontType fontType = SingletonManager.getInstance().getFontTypeManager().getFontType(font) ;
 		
 		normal = new GUIText[opciones.length] ;
 		seleccionado = new GUIText[opciones.length] ;
 
 		for (int i = 0; i < opciones.length; i++) {
-			normal[i] = new GUIText(opciones[i], 3f, font, new Vector2f(0 , 0.2f + i/8f ), 1f, true, this);
+			normal[i] = new GUIText(opciones[i], 3f, fontType, new Vector2f(0 , 0.2f + i/8f ), 1f, true, this);
 			normal[i].setColour(.5f, .5f, .5f);
-			seleccionado[i] = new GUIText(opciones[i], 3f, font, new Vector2f(0, 0.2f + i/8f), 1f, true, this);
+			seleccionado[i] = new GUIText(opciones[i], 3f, fontType, new Vector2f(0, 0.2f + i/8f), 1f, true, this);
 			seleccionado[i].setColour(1, 1, 1);
 			if (i == 0) {
 				seleccionado[i].show();
@@ -62,7 +60,8 @@ public class SimpleDemoMenuGameState extends AbstractGameState {
 		}
 
 		{
-			buffer = AudioMaster.loadSound("ZIPCLOSE.wav") ;
+			// buffer = AudioMaster.loadSound("ZIPCLOSE.wav") ;
+			buffer = AudioMaster.loadSound(sound) ;
 			source = new Source(16, 4, 128*2 /*64*/) ;
 			source.setLooping(false);
 			source.setPosition(0, 0, 0);
@@ -71,18 +70,10 @@ public class SimpleDemoMenuGameState extends AbstractGameState {
 	}
 
 	private void loadGuis() {
-		// GuiTexture gui = new GuiTexture(SingletonManager.getInstance().getTextureManager().loadTexture("stone.png"), new Vector2f(0.5f, -0.2f), new Vector2f(1.3f, 1f)) ;
-		GuiTexture gui = new GuiTexture(SingletonManager.getInstance().getTextureManager().loadTexture("stone.png"), new Vector2f(0, 0), new Vector2f(1f, 1f)) ;
+		// GuiTexture gui = new GuiTexture(SingletonManager.getInstance().getTextureManager().loadTexture("stone.png"), new Vector2f(0, 0), new Vector2f(1f, 1f)) ;
+		GuiTexture gui = new GuiTexture(SingletonManager.getInstance().getTextureManager().loadTexture(background), new Vector2f(0, 0), new Vector2f(1f, 1f)) ;
 		getGuis().add(gui) ;
 	}
-	
-//	private void loadPlayerAndCamera() {
-//	}
-
-//	private void loadEntities() {
-//		// Armar la particion de AABBs de los estaticos
-//		getAabbManager().createTree();
-//	}
 	
 	boolean end = false ;
 

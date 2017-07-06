@@ -21,6 +21,8 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 	private GuiTexture sweepSphereInAABBGuiTexture ;
 	private boolean sweepSphereInAABB ;
 	
+	private PlayerDeathHandler playerDeathHandler ;
+	
 	protected XYZDemoLevelGameState(AbstractMainGameLoop mainGameLoop) {
 		super(mainGameLoop);
 		loadPlayerAndCamera() ;
@@ -101,6 +103,8 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 	
 	@Override
 	public void tick(float tpf) {
+		playerDeathHandler.tick();
+		
 		levelGameStateDefaultPlayerInputHandler.handlePlayerInput();
 		if (sweepSphereInAABB) {
 			sweepSphereInAABBGuiTexture.setTexture(SingletonManager.getInstance().getTextureManager().loadTexture("cube-wireframe-white")) ;
@@ -158,8 +162,8 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 
 		getCamera().decPitch(-90);
 		
-		
-		getPlayer().setCrushController(new SimpleDemoPlayerCrushController(mainGameLoop, this));
+		playerDeathHandler = new PlayerDeathHandler(mainGameLoop, this) ;
+		getPlayer().setCrushController(playerDeathHandler);
 		this.enableDebug(getPlayer());
 	}
 
