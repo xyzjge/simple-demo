@@ -1,6 +1,5 @@
 package ar.com.xyz.simpledemo;
 
-import ar.com.xyz.gameengine.entity.Entity;
 import ar.com.xyz.gameengine.entity.EntityController;
 
 /**
@@ -19,22 +18,18 @@ public class SimpleDemoEntityController extends EntityController {
 	}
 
 	@Override
-	public void setEntity(Entity entity) {
-		super.setEntity(entity);
-	}
-
 	public void update(float tpf) {
 		if (subiendo) {
-			if (entity.getPosition().y > maxY) {
+			if (getEntity().getPosition().y > maxY) {
 				subiendo = false ;
 			} else {
-				entity.increasePosition(0, tpf, 0);
+				getEntity().increasePosition(0, tpf, 0);
 			}
 		} else {
-			if (entity.getPosition().y < minY) {
+			if (getEntity().getPosition().y < minY) {
 				subiendo = true ;
 			} else {
-				entity.increasePosition(0, -tpf, 0);
+				getEntity().increasePosition(0, -tpf, 0);
 			}
 		}
 	}

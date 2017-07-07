@@ -1,148 +1,23 @@
 package ar.com.xyz.simpledemo;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.util.vector.Vector2f;
-
-import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
-import ar.com.xyz.gameengine.audio.AudioMaster;
-import ar.com.xyz.gameengine.audio.Source;
-import ar.com.xyz.gameengine.font.fontMeshCreator.FontType;
-import ar.com.xyz.gameengine.font.fontMeshCreator.GUIText;
-import ar.com.xyz.gameengine.gui.GuiTexture;
-import ar.com.xyz.gameengine.singleton.SingletonManager;
+import ar.com.xyz.gameengine.util.AbstractMenuGameState;
 
-public class SimpleDemoMenuGameState extends AbstractGameState {
+public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 	
-	private String[] opciones = {"PLAY AGAIN", "EXIT"} ;
-	
-	private GUIText[] normal ;
-	private GUIText[] seleccionado ;
-	
-	private int previousIndex = 0 ;
-	private int index = 0 ;
-	
-	private Source source ;
-	private int buffer ;
-	
-	private String font ;
-	private String sound ;
-	private String background ;
+	private static final String[] OPCIONES = {"PLAY AGAIN", "EXIT"} ;
 	
 	public SimpleDemoMenuGameState(AbstractMainGameLoop mainGameLoop, String font, String sound, String background) {
-		super(mainGameLoop) ;
-		
-		this.font = font ;
-		this.sound = sound ;
-		this.background = background ;
-		
-		loadGuis();
-		setupMenu();
+		super(mainGameLoop, OPCIONES, font, sound, background) ;
 	}
-
-	private void setupMenu() {
-		FontType fontType = SingletonManager.getInstance().getFontTypeManager().getFontType(font) ;
-		
-		normal = new GUIText[opciones.length] ;
-		seleccionado = new GUIText[opciones.length] ;
-
-		for (int i = 0; i < opciones.length; i++) {
-			normal[i] = new GUIText(opciones[i], 3f, fontType, new Vector2f(0 , 0.2f + i/8f ), 1f, true, this);
-			normal[i].setColour(.5f, .5f, .5f);
-			seleccionado[i] = new GUIText(opciones[i], 3f, fontType, new Vector2f(0, 0.2f + i/8f), 1f, true, this);
-			seleccionado[i].setColour(1, 1, 1);
-			if (i == 0) {
-				seleccionado[i].show();
-			} else {
-				normal[i].show();
-			}
-		}
-
-		{
-			// buffer = AudioMaster.loadSound("ZIPCLOSE.wav") ;
-			buffer = AudioMaster.loadSound(sound) ;
-			source = new Source(16, 4, 128*2 /*64*/) ;
-			source.setLooping(false);
-			source.setPosition(0, 0, 0);
-			source.setVolume(.1f);
-		}
-	}
-
-	private void loadGuis() {
-		// GuiTexture gui = new GuiTexture(SingletonManager.getInstance().getTextureManager().loadTexture("stone.png"), new Vector2f(0, 0), new Vector2f(1f, 1f)) ;
-		GuiTexture gui = new GuiTexture(SingletonManager.getInstance().getTextureManager().loadTexture(background), new Vector2f(0, 0), new Vector2f(1f, 1f)) ;
-		getGuis().add(gui) ;
-	}
-	
-	boolean end = false ;
 
 	@Override
-	public void tick(float tpf) {
-		if (Mouse.isGrabbed()) {
-			Mouse.setGrabbed(false);
+	protected void handleSelection(int selectionIndex) {
+		if (selectionIndex == 0) {
+			mainGameLoop.setNextGameState(new XYZDemoLevelGameState(mainGameLoop)); 
+		} else {
+			mainGameLoop.stop(); 
 		}
-		handleKeyboardInput() ;
-		if (end) {
-			return ;
-		}
-		if (index < 0) {
-			index = opciones.length - 1 ;
-		}
-		if (index > ( opciones.length - 1 )) {
-			index = 0 ;
-		}
-
-		// Si no hacia esto los fps se iban a los caños ...
-		if (index == previousIndex) {
-			return ;
-		}
-		previousIndex = index ;
-		for (int i = 0; i < normal.length; i++) {
-			if (i == index) {
-				normal[i].hide();
-				seleccionado[i].show();
-			} else {
-				seleccionado[i].hide();
-				normal[i].show();
-			}
-		}
-	}
-
-	private void handleKeyboardInput() {
-		while (Keyboard.next()) {
-			if (Keyboard.getEventKeyState()) { // Tener en cuenta cuando se presiona nomas ...
-				
-				if (Keyboard.getEventKey() == Keyboard.KEY_W || Keyboard.getEventKey() == Keyboard.KEY_UP) {
-					playSound();
-					index -- ;
-				} else if (Keyboard.getEventKey() == Keyboard.KEY_S || Keyboard.getEventKey() == Keyboard.KEY_DOWN) {
-					playSound();
-					index ++ ;
-				}
-				
-				if (Keyboard.getEventKey() == Keyboard.KEY_D || Keyboard.getEventKey() == Keyboard.KEY_RIGHT) {
-					playSound();
-					index ++ ;
-				} else if (Keyboard.getEventKey() == Keyboard.KEY_A || Keyboard.getEventKey() == Keyboard.KEY_LEFT) {
-					playSound();
-					index -- ;
-				}
-
-				if (Keyboard.getEventKey() == Keyboard.KEY_RETURN) {
-					if (index == 0) {
-						mainGameLoop.setNextGameState(new XYZDemoLevelGameState(mainGameLoop));
-						end = true ; 
-					} else {
-						mainGameLoop.stop(); 
-					}
-				}
-			}
-		}
-	}
-
-	private void playSound() {
-		source.play(buffer);
 	}
 
 }

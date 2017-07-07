@@ -96,6 +96,8 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 		this.getGuis().add(sweepSphereInAABBGuiTexture) ;
 	}
 
+	float secondsSubtitles = 100 ;
+	
 	float seconds = 0 ;
 	float secondsDebug = 0 ;
 	boolean crear = true ;
@@ -115,6 +117,13 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 		
 		seconds += tpf ;
 		secondsDebug += tpf ;
+		secondsSubtitles += tpf ;
+		
+		if (secondsSubtitles > 10) {
+			addNotification("Please enable subtitles !!!");
+			secondsSubtitles = 0 ;
+		}
+		
 		if (seconds > 20) {
 			seconds = 0;
 			if (crear) {
