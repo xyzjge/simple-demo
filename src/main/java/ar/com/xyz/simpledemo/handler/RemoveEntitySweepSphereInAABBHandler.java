@@ -1,16 +1,17 @@
-package ar.com.xyz.simpledemo;
+package ar.com.xyz.simpledemo.handler;
 
 import ar.com.xyz.gameengine.entity.Entity;
 import ar.com.xyz.gameengine.entity.SweepSphereCollisionEntity;
 import ar.com.xyz.gameengine.entity.SweepSphereInAABBHandler;
+import ar.com.xyz.simpledemo.gamestate.CollisionTypeNoneDemoGameState;
 
 public class RemoveEntitySweepSphereInAABBHandler implements SweepSphereInAABBHandler {
 
 	private Entity entity ;
 
-	private XYZDemoLevelGameState xyzDemoLevelGameState ;
+	private CollisionTypeNoneDemoGameState xyzDemoLevelGameState ;
 	
-	public RemoveEntitySweepSphereInAABBHandler(XYZDemoLevelGameState xyzBloodLevelGameState) {
+	public RemoveEntitySweepSphereInAABBHandler(CollisionTypeNoneDemoGameState xyzBloodLevelGameState) {
 		this.xyzDemoLevelGameState = xyzBloodLevelGameState ;
 	}
 

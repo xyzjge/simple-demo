@@ -1,15 +1,16 @@
-package ar.com.xyz.simpledemo;
+package ar.com.xyz.simpledemo.handler;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
-import ar.com.xyz.gameengine.entity.CrushController;
+import ar.com.xyz.gameengine.entity.CrushHandler;
+import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
 
 /**
  * 
  * @author alfredo
  *
  */
-public class PlayerDeathHandler implements CrushController {
+public class PlayerDeathHandler implements CrushHandler {
 
 	private AbstractGameState gameState ;
 	
@@ -22,19 +23,7 @@ public class PlayerDeathHandler implements CrushController {
 
 	@Override
 	public void crush() {
-
 		handlePlayerDeath();
-/*
-		// TODO: Hacer algo similar a lo que hago con xyzDemoLevelGameState.setSweepSphereInAABB(true); para que se vaya refrescando constantemente ?
-		
-		// Mostrar mensaje ?
-		FontType font = SingletonManager.getInstance().getFontTypeManager().getFontType("harrington") ;
-		GUIText fps = new GUIText("Player died", 3f, font, new Vector2f(0.64f, 0.0f), 1f, false, gameState);
-		fps.setColour(1, 0, 0);
-		fps.show();
-		
-//		gameState.scheduleEntityForRemoval(getEntity());
- */
 	}
 
 	private void handlePlayerDeath() {

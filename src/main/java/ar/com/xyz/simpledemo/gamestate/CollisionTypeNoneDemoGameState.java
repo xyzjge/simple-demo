@@ -1,18 +1,22 @@
-package ar.com.xyz.simpledemo;
+package ar.com.xyz.simpledemo.gamestate;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
-import ar.com.xyz.gameengine.client.entitycontroller.RotEntityController;
+import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.gui.GuiTexture;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.util.LevelGameStateDefaultPlayerInputHandler;
+import ar.com.xyz.simpledemo.controller.SimpleDemoEntityController;
+import ar.com.xyz.simpledemo.handler.PlayerDeathHandler;
+import ar.com.xyz.simpledemo.handler.RemoveEntitySweepSphereInAABBHandler;
+import ar.com.xyz.simpledemo.handler.UpdateHUDSweepSphereInAABBHandler;
 
-public class XYZDemoLevelGameState extends AbstractGameState {
+public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 	
 	private static final String LEVEL = "simple-environment" ;
 	
@@ -23,25 +27,25 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 	
 	private PlayerDeathHandler playerDeathHandler ;
 	
-	protected XYZDemoLevelGameState(AbstractMainGameLoop mainGameLoop) {
+	protected CollisionTypeNoneDemoGameState(AbstractMainGameLoop mainGameLoop) {
 		super(mainGameLoop);
 		loadPlayerAndCamera() ;
 		
-		{
+		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
 			entitySpec = new EntitySpec(LEVEL) ;
 			entitySpec.setRotation(new Vector3f(0, 0, 90)) ;
 			createEntity(entitySpec);
 		}
 		
-		{
+		{	// Create EntityCollisionTypeEnum.NONE for the box that is over the other boxes and update the HUD if touched by the player
 			EntitySpec entitySpec ;
 			entitySpec = new EntitySpec("box") ;
 			entitySpec.setTexture("woodenBox.jpg");
 			entitySpec.setRotation(new Vector3f(0, 0, 90)) ;
 			entitySpec.setPosition(new Vector3f(0,4.75f,-1.5f)) ;
 			entitySpec.setScale(new Vector3f(.5f, .5f, .5f));
-			RotEntityController rec = new RotEntityController(1,1,1) ;
+			RotationEntityController rec = new RotationEntityController(1,1,1) ;
 			entitySpec.setEntityController(rec);
 			entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
 			entitySpec.setSweepSphereInAABBHandler(new UpdateHUDSweepSphereInAABBHandler(this));
@@ -49,14 +53,14 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 			this.enableDebug(rec.getEntity());
 		}
 		
-		{
+		{	// Create EntityCollisionTypeEnum.NONE for the box that is removable
 			EntitySpec entitySpec ;
 			entitySpec = new EntitySpec("box") ;
 			entitySpec.setTexture("woodenBox.jpg");
 			entitySpec.setRotation(new Vector3f(0, 0, 90)) ;
 			entitySpec.setPosition(new Vector3f(6f, .75f,-6f)) ;
 			entitySpec.setScale(new Vector3f(.5f, .5f, .5f));
-			RotEntityController rec = new RotEntityController(1,1,1) ;
+			RotationEntityController rec = new RotationEntityController(1,1,1) ;
 			entitySpec.setEntityController(rec);
 			entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
 			entitySpec.setSweepSphereInAABBHandler(new RemoveEntitySweepSphereInAABBHandler(this));
@@ -101,7 +105,7 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 	float seconds = 0 ;
 	float secondsDebug = 0 ;
 	boolean crear = true ;
-	RotEntityController recc = null;
+	RotationEntityController recc = null;
 	
 	@Override
 	public void tick(float tpf) {
@@ -127,13 +131,14 @@ public class XYZDemoLevelGameState extends AbstractGameState {
 		if (seconds > 20) {
 			seconds = 0;
 			if (crear) {
+				// Create EntityCollisionTypeEnum.NONE for the box that updates the HUD if touched by the player (and is created dynamically)
 				EntitySpec entitySpec ;
 				entitySpec = new EntitySpec("box") ;
 				entitySpec.setTexture("woodenBox.jpg");
 				entitySpec.setRotation(new Vector3f(0, 0, 90)) ;
 				entitySpec.setPosition(new Vector3f(6,0,7f)) ;
 				entitySpec.setScale(new Vector3f(.5f, .5f, .5f));
-				recc = new RotEntityController(1,1,1) ;
+				recc = new RotationEntityController(1,1,1) ;
 				entitySpec.setEntityController(recc);
 				entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
 				entitySpec.setSweepSphereInAABBHandler(new UpdateHUDSweepSphereInAABBHandler(this));

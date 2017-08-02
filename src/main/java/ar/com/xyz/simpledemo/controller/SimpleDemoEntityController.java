@@ -1,4 +1,4 @@
-package ar.com.xyz.simpledemo;
+package ar.com.xyz.simpledemo.controller;
 
 import ar.com.xyz.gameengine.entity.EntityController;
 
