@@ -27,9 +27,6 @@ public class PlayerDeathHandler implements CrushHandler {
 	}
 
 	private void handlePlayerDeath() {
-		// Asi cada vez que muere vuelve a arrancar, estaría ok ...
-//		mainGameLoop.setNextGameState(new XYZDemoLevelGameState(mainGameLoop));
-		
 		mainGameLoop.setNextGameState(new SimpleDemoMenuGameState(mainGameLoop, "arial", "ZIPCLOSE.wav", "stone.png")) ;
 	}
 
