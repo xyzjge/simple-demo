@@ -41,8 +41,9 @@ public class CollisionTypeSweptSphereDemoGameState extends AbstractGameState imp
 		String axeZombieMoldel = "/home/alfredo/Downloads/enemigos/axe-zombie-1-walk.dae" ;
 		Map<String, String> animationMap = new HashMap<String, String>() ;
 		animationMap.put("walk", "/home/alfredo/Downloads/enemigos/axe-zombie-1-walk.dae") ;
-		animationMap.put("run", "/home/alfredo/Downloads/enemigos/axe-zombie-1-walk.dae") ;
-		animationMap.put("wait", "/home/alfredo/Downloads/enemigos/axe-zombie-1-walk.dae") ;
+		animationMap.put("run", "/home/alfredo/Downloads/enemigos/axe-zombie-1-run.dae") ;
+		animationMap.put("wait", "/home/alfredo/Downloads/enemigos/axe-zombie-1-wait.dae") ;
+		animationMap.put("attack", "/home/alfredo/Downloads/enemigos/axe-zombie-1-attack.dae") ;
 
 		{
 			BasicEnemyEntityController basicEnemyEntityController = new BasicEnemyEntityController(getPlayer(), this) ;
@@ -50,7 +51,7 @@ public class CollisionTypeSweptSphereDemoGameState extends AbstractGameState imp
 			AnimatedEntitySpec animatedEntitySpec = new AnimatedEntitySpec(axeZombieMoldel, animationMap, "wait", .5f) ;
 			
 			animatedEntitySpec.setTexture("axe-zombie-uv.png");
-			animatedEntitySpec.setModelPosition(new Vector3f(0, /* 0 */ 4.5f , 0));
+			animatedEntitySpec.setModelPosition(new Vector3f(0, 4.5f , 0));
 
 			animatedEntitySpec.setScale(new Vector3f(.2f,.2f,.2f));
 			animatedEntitySpec.setEntityController(basicEnemyEntityController);

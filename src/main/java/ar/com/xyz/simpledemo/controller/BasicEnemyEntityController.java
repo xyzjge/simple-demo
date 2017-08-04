@@ -22,14 +22,19 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 	private static final float WALK_SPEED = 2f /* 5 */ /* 10 */ ;
 	private static final float RUN_SPEED = 6f /* 10 *//* 20 */ ;
 	
-	private AlfreAnimationInfo runAnimationInfo = new AlfreAnimationInfo("run", 1) ;
+	private AlfreAnimationInfo runAnimationInfo = new AlfreAnimationInfo("run", 2) ;
 	private AlfreAnimationInfo walkAnimationInfo = new AlfreAnimationInfo("walk", 1) ;
 	private AlfreAnimationInfo waitAnimationInfo = new AlfreAnimationInfo("wait", .25f) ;
+	private AlfreAnimationInfo attackAnimationInfo = new AlfreAnimationInfo("attack", 2f) ;
 	
 	private SweepSphereCollisionEntity player ;
 	private AbstractGameState gameState ;
 	
 	private float waitPeriod = 7f ;
+	private float waitForAttackPeriod = 3f ;
+	private float attackTime = 1f ;
+	
+	private BasicEnemyStatesEnum state = BasicEnemyStatesEnum.WAIT;
 	
 	public BasicEnemyEntityController(SweepSphereCollisionEntity player, AbstractGameState gameState) {
 		this.player = player ;
@@ -37,9 +42,9 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 		waitAnimationInfo.setDebug(true);
 	}
 
-	Vector3f distanciaVector = new Vector3f() ;
+	private Vector3f distanciaVector = new Vector3f() ;
 	
-	EntityUtil entityUtil = new EntityUtil () ;
+	private EntityUtil entityUtil = new EntityUtil () ;
 	
 	@Override
 	public void update(float tpf) {
@@ -49,13 +54,32 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 		if (waitPeriod > 0) {
 			waitPeriod -= tpf ;
 			return ;
-		}/*
+		}
+		
 		if (entity.getEntityCollisionType() == EntityCollisionTypeEnum.SWEPT_SPHERE) {
 			Vector3f.sub(player.getPosition() , entity.getPosition(), distanciaVector) ;
 			float distanciaSquared = distanciaVector.lengthSquared() ;
 			if (distanciaSquared < 6) {
-				((SweepSphereCollisionEntity)entity).dontMove();
-				entity.getAnimatedModelDynamicData().setNextAnimationInfo(waitAnimationInfo, true);
+				if (state == BasicEnemyStatesEnum.ATTACK) {
+					attackTime -= tpf ;
+					if (attackTime > 0) {
+						return ; 
+					}
+				}
+				if (state == BasicEnemyStatesEnum.WAIT) {
+					// Si pasaron mas de ... pasarlo a ATTACK
+					waitForAttackPeriod-= tpf ;
+					if (waitForAttackPeriod < 0) {
+						attackTime = 1 ;
+						state = BasicEnemyStatesEnum.ATTACK ;
+						entity.getAnimatedModelDynamicData().setNextAnimationInfo(attackAnimationInfo, true);
+					}
+				} else {
+					waitForAttackPeriod = 3 ;
+					state = BasicEnemyStatesEnum.WAIT ;
+					((SweepSphereCollisionEntity)entity).dontMove();
+					entity.getAnimatedModelDynamicData().setNextAnimationInfo(waitAnimationInfo, true);
+				}
 			} else {
 				if (distanciaSquared > 60) {
 					((SweepSphereCollisionEntity)entity).setRunSpeed(RUN_SPEED);
@@ -66,7 +90,7 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 				}
 				((SweepSphereCollisionEntity)entity).moveForward();
 			}
-		}*/
+		}
 
 	}
 
