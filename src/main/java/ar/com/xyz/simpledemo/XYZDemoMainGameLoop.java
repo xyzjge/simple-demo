@@ -17,7 +17,7 @@ public class XYZDemoMainGameLoop extends AbstractMainGameLoop {
 		AudioMaster.addSoundPath("/sounds") ;
 		XYZDemoMainGameLoop mainGameLoop = new XYZDemoMainGameLoop("Simple Demo - XYZ Java Game Engine") ;
 		// mainGameLoop.setNextGameState(new XYZDemoLevelGameState(mainGameLoop));
-		mainGameLoop.setNextGameState(new SimpleDemoMenuGameState(mainGameLoop, "arial", "ZIPCLOSE.wav", "stone.png")) ;
+		mainGameLoop.setNextGameState(new SimpleDemoMenuGameState(mainGameLoop, "ZIPCLOSE.wav", "stone.png")) ;
 		mainGameLoop.loop();
 	}
 
