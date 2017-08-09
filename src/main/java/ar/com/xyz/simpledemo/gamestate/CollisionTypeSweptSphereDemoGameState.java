@@ -20,6 +20,18 @@ public class CollisionTypeSweptSphereDemoGameState extends AbstractGameState imp
 	
 	private static final String LEVEL = "s-box" ;
 	
+//	private static final String AXE_ZOMBIE_MODEL = "/home/alfredo/Downloads/enemigos/axe-zombie-1-walk.dae" ;
+//	private static final String AXE_ZOMBIE_WALK_MODEL = "/home/alfredo/Downloads/enemigos/axe-zombie-1-walk.dae" ;
+//	private static final String AXE_ZOMBIE_RUN_MODEL = "/home/alfredo/Downloads/enemigos/axe-zombie-1-run.dae" ;
+//	private static final String AXE_ZOMBIE_WAIT_MODEL = "/home/alfredo/Downloads/enemigos/axe-zombie-1-wait.dae" ;
+//	private static final String AXE_ZOMBIE_ATTACK_MODEL = "/home/alfredo/Downloads/enemigos/axe-zombie-1-attack.dae" ;
+	
+	private static final String AXE_ZOMBIE_MODEL = "/models/axe-zombie-1-walk.dae" ;
+	private static final String AXE_ZOMBIE_WALK_MODEL = "/models/axe-zombie-1-walk.dae" ;
+	private static final String AXE_ZOMBIE_RUN_MODEL = "/models/axe-zombie-1-run.dae" ;
+	private static final String AXE_ZOMBIE_WAIT_MODEL = "/models/axe-zombie-1-wait.dae" ;
+	private static final String AXE_ZOMBIE_ATTACK_MODEL = "/models/axe-zombie-1-attack.dae" ;
+	
 	private LevelGameStateDefaultPlayerInputHandler levelGameStateDefaultPlayerInputHandler ;
 	
 	EntityUtil entityUtil = new EntityUtil () ;
@@ -38,12 +50,12 @@ public class CollisionTypeSweptSphereDemoGameState extends AbstractGameState imp
 			createEntity(entitySpec);
 		}
 		
-		String axeZombieMoldel = "/home/alfredo/Downloads/enemigos/axe-zombie-1-walk.dae" ;
+		String axeZombieMoldel = AXE_ZOMBIE_MODEL ;
 		Map<String, String> animationMap = new HashMap<String, String>() ;
-		animationMap.put("walk", "/home/alfredo/Downloads/enemigos/axe-zombie-1-walk.dae") ;
-		animationMap.put("run", "/home/alfredo/Downloads/enemigos/axe-zombie-1-run.dae") ;
-		animationMap.put("wait", "/home/alfredo/Downloads/enemigos/axe-zombie-1-wait.dae") ;
-		animationMap.put("attack", "/home/alfredo/Downloads/enemigos/axe-zombie-1-attack.dae") ;
+		animationMap.put("walk", AXE_ZOMBIE_WALK_MODEL) ;
+		animationMap.put("run", AXE_ZOMBIE_RUN_MODEL) ;
+		animationMap.put("wait", AXE_ZOMBIE_WAIT_MODEL) ;
+		animationMap.put("attack", AXE_ZOMBIE_ATTACK_MODEL) ;
 
 		{
 			BasicEnemyEntityController basicEnemyEntityController = new BasicEnemyEntityController(getPlayer(), this) ;
