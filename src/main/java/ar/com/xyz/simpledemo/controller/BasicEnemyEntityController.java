@@ -9,16 +9,20 @@ import ar.com.xyz.gameengine.collision.EntityUtil;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.SweepSphereCollisionEntity;
-import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.font.fontMeshCreator.FontType;
 import ar.com.xyz.gameengine.font.fontMeshCreator.GUIText;
 import ar.com.xyz.gameengine.particle.ParticleEmission;
 import ar.com.xyz.gameengine.particle.ParticleSystem;
 import ar.com.xyz.gameengine.particle.ParticleTexture;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
+import ar.com.xyz.gameengine.util.AnimationEventHandler;
 
-public class BasicEnemyEntityController extends EntityController implements CrushHandler { 
+public class BasicEnemyEntityController extends EntityController implements CrushHandler, AnimationEventHandler { 
 	
+	private static final float RUN_DIST = 60f ; // Si esta a mas de 60 que corra
+	private static final float WALK_DIST = 3f ; // Si esta entre 60 y 10 que camine
+	private static final float WAIT_DIST = 2f ; // Si esta entre 2 y 10 que espere
+
 	private static final float WALK_SPEED = 2f /* 5 */ /* 10 */ ;
 	private static final float RUN_SPEED = 6f /* 10 *//* 20 */ ;
 	
@@ -30,9 +34,8 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 	private SweepSphereCollisionEntity player ;
 	private AbstractGameState gameState ;
 	
-	private float waitPeriod = 7f ;
+	private float initialWaitPeriod = 3f ;
 	private float waitForAttackPeriod = 3f ;
-	private float attackTime = 1f ;
 	
 	private BasicEnemyStatesEnum state = BasicEnemyStatesEnum.WAIT;
 	
@@ -40,6 +43,7 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 		this.player = player ;
 		this.gameState = gameState ;
 		waitAnimationInfo.setDebug(true);
+		attackAnimationInfo.setAnimationEventHandler(this);
 	}
 
 	private Vector3f distanciaVector = new Vector3f() ;
@@ -51,47 +55,74 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 		
 		entityUtil.lookAt(entity, player.getPosition()) ;
 
-		if (waitPeriod > 0) {
-			waitPeriod -= tpf ;
+		if (initialWaitPeriod > 0) {
+			initialWaitPeriod -= tpf ;
 			return ;
 		}
 		
-		if (entity.getEntityCollisionType() == EntityCollisionTypeEnum.SWEPT_SPHERE) {
-			Vector3f.sub(player.getPosition() , entity.getPosition(), distanciaVector) ;
-			float distanciaSquared = distanciaVector.lengthSquared() ;
-			if (distanciaSquared < 6) {
-				if (state == BasicEnemyStatesEnum.ATTACK) {
-					attackTime -= tpf ;
-					if (attackTime > 0) {
-						return ; 
-					}
-				}
-				if (state == BasicEnemyStatesEnum.WAIT) {
-					// Si pasaron mas de ... pasarlo a ATTACK
-					waitForAttackPeriod-= tpf ;
-					if (waitForAttackPeriod < 0) {
-						attackTime = 1 ;
-						state = BasicEnemyStatesEnum.ATTACK ;
-						entity.getAnimatedModelDynamicData().setNextAnimationInfo(attackAnimationInfo, true);
-					}
-				} else {
-					waitForAttackPeriod = 3 ;
-					state = BasicEnemyStatesEnum.WAIT ;
-					((SweepSphereCollisionEntity)entity).dontMove();
-					entity.getAnimatedModelDynamicData().setNextAnimationInfo(waitAnimationInfo, true);
-				}
-			} else {
-				if (distanciaSquared > 60) {
-					((SweepSphereCollisionEntity)entity).setRunSpeed(RUN_SPEED);
-					entity.getAnimatedModelDynamicData().setNextAnimationInfo(runAnimationInfo, true);
-				} else {
-					((SweepSphereCollisionEntity)entity).setRunSpeed(WALK_SPEED);
-					entity.getAnimatedModelDynamicData().setNextAnimationInfo(walkAnimationInfo, true);
-				}
+		if (state == BasicEnemyStatesEnum.ATTACK) { // Vuelve a WAIT en el animationLoopEnd
+			return ; 
+		}
+
+		Vector3f.sub(player.getPosition() , entity.getPosition(), distanciaVector) ;
+		float distanciaSquared = distanciaVector.lengthSquared() ;
+		
+		if (state == BasicEnemyStatesEnum.WAIT) {
+			if (distanciaSquared > RUN_DIST) {
+				state = BasicEnemyStatesEnum.RUN ;
+				((SweepSphereCollisionEntity)entity).setRunSpeed(RUN_SPEED);
+				entity.getAnimatedModelDynamicData().setNextAnimationInfo(runAnimationInfo, true);
 				((SweepSphereCollisionEntity)entity).moveForward();
+			} else if (distanciaSquared > WALK_DIST) {
+				state = BasicEnemyStatesEnum.WALK ;
+				((SweepSphereCollisionEntity)entity).setRunSpeed(WALK_SPEED);
+				entity.getAnimatedModelDynamicData().setNextAnimationInfo(walkAnimationInfo, true);
+				((SweepSphereCollisionEntity)entity).moveForward();
+			} else {
+				waitForAttackPeriod -= tpf ;
+				if (waitForAttackPeriod < 0) {
+					state = BasicEnemyStatesEnum.ATTACK ;
+					entity.getAnimatedModelDynamicData().setNextAnimationInfo(attackAnimationInfo, true);
+				}
 			}
 		}
 
+		if (state == BasicEnemyStatesEnum.WALK) {
+			if (distanciaSquared > RUN_DIST) {
+				state = BasicEnemyStatesEnum.RUN ;
+				((SweepSphereCollisionEntity)entity).setRunSpeed(RUN_SPEED);
+				entity.getAnimatedModelDynamicData().setNextAnimationInfo(runAnimationInfo, true);
+				((SweepSphereCollisionEntity)entity).moveForward();
+			} else if (distanciaSquared > WALK_DIST) {
+//				((SweepSphereCollisionEntity)entity).setRunSpeed(WALK_SPEED);
+//				entity.getAnimatedModelDynamicData().setNextAnimationInfo(walkAnimationInfo, true);
+//				((SweepSphereCollisionEntity)entity).moveForward();
+			} else {
+				waitForAttackPeriod = 3 ;
+				state = BasicEnemyStatesEnum.WAIT ;
+				((SweepSphereCollisionEntity)entity).dontMove();
+				entity.getAnimatedModelDynamicData().setNextAnimationInfo(waitAnimationInfo, false);
+			}
+		}
+
+		if (state == BasicEnemyStatesEnum.RUN) {
+			if (distanciaSquared > RUN_DIST) {
+//				((SweepSphereCollisionEntity)entity).setRunSpeed(RUN_SPEED);
+//				entity.getAnimatedModelDynamicData().setNextAnimationInfo(runAnimationInfo, true);
+//				((SweepSphereCollisionEntity)entity).moveForward();
+			} else if (distanciaSquared > WALK_DIST) {
+				state = BasicEnemyStatesEnum.WALK ;
+				((SweepSphereCollisionEntity)entity).setRunSpeed(WALK_SPEED);
+				entity.getAnimatedModelDynamicData().setNextAnimationInfo(walkAnimationInfo, true);
+				((SweepSphereCollisionEntity)entity).moveForward();
+			} else {
+				waitForAttackPeriod = 3 ;
+				state = BasicEnemyStatesEnum.WAIT ;
+				((SweepSphereCollisionEntity)entity).dontMove();
+				entity.getAnimatedModelDynamicData().setNextAnimationInfo(waitAnimationInfo, false);
+			}
+		}
+		
 	}
 
 	@Override
@@ -125,6 +156,19 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 	@Override
 	public void postConstruct() {
 		gameState.enableDebug(entity);
+	}
+
+	@Override
+	public void animationLoopEnd(String anim) {
+		if (anim.equals("attack")) {
+			waitForAttackPeriod = 3 ;
+			state = BasicEnemyStatesEnum.WAIT ;
+			((SweepSphereCollisionEntity)entity).dontMove();
+			entity.getAnimatedModelDynamicData().setNextAnimationInfo(waitAnimationInfo, false);
+		} else {
+//			logger.info("") ;
+		}
+		
 	}
 
 }
