@@ -147,7 +147,7 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 
 		// getCamera().decPitch(-90);
 		
-		getPlayer().setCrushController(this);
+		getPlayer().setCrushHandler(this);
 		
 		entityUtil.lookAt(getPlayer(), new Vector3f(0, 0, 0));
 

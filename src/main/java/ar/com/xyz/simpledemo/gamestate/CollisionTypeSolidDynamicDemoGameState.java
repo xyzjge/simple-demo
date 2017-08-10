@@ -12,10 +12,7 @@ import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.gui.GuiTexture;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.util.LevelGameStateDefaultPlayerInputHandler;
-import ar.com.xyz.simpledemo.controller.SimpleDemoEntityController;
 import ar.com.xyz.simpledemo.handler.PlayerDeathHandler;
-import ar.com.xyz.simpledemo.handler.RemoveEntitySweepSphereInAABBHandler;
-import ar.com.xyz.simpledemo.handler.UpdateHUDSweepSphereInAABBHandler;
 
 public class CollisionTypeSolidDynamicDemoGameState extends AbstractGameState {
 	
@@ -219,7 +216,7 @@ public class CollisionTypeSolidDynamicDemoGameState extends AbstractGameState {
 		getCamera().decPitch(-90);
 		
 		playerDeathHandler = new PlayerDeathHandler(mainGameLoop, this) ;
-		getPlayer().setCrushController(playerDeathHandler);
+		getPlayer().setCrushHandler(playerDeathHandler);
 		this.enableDebug(getPlayer());
 	}
 

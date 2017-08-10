@@ -53,7 +53,7 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 	@Override
 	public void update(float tpf) {
 		
-		entityUtil.lookAt(entity, player.getPosition()) ;
+		entityUtil.lookAt(getEntity(), player.getPosition()) ;
 
 		if (initialWaitPeriod > 0) {
 			initialWaitPeriod -= tpf ;
@@ -64,25 +64,25 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 			return ; 
 		}
 
-		Vector3f.sub(player.getPosition() , entity.getPosition(), distanciaVector) ;
+		Vector3f.sub(player.getPosition() , getEntity().getPosition(), distanciaVector) ;
 		float distanciaSquared = distanciaVector.lengthSquared() ;
 		
 		if (state == BasicEnemyStatesEnum.WAIT) {
 			if (distanciaSquared > RUN_DIST) {
 				state = BasicEnemyStatesEnum.RUN ;
-				((SweepSphereCollisionEntity)entity).setRunSpeed(RUN_SPEED);
-				entity.getAnimatedModelDynamicData().setNextAnimationInfo(runAnimationInfo, true);
-				((SweepSphereCollisionEntity)entity).moveForward();
+				((SweepSphereCollisionEntity)getEntity()).setRunSpeed(RUN_SPEED);
+				getEntity().getAnimatedModelDynamicData().setNextAnimationInfo(runAnimationInfo, true);
+				((SweepSphereCollisionEntity)getEntity()).moveForward();
 			} else if (distanciaSquared > WALK_DIST) {
 				state = BasicEnemyStatesEnum.WALK ;
-				((SweepSphereCollisionEntity)entity).setRunSpeed(WALK_SPEED);
-				entity.getAnimatedModelDynamicData().setNextAnimationInfo(walkAnimationInfo, true);
-				((SweepSphereCollisionEntity)entity).moveForward();
+				((SweepSphereCollisionEntity)getEntity()).setRunSpeed(WALK_SPEED);
+				getEntity().getAnimatedModelDynamicData().setNextAnimationInfo(walkAnimationInfo, true);
+				((SweepSphereCollisionEntity)getEntity()).moveForward();
 			} else {
 				waitForAttackPeriod -= tpf ;
 				if (waitForAttackPeriod < 0) {
 					state = BasicEnemyStatesEnum.ATTACK ;
-					entity.getAnimatedModelDynamicData().setNextAnimationInfo(attackAnimationInfo, true);
+					getEntity().getAnimatedModelDynamicData().setNextAnimationInfo(attackAnimationInfo, true);
 				}
 			}
 		}
@@ -90,36 +90,36 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 		if (state == BasicEnemyStatesEnum.WALK) {
 			if (distanciaSquared > RUN_DIST) {
 				state = BasicEnemyStatesEnum.RUN ;
-				((SweepSphereCollisionEntity)entity).setRunSpeed(RUN_SPEED);
-				entity.getAnimatedModelDynamicData().setNextAnimationInfo(runAnimationInfo, true);
-				((SweepSphereCollisionEntity)entity).moveForward();
+				((SweepSphereCollisionEntity)getEntity()).setRunSpeed(RUN_SPEED);
+				getEntity().getAnimatedModelDynamicData().setNextAnimationInfo(runAnimationInfo, true);
+				((SweepSphereCollisionEntity)getEntity()).moveForward();
 			} else if (distanciaSquared > WALK_DIST) {
-//				((SweepSphereCollisionEntity)entity).setRunSpeed(WALK_SPEED);
-//				entity.getAnimatedModelDynamicData().setNextAnimationInfo(walkAnimationInfo, true);
-//				((SweepSphereCollisionEntity)entity).moveForward();
+//				((SweepSphereCollisionEntity)getEntity()).setRunSpeed(WALK_SPEED);
+//				getEntity().getAnimatedModelDynamicData().setNextAnimationInfo(walkAnimationInfo, true);
+//				((SweepSphereCollisionEntity)getEntity()).moveForward();
 			} else {
 				waitForAttackPeriod = 3 ;
 				state = BasicEnemyStatesEnum.WAIT ;
-				((SweepSphereCollisionEntity)entity).dontMove();
-				entity.getAnimatedModelDynamicData().setNextAnimationInfo(waitAnimationInfo, false);
+				((SweepSphereCollisionEntity)getEntity()).dontMove();
+				getEntity().getAnimatedModelDynamicData().setNextAnimationInfo(waitAnimationInfo, false);
 			}
 		}
 
 		if (state == BasicEnemyStatesEnum.RUN) {
 			if (distanciaSquared > RUN_DIST) {
-//				((SweepSphereCollisionEntity)entity).setRunSpeed(RUN_SPEED);
-//				entity.getAnimatedModelDynamicData().setNextAnimationInfo(runAnimationInfo, true);
-//				((SweepSphereCollisionEntity)entity).moveForward();
+//				((SweepSphereCollisionEntity)getEntity()).setRunSpeed(RUN_SPEED);
+//				getEntity().getAnimatedModelDynamicData().setNextAnimationInfo(runAnimationInfo, true);
+//				((SweepSphereCollisionEntity)getEntity()).moveForward();
 			} else if (distanciaSquared > WALK_DIST) {
 				state = BasicEnemyStatesEnum.WALK ;
-				((SweepSphereCollisionEntity)entity).setRunSpeed(WALK_SPEED);
-				entity.getAnimatedModelDynamicData().setNextAnimationInfo(walkAnimationInfo, true);
-				((SweepSphereCollisionEntity)entity).moveForward();
+				((SweepSphereCollisionEntity)getEntity()).setRunSpeed(WALK_SPEED);
+				getEntity().getAnimatedModelDynamicData().setNextAnimationInfo(walkAnimationInfo, true);
+				((SweepSphereCollisionEntity)getEntity()).moveForward();
 			} else {
 				waitForAttackPeriod = 3 ;
 				state = BasicEnemyStatesEnum.WAIT ;
-				((SweepSphereCollisionEntity)entity).dontMove();
-				entity.getAnimatedModelDynamicData().setNextAnimationInfo(waitAnimationInfo, false);
+				((SweepSphereCollisionEntity)getEntity()).dontMove();
+				getEntity().getAnimatedModelDynamicData().setNextAnimationInfo(waitAnimationInfo, false);
 			}
 		}
 		
@@ -155,7 +155,7 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 	
 	@Override
 	public void postConstruct() {
-		gameState.enableDebug(entity);
+		gameState.enableDebug(getEntity());
 	}
 
 	@Override
@@ -163,8 +163,8 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 		if (anim.equals("attack")) {
 			waitForAttackPeriod = 3 ;
 			state = BasicEnemyStatesEnum.WAIT ;
-			((SweepSphereCollisionEntity)entity).dontMove();
-			entity.getAnimatedModelDynamicData().setNextAnimationInfo(waitAnimationInfo, false);
+			((SweepSphereCollisionEntity)getEntity()).dontMove();
+			getEntity().getAnimatedModelDynamicData().setNextAnimationInfo(waitAnimationInfo, false);
 		} else {
 //			logger.info("") ;
 		}

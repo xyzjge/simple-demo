@@ -79,7 +79,7 @@ public class CollisionTypeSweptSphereDemoGameState extends AbstractGameState imp
 		
 			animatedEntitySpec.setModelRotation(new Vector3f(270, 0, 0));
 		
-			animatedEntitySpec.setCrushController(basicEnemyEntityController);
+			animatedEntitySpec.setCrushHandler(basicEnemyEntityController);
 			createAnimatedEntity(animatedEntitySpec) ;
 		}
 		
@@ -132,7 +132,7 @@ public class CollisionTypeSweptSphereDemoGameState extends AbstractGameState imp
 
 		// getCamera().decPitch(-90);
 		
-		getPlayer().setCrushController(this);
+		getPlayer().setCrushHandler(this);
 		
 		entityUtil.lookAt(getPlayer(), new Vector3f(0, 0, 0));
 
