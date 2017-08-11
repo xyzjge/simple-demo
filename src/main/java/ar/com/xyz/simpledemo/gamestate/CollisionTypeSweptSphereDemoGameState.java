@@ -7,6 +7,7 @@ import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
+import ar.com.xyz.gameengine.collada.AlfreAnimationInfo;
 import ar.com.xyz.gameengine.collision.EntityUtil;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.AnimatedEntitySpec;
@@ -26,11 +27,11 @@ public class CollisionTypeSweptSphereDemoGameState extends AbstractGameState imp
 //	private static final String AXE_ZOMBIE_WAIT_MODEL = "/home/alfredo/Downloads/enemigos/axe-zombie-1-wait.dae" ;
 //	private static final String AXE_ZOMBIE_ATTACK_MODEL = "/home/alfredo/Downloads/enemigos/axe-zombie-1-attack.dae" ;
 	
-	private static final String AXE_ZOMBIE_MODEL = "/models/axe-zombie-1-walk.dae" ;
-	private static final String AXE_ZOMBIE_WALK_MODEL = "/models/axe-zombie-1-walk.dae" ;
-	private static final String AXE_ZOMBIE_RUN_MODEL = "/models/axe-zombie-1-run.dae" ;
-	private static final String AXE_ZOMBIE_WAIT_MODEL = "/models/axe-zombie-1-wait.dae" ;
-	private static final String AXE_ZOMBIE_ATTACK_MODEL = "/models/axe-zombie-1-attack.dae" ;
+	private static final String AXE_ZOMBIE_MODEL = "/models/axe-zombie-walk.dae" ;
+	private static final String AXE_ZOMBIE_WALK_MODEL = "/models/axe-zombie-walk.dae" ;
+	private static final String AXE_ZOMBIE_RUN_MODEL = "/models/axe-zombie-run.dae" ;
+	private static final String AXE_ZOMBIE_WAIT_MODEL = "/models/axe-zombie-wait.dae" ;
+	private static final String AXE_ZOMBIE_ATTACK_MODEL = "/models/axe-zombie-attack.dae" ;
 	
 	private LevelGameStateDefaultPlayerInputHandler levelGameStateDefaultPlayerInputHandler ;
 	
@@ -60,7 +61,7 @@ public class CollisionTypeSweptSphereDemoGameState extends AbstractGameState imp
 		{
 			BasicEnemyEntityController basicEnemyEntityController = new BasicEnemyEntityController(getPlayer(), this) ;
 		
-			AnimatedEntitySpec animatedEntitySpec = new AnimatedEntitySpec(axeZombieMoldel, animationMap, "wait", .5f) ;
+			AnimatedEntitySpec animatedEntitySpec = new AnimatedEntitySpec(axeZombieMoldel, animationMap, new AlfreAnimationInfo("wait", .5f)) ;
 			
 			animatedEntitySpec.setTexture("axe-zombie-uv.png");
 			animatedEntitySpec.setModelPosition(new Vector3f(0, 4.5f , 0));

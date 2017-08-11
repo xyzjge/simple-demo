@@ -13,6 +13,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 		"SOLID DYNAMIC COLLISION TYPE ENTITIES DEMO", 
 		"SOLID DYNAMIC COLLISION TYPE ENTITIES DEMO (ROTATION)", 
 		"SWEPT SPHERE COLLISION TYPE ENTITIES DEMO",
+		"SWEPT SPHERE COLLISION TYPE ENTITIES DEMO (ANIMATIONS)",
 		"EXIT"
 	} ;
 	
@@ -20,7 +21,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 	private static FontSpec seleccionadoFontSpec = new FontSpec("arial", 2f, new Vector3f(1f, 1f, 1f));
 	
 	public SimpleDemoMenuGameState(AbstractMainGameLoop mainGameLoop, String sound, String background) {
-		super(mainGameLoop, OPCIONES, normalFontSpec, seleccionadoFontSpec, sound, background) ;
+		super(mainGameLoop, OPCIONES, normalFontSpec, seleccionadoFontSpec, sound, background, 0.15f) ;
 	}
 
 	@Override
@@ -33,6 +34,8 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 			mainGameLoop.setNextGameState(new CollisionTypeSolidDynamicRotationDemoGameState(mainGameLoop));
 		} else if (selectionIndex == 3) {
 			mainGameLoop.setNextGameState(new CollisionTypeSweptSphereDemoGameState(mainGameLoop));
+		} else if (selectionIndex == 4) {
+			mainGameLoop.setNextGameState(new CollisionTypeSweptSphereAnimationDemoGameState(mainGameLoop));
 		} else {
 			mainGameLoop.stop(); 
 		}
