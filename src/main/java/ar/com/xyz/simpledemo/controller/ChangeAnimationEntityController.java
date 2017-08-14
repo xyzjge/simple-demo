@@ -102,4 +102,11 @@ public class ChangeAnimationEntityController extends EntityController implements
 		
 	}
 
+
+	@Override
+	public void animationProgress(String anim, float loopTime) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

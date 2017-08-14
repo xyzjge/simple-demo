@@ -171,4 +171,10 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 		
 	}
 
+	@Override
+	public void animationProgress(String anim, float loopTime) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
