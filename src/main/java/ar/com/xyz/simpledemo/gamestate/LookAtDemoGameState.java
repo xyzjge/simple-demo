@@ -10,14 +10,11 @@ import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.gameengine.util.LevelGameStateDefaultPlayerInputHandler;
 import ar.com.xyz.simpledemo.controller.LookAtEntityController;
 
 public class LookAtDemoGameState extends AbstractGameState implements CrushHandler {
 	
 	private static final String LEVEL = "s-box" ;
-	
-	private LevelGameStateDefaultPlayerInputHandler levelGameStateDefaultPlayerInputHandler ;
 	
 	private EntityController movimientoCircularEntityController = new CircularMotionEntityController(6, 1, 1) ;
 	
@@ -116,7 +113,9 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 		createExampleAt(0, 10) ;
 		createExampleAt(0, -10) ;
 		
-		levelGameStateDefaultPlayerInputHandler = new LevelGameStateDefaultPlayerInputHandler(mainGameLoop, getPlayer(), getCamera(), this, null, null) ;
+		createInputHandler(
+			mainGameLoop, getPlayer(), getCamera(), this, null, null
+		) ;
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -136,9 +135,9 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 			handlePlayerDeath() ;
 		}
 		
-		levelGameStateDefaultPlayerInputHandler.handlePlayerInput();
+		handlePlayerInput.handlePlayerInput();
 		
-		if (levelGameStateDefaultPlayerInputHandler.testAndClearFire()) {
+		if (handlePlayerInput.testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_ROT_Y).hide();
 			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_SS).hide();
 		}

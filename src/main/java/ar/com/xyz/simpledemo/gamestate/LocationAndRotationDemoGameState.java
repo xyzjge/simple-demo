@@ -4,21 +4,15 @@ import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
-import ar.com.xyz.gameengine.collision.EntityUtil;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.gameengine.util.LevelGameStateDefaultPlayerInputHandler;
 import ar.com.xyz.simpledemo.controller.LocationAndRotationEntityController;
 
 public class LocationAndRotationDemoGameState extends AbstractGameState implements CrushHandler {
 	
 	private static final String LEVEL = "s-box" ;
-	
-	private LevelGameStateDefaultPlayerInputHandler levelGameStateDefaultPlayerInputHandler ;
-	
-	EntityUtil entityUtil = new EntityUtil () ;
 	
 	protected LocationAndRotationDemoGameState(AbstractMainGameLoop mainGameLoop) {
 		super(mainGameLoop);
@@ -93,8 +87,10 @@ public class LocationAndRotationDemoGameState extends AbstractGameState implemen
 			createEntity(entitySpec);
 		}
 		
-		levelGameStateDefaultPlayerInputHandler = new LevelGameStateDefaultPlayerInputHandler(mainGameLoop, getPlayer(), getCamera(), this, null, null) ;
-		
+		createInputHandler(
+			mainGameLoop, getPlayer(), getCamera(), this, null, null
+		) ;
+
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
@@ -113,9 +109,9 @@ public class LocationAndRotationDemoGameState extends AbstractGameState implemen
 			handlePlayerDeath() ;
 		}
 		
-		levelGameStateDefaultPlayerInputHandler.handlePlayerInput();
+		handlePlayerInput.handlePlayerInput();
 		
-		if (levelGameStateDefaultPlayerInputHandler.testAndClearFire()) {
+		if (handlePlayerInput.testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_ROT_Y).hide();
 			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_SS).hide();
 		}

@@ -11,14 +11,11 @@ import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.gui.GuiTexture;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.gameengine.util.LevelGameStateDefaultPlayerInputHandler;
 import ar.com.xyz.simpledemo.handler.PlayerDeathHandler;
 
 public class CollisionTypeSolidDynamicDemoGameState extends AbstractGameState {
 	
 	private static final String LEVEL = "simple-environment" ;
-	
-	private LevelGameStateDefaultPlayerInputHandler levelGameStateDefaultPlayerInputHandler ;
 	
 	private GuiTexture sweepSphereInAABBGuiTexture ;
 	private boolean sweepSphereInAABB ;
@@ -123,7 +120,9 @@ public class CollisionTypeSolidDynamicDemoGameState extends AbstractGameState {
 			this.enableDebug(rotationEntityController.getEntity());
 		}
 		
-		levelGameStateDefaultPlayerInputHandler = new LevelGameStateDefaultPlayerInputHandler(mainGameLoop, getPlayer(), getCamera(), this, null, null) ;
+		createInputHandler(
+			mainGameLoop, getPlayer(), getCamera(), this, null, null
+		) ;
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -151,7 +150,7 @@ public class CollisionTypeSolidDynamicDemoGameState extends AbstractGameState {
 	public void tick(float tpf) {
 		playerDeathHandler.tick();
 		
-		levelGameStateDefaultPlayerInputHandler.handlePlayerInput();
+		handlePlayerInput.handlePlayerInput();
 		if (sweepSphereInAABB) {
 			sweepSphereInAABBGuiTexture.setTexture(SingletonManager.getInstance().getTextureManager().loadTexture("cube-wireframe-white")) ;
 			sweepSphereInAABB = false ;

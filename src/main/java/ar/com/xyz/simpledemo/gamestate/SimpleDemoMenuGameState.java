@@ -13,9 +13,10 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 		"SOLID DYNAMIC COLLISION TYPE ENTITIES DEMO", 
 		"SOLID DYNAMIC COLLISION TYPE ENTITIES DEMO (ROTATION)", 
 		"SWEPT SPHERE COLLISION TYPE ENTITIES DEMO",
-		"SWEPT SPHERE COLLISION TYPE ENTITIES DEMO (ANIMATIONS)",
+		"SWEPT SPHERE COLLISION TYPE ENTITIES DEMO (3D ANIMATIONS)",
 		"LOCATION AND ROTATION DEMO",
 		"LOOK AT 3D DEMO",
+		"2D ANIMATIONS DEMO",
 		"EXIT"
 	} ;
 	
@@ -42,6 +43,8 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 			mainGameLoop.setNextGameState(new LocationAndRotationDemoGameState(mainGameLoop));
 		} else if (selectionIndex == 6) {
 			mainGameLoop.setNextGameState(new LookAtDemoGameState(mainGameLoop));
+		} else if (selectionIndex == 7) {
+			mainGameLoop.setNextGameState(new Animation2DDemoGameState(mainGameLoop)); 
 		} else {
 			mainGameLoop.stop(); 
 		}

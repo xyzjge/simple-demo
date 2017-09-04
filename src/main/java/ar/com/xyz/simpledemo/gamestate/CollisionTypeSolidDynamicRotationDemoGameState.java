@@ -5,20 +5,14 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
-import ar.com.xyz.gameengine.collision.EntityUtil;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.gameengine.util.LevelGameStateDefaultPlayerInputHandler;
 
 public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGameState implements CrushHandler {
 	
 	private static final String LEVEL = "s-box" ;
-	
-	private LevelGameStateDefaultPlayerInputHandler levelGameStateDefaultPlayerInputHandler ;
-	
-	EntityUtil entityUtil = new EntityUtil () ;
 	
 	protected CollisionTypeSolidDynamicRotationDemoGameState(AbstractMainGameLoop mainGameLoop) {
 		super(mainGameLoop);
@@ -100,7 +94,9 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 		this.enableDebug(rotationEntityController.getEntity());
 	}
 		
-		levelGameStateDefaultPlayerInputHandler = new LevelGameStateDefaultPlayerInputHandler(mainGameLoop, getPlayer(), getCamera(), this, null, null) ;
+		createInputHandler(
+			mainGameLoop, getPlayer(), getCamera(), this, null, null
+		) ;
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -119,9 +115,9 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 			handlePlayerDeath() ;
 		}
 		
-		levelGameStateDefaultPlayerInputHandler.handlePlayerInput();
+		handlePlayerInput.handlePlayerInput();
 		
-		if (levelGameStateDefaultPlayerInputHandler.testAndClearFire()) {
+		if (handlePlayerInput.testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_ROT_Y).hide();
 		}
 		
@@ -149,7 +145,7 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 		
 		getPlayer().setCrushHandler(this);
 		
-		entityUtil.lookAt(getPlayer(), new Vector3f(0, 0, 0));
+		SingletonManager.getInstance().getEntityUtil().lookAt(getPlayer(), new Vector3f(0, 0, 0));
 
 		this.enableDebug(getPlayer());
 	}

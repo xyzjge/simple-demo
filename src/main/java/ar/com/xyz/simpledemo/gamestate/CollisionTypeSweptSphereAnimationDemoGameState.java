@@ -8,13 +8,11 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.collada.AlfreAnimationInfo;
-import ar.com.xyz.gameengine.collision.EntityUtil;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.AnimatedEntitySpec;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.gameengine.util.LevelGameStateDefaultPlayerInputHandler;
 import ar.com.xyz.simpledemo.controller.ChangeAnimationEntityController;
 
 public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGameState implements CrushHandler {
@@ -32,10 +30,6 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 	private static final String AXE_ZOMBIE_RUN_MODEL = "/models/axe-zombie-run.dae" ;
 	private static final String AXE_ZOMBIE_WAIT_MODEL = "/models/axe-zombie-wait.dae" ;
 	private static final String AXE_ZOMBIE_ATTACK_MODEL = "/models/axe-zombie-attack.dae" ;
-	
-	private LevelGameStateDefaultPlayerInputHandler levelGameStateDefaultPlayerInputHandler ;
-	
-	EntityUtil entityUtil = new EntityUtil () ;
 	
 	protected CollisionTypeSweptSphereAnimationDemoGameState(AbstractMainGameLoop mainGameLoop) {
 		super(mainGameLoop);
@@ -86,7 +80,9 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 			createAnimatedEntity(animatedEntitySpec) ;
 		}
 		
-		levelGameStateDefaultPlayerInputHandler = new LevelGameStateDefaultPlayerInputHandler(mainGameLoop, getPlayer(), getCamera(), this, null, null) ;
+		createInputHandler(
+			mainGameLoop, getPlayer(), getCamera(), this, null, null
+		) ;
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -106,9 +102,9 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 			handlePlayerDeath() ;
 		}
 		
-		levelGameStateDefaultPlayerInputHandler.handlePlayerInput();
+		handlePlayerInput.handlePlayerInput();
 		
-		if (levelGameStateDefaultPlayerInputHandler.testAndClearFire()) {
+		if (handlePlayerInput.testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_ROT_Y).hide();
 			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_SS).hide();
 		}
@@ -137,7 +133,7 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 		
 		getPlayer().setCrushHandler(this);
 		
-		entityUtil.lookAt(getPlayer(), new Vector3f(0, 0, 0));
+		SingletonManager.getInstance().getEntityUtil().lookAt(getPlayer(), new Vector3f(0, 0, 0));
 
 //		this.enableDebug(getPlayer());
 	}
