@@ -121,7 +121,7 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 	}
 
 	private void handlePlayerDeath() {
-		mainGameLoop.setNextGameState(new SimpleDemoMenuGameState(mainGameLoop, "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
 	}
 	
 	@Override
@@ -134,7 +134,7 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 	}
 
 	@Override
-	public void animationProgress(String anim, int frameIndex) {
+	public void animationProgress(String anim, float frameIndex) {
 		if (anim.equals(ANIM_DYNAMITE_BUNDLES_LOOP)) {
 		}
 	}

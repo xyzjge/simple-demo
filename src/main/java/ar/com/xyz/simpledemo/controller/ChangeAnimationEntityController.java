@@ -3,7 +3,6 @@ package ar.com.xyz.simpledemo.controller;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.collada.AlfreAnimationInfo;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.EntityController;
@@ -29,10 +28,7 @@ public class ChangeAnimationEntityController extends EntityController implements
 	
 	private int currentAnimationIndex = 0 ;
 	
-	private AbstractGameState gameState ;
-	
-	public ChangeAnimationEntityController(AbstractGameState gameState) {
-		this.gameState = gameState ;
+	public ChangeAnimationEntityController() {
 		attackAnimationInfo.setDebug(true);
 		waitAnimationInfo.setDebug(true);
 		walkAnimationInfo.setDebug(true);
@@ -54,11 +50,11 @@ public class ChangeAnimationEntityController extends EntityController implements
 
 		// Mostrar mensaje ?
 		FontType font = SingletonManager.getInstance().getFontTypeManager().getFontType("harrington") ;
-		GUIText fps = new GUIText("Enemy died", 3f, font, new Vector2f(0.64f, 0.0f), 1f, false, gameState);
+		GUIText fps = new GUIText("Enemy died", 3f, font, new Vector2f(0.64f, 0.0f), 1f, false, getGameState());
 		fps.setColour(1, 0, 0);
 		fps.show();
 		
-		gameState.scheduleEntityForRemoval(getEntity());
+		getGameState().scheduleEntityForRemoval(getEntity());
 		
 		ParticleTexture particleTexture = new ParticleTexture(SingletonManager.getInstance().getTextureManager().loadTexture("particleAtlas"), 4, false) ;
 		ParticleSystem particleSystem = new ParticleSystem(particleTexture, 15, 5, 0.3f, 1f, .2f) ;
@@ -73,7 +69,7 @@ public class ChangeAnimationEntityController extends EntityController implements
 		
 		ParticleEmission particleEmission = new ParticleEmission(particleSystem, position) ;
 		particleEmission.setLiveFor(2.5f);
-		gameState.addParticleEmission(particleEmission);
+		getGameState().addParticleEmission(particleEmission);
 
 	}
 	

@@ -94,7 +94,7 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 			createEntity(entitySpec);
 		}
 
-		lookAtEntityController = new LookAtEntityController(this, movimientoCircularEntityController.getEntity()) ; 
+		lookAtEntityController = new LookAtEntityController(movimientoCircularEntityController.getEntity()) ; 
 		{
 			EntitySpec entitySpec ;
 			entitySpec = new EntitySpec("arrow") ;
@@ -179,7 +179,7 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 	}
 
 	private void handlePlayerDeath() {
-		mainGameLoop.setNextGameState(new SimpleDemoMenuGameState(mainGameLoop, "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
 	}
 	
 	private void createExampleAt(float x, float z) {
@@ -196,7 +196,7 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 			createEntity(entitySpec);
 		}
 
-		EntityController lookAtEntityController = new LookAtEntityController(this, movimientoCircularEntityController.getEntity()) ; 
+		EntityController lookAtEntityController = new LookAtEntityController(movimientoCircularEntityController.getEntity()) ; 
 		{
 			EntitySpec entitySpec ;
 			entitySpec = new EntitySpec("arrow") ;

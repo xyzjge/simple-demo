@@ -7,6 +7,7 @@ import ar.com.xyz.simpledemo.gamestate.CollisionTypeNoneDemoGameState;
 
 public class UpdateHUDSweepSphereInAABBHandler implements SweepSphereInAABBHandler {
 
+	@SuppressWarnings("unused")
 	private Entity entity ;
 
 	private CollisionTypeNoneDemoGameState xyzDemoLevelGameState ;

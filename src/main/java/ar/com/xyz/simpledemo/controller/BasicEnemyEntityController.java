@@ -3,7 +3,6 @@ package ar.com.xyz.simpledemo.controller;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.collada.AlfreAnimationInfo;
 import ar.com.xyz.gameengine.collision.EntityUtil;
 import ar.com.xyz.gameengine.entity.CrushHandler;
@@ -21,7 +20,7 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 	
 	private static final float RUN_DIST = 60f ; // Si esta a mas de 60 que corra
 	private static final float WALK_DIST = 3f ; // Si esta entre 60 y 10 que camine
-	private static final float WAIT_DIST = 2f ; // Si esta entre 2 y 10 que espere
+//	private static final float WAIT_DIST = 2f ; // Si esta entre 2 y 10 que espere
 
 	private static final float WALK_SPEED = 2f /* 5 */ /* 10 */ ;
 	private static final float RUN_SPEED = 6f /* 10 *//* 20 */ ;
@@ -32,16 +31,14 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 	private AlfreAnimationInfo attackAnimationInfo = new AlfreAnimationInfo("attack", 2f) ;
 	
 	private SweepSphereCollisionEntity player ;
-	private AbstractGameState gameState ;
 	
 	private float initialWaitPeriod = 3f ;
 	private float waitForAttackPeriod = 3f ;
 	
 	private BasicEnemyStatesEnum state = BasicEnemyStatesEnum.WAIT;
 	
-	public BasicEnemyEntityController(SweepSphereCollisionEntity player, AbstractGameState gameState) {
+	public BasicEnemyEntityController(SweepSphereCollisionEntity player) {
 		this.player = player ;
-		this.gameState = gameState ;
 		waitAnimationInfo.setDebug(true);
 		attackAnimationInfo.setAnimationEventHandler(this);
 	}
@@ -130,11 +127,11 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 
 		// Mostrar mensaje ?
 		FontType font = SingletonManager.getInstance().getFontTypeManager().getFontType("harrington") ;
-		GUIText fps = new GUIText("Enemy died", 3f, font, new Vector2f(0.64f, 0.0f), 1f, false, gameState);
+		GUIText fps = new GUIText("Enemy died", 3f, font, new Vector2f(0.64f, 0.0f), 1f, false, getGameState());
 		fps.setColour(1, 0, 0);
 		fps.show();
 		
-		gameState.scheduleEntityForRemoval(getEntity());
+		getGameState().scheduleEntityForRemoval(getEntity());
 		
 		ParticleTexture particleTexture = new ParticleTexture(SingletonManager.getInstance().getTextureManager().loadTexture("particleAtlas"), 4, false) ;
 		ParticleSystem particleSystem = new ParticleSystem(particleTexture, 15, 5, 0.3f, 1f, .2f) ;
@@ -149,13 +146,13 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 		
 		ParticleEmission particleEmission = new ParticleEmission(particleSystem, position) ;
 		particleEmission.setLiveFor(2.5f);
-		gameState.addParticleEmission(particleEmission);
+		getGameState().addParticleEmission(particleEmission);
 
 	}
 	
 	@Override
 	public void postConstruct() {
-		gameState.enableDebug(getEntity());
+		getGameState().enableDebug(getEntity());
 	}
 
 	@Override

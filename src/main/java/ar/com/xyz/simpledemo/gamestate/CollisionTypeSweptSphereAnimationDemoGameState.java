@@ -53,7 +53,7 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 		animationMap.put("attack", AXE_ZOMBIE_ATTACK_MODEL) ;
 
 		{
-			ChangeAnimationEntityController basicEnemyEntityController = new ChangeAnimationEntityController(this) ;
+			ChangeAnimationEntityController basicEnemyEntityController = new ChangeAnimationEntityController() ;
 		
 			AlfreAnimationInfo animationInfo = new AlfreAnimationInfo("wait", 1f) ;
 			animationInfo.setAnimationEventHandler(basicEnemyEntityController);
@@ -145,7 +145,7 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 	}
 
 	private void handlePlayerDeath() {
-		mainGameLoop.setNextGameState(new SimpleDemoMenuGameState(mainGameLoop, "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
 	}
 
 }

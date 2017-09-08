@@ -1,6 +1,5 @@
 package ar.com.xyz.simpledemo.controller;
 
-import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.entity.EntityController;
 
 /**
@@ -11,14 +10,16 @@ import ar.com.xyz.gameengine.entity.EntityController;
 public class LocationAndRotationEntityController extends EntityController {
 
 	private LocationAndRotationStatesEnum state = LocationAndRotationStatesEnum.X ;
-	private AbstractGameState gameState ;
 	
 	private float seconds ;
 	private float maxSeconds = 2 ;
 	
-	public LocationAndRotationEntityController(AbstractGameState gameState) {
-		this.gameState = gameState ;
-		gameState.addNotification("X");
+	public LocationAndRotationEntityController() {
+	}
+	
+	@Override
+	public void postConstruct() {
+		getGameState().addNotification("X");
 	}
 
 	@Override
@@ -27,91 +28,89 @@ public class LocationAndRotationEntityController extends EntityController {
 		if (state.equals(LocationAndRotationStatesEnum.X)) {
 			getEntity().increasePosition(tpf, 0, 0); 
 			if (seconds > maxSeconds) {
-				gameState.addNotification("-X");
+				getGameState().addNotification("-X");
 				seconds = 0 ;
 				state = LocationAndRotationStatesEnum.MINUS_X ;
 			}
 		} else if (state.equals(LocationAndRotationStatesEnum.MINUS_X)) {
 			getEntity().increasePosition(-tpf, 0, 0); 
 			if (seconds > maxSeconds) {
-				gameState.addNotification("Y");
+				getGameState().addNotification("Y");
 				seconds = 0 ;
 				state = LocationAndRotationStatesEnum.Y ;
 			}
 		} else if (state.equals(LocationAndRotationStatesEnum.Y)) {
 			getEntity().increasePosition(0, tpf, 0); 
 			if (seconds > maxSeconds) {
-				gameState.addNotification("-Y");
+				getGameState().addNotification("-Y");
 				seconds = 0 ;
 				state = LocationAndRotationStatesEnum.MINUS_Y ;
 			}
 		} else if (state.equals(LocationAndRotationStatesEnum.MINUS_Y)) {
 			getEntity().increasePosition(0, -tpf, 0); 
 			if (seconds > maxSeconds) {
-				gameState.addNotification("Z");
+				getGameState().addNotification("Z");
 				seconds = 0 ;
 				state = LocationAndRotationStatesEnum.Z ;
 			}
 		} else if (state.equals(LocationAndRotationStatesEnum.Z)) {
 			getEntity().increasePosition(0, 0, tpf); 
 			if (seconds > maxSeconds) {
-				gameState.addNotification("-Z");
+				getGameState().addNotification("-Z");
 				seconds = 0 ;
 				state = LocationAndRotationStatesEnum.MINUS_Z ;
 			}
 		} else if (state.equals(LocationAndRotationStatesEnum.MINUS_Z)) {
 			getEntity().increasePosition(0, 0, -tpf); 
 			if (seconds > maxSeconds) {
-				gameState.addNotification("X rotation (pitch)");
+				getGameState().addNotification("X rotation (pitch)");
 				seconds = 0 ;
 				state = LocationAndRotationStatesEnum.ROT_X ;
 			}
 		} else if (state.equals(LocationAndRotationStatesEnum.ROT_X)) {
 			getEntity().increaseRotation(tpf*10, 0, 0); 
 			if (seconds > maxSeconds) {
-				gameState.addNotification("-X rotation (-pitch)");
+				getGameState().addNotification("-X rotation (-pitch)");
 				seconds = 0 ;
 				state = LocationAndRotationStatesEnum.ROT_MINUS_X ;
 			}
 		} else if (state.equals(LocationAndRotationStatesEnum.ROT_MINUS_X)) {
 			getEntity().increaseRotation(-tpf*10, 0, 0); 
 			if (seconds > maxSeconds) {
-				gameState.addNotification("Y rotation (yaw)");
+				getGameState().addNotification("Y rotation (yaw)");
 				seconds = 0 ;
 				state = LocationAndRotationStatesEnum.ROT_Y ;
 			}
 		} else if (state.equals(LocationAndRotationStatesEnum.ROT_Y)) {
 			getEntity().increaseRotation(0, tpf*10, 0); 
 			if (seconds > maxSeconds) {
-				gameState.addNotification("-Y rotation (-yaw)");
+				getGameState().addNotification("-Y rotation (-yaw)");
 				seconds = 0 ;
 				state = LocationAndRotationStatesEnum.ROT_MINUS_Y ;
 			}
 		} else if (state.equals(LocationAndRotationStatesEnum.ROT_MINUS_Y)) {
 			getEntity().increaseRotation(0, -tpf*10, 0); 
 			if (seconds > maxSeconds) {
-				gameState.addNotification("Z rotation (roll)");
+				getGameState().addNotification("Z rotation (roll)");
 				seconds = 0 ;
 				state = LocationAndRotationStatesEnum.ROT_Z ;
 			}
 		} else if (state.equals(LocationAndRotationStatesEnum.ROT_Z)) {
 			getEntity().increaseRotation(0, 0, tpf*10); 
 			if (seconds > maxSeconds) {
-				gameState.addNotification("-Z rotation (-roll)");
+				getGameState().addNotification("-Z rotation (-roll)");
 				seconds = 0 ;
 				state = LocationAndRotationStatesEnum.ROT_MINUS_Z ;
 			}
 		} else if (state.equals(LocationAndRotationStatesEnum.ROT_MINUS_Z)) {
 			getEntity().increaseRotation(0, 0, -tpf*10); 
 			if (seconds > maxSeconds) {
-				gameState.addNotification("X");
+				getGameState().addNotification("X");
 				seconds = 0 ;
 				state = LocationAndRotationStatesEnum.X ;
 			}
 		}
 
-		
-		
 	}
 
 }

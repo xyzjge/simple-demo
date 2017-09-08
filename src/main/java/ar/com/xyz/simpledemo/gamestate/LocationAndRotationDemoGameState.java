@@ -80,7 +80,7 @@ public class LocationAndRotationDemoGameState extends AbstractGameState implemen
 			EntitySpec entitySpec ;
 			entitySpec = new EntitySpec("arrow") ;
 			entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
-			entitySpec.setEntityController(new LocationAndRotationEntityController(this));
+			entitySpec.setEntityController(new LocationAndRotationEntityController());
 			entitySpec.setTexture("yellow");
 			entitySpec.setPosition(new Vector3f(0,1,0));
 			entitySpec.setModelRotation(new Vector3f(90,90,0));
@@ -152,7 +152,7 @@ public class LocationAndRotationDemoGameState extends AbstractGameState implemen
 	}
 
 	private void handlePlayerDeath() {
-		mainGameLoop.setNextGameState(new SimpleDemoMenuGameState(mainGameLoop, "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
 	}
 
 }

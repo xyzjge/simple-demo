@@ -157,7 +157,7 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 	}
 
 	private void handlePlayerDeath() {
-		mainGameLoop.setNextGameState(new SimpleDemoMenuGameState(mainGameLoop, "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
 	}
 
 }

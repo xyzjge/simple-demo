@@ -178,7 +178,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 
 		getCamera().decPitch(-90);
 		
-		playerDeathHandler = new PlayerDeathHandler(mainGameLoop, this) ;
+		playerDeathHandler = new PlayerDeathHandler(getMainGameLoop(), this) ;
 		getPlayer().setCrushHandler(playerDeathHandler);
 		this.enableDebug(getPlayer());
 	}

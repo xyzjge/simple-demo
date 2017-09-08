@@ -30,23 +30,23 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 	@Override
 	protected void handleSelection(int selectionIndex) {
 		if (selectionIndex == 0) {
-			mainGameLoop.setNextGameState(new CollisionTypeNoneDemoGameState(mainGameLoop)); 
+			getMainGameLoop().setNextGameState(new CollisionTypeNoneDemoGameState(getMainGameLoop())); 
 		} else if (selectionIndex == 1) {
-			mainGameLoop.setNextGameState(new CollisionTypeSolidDynamicDemoGameState(mainGameLoop));
+			getMainGameLoop().setNextGameState(new CollisionTypeSolidDynamicDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 2) {
-			mainGameLoop.setNextGameState(new CollisionTypeSolidDynamicRotationDemoGameState(mainGameLoop));
+			getMainGameLoop().setNextGameState(new CollisionTypeSolidDynamicRotationDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 3) {
-			mainGameLoop.setNextGameState(new CollisionTypeSweptSphereDemoGameState(mainGameLoop));
+			getMainGameLoop().setNextGameState(new CollisionTypeSweptSphereDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 4) {
-			mainGameLoop.setNextGameState(new CollisionTypeSweptSphereAnimationDemoGameState(mainGameLoop));
+			getMainGameLoop().setNextGameState(new CollisionTypeSweptSphereAnimationDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 5) {
-			mainGameLoop.setNextGameState(new LocationAndRotationDemoGameState(mainGameLoop));
+			getMainGameLoop().setNextGameState(new LocationAndRotationDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 6) {
-			mainGameLoop.setNextGameState(new LookAtDemoGameState(mainGameLoop));
+			getMainGameLoop().setNextGameState(new LookAtDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 7) {
-			mainGameLoop.setNextGameState(new Animation2DDemoGameState(mainGameLoop)); 
+			getMainGameLoop().setNextGameState(new Animation2DDemoGameState(getMainGameLoop())); 
 		} else {
-			mainGameLoop.stop(); 
+			getMainGameLoop().stop(); 
 		}
 	}
 
