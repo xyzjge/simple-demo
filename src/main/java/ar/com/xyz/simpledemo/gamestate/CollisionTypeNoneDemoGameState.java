@@ -45,7 +45,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 			RotationEntityController rec = new RotationEntityController(1,1,1) ;
 			entitySpec.setEntityController(rec);
 			entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
-			entitySpec.setSweepSphereInAABBHandler(new UpdateHUDSweepSphereInAABBHandler(this));
+			entitySpec.setSweepSphereInAABBHandler(new UpdateHUDSweepSphereInAABBHandler());
 			createEntity(entitySpec);
 			this.enableDebug(rec.getEntity());
 		}
@@ -60,7 +60,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 			RotationEntityController rec = new RotationEntityController(1,1,1) ;
 			entitySpec.setEntityController(rec);
 			entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
-			entitySpec.setSweepSphereInAABBHandler(new RemoveEntitySweepSphereInAABBHandler(this));
+			entitySpec.setSweepSphereInAABBHandler(new RemoveEntitySweepSphereInAABBHandler());
 			createEntity(entitySpec);
 			this.enableDebug(rec.getEntity());
 		}
@@ -143,7 +143,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 				recc = new RotationEntityController(1,1,1) ;
 				entitySpec.setEntityController(recc);
 				entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
-				entitySpec.setSweepSphereInAABBHandler(new UpdateHUDSweepSphereInAABBHandler(this));
+				entitySpec.setSweepSphereInAABBHandler(new UpdateHUDSweepSphereInAABBHandler());
 				// Si no tiene SweepSphereInAABBHandler no la agrega a ... y getAabbManager().getNonSolidAabb(asociatedEntity) retorna null ...
 				createEntity(entitySpec);
 				this.enableDebug(recc.getEntity());
