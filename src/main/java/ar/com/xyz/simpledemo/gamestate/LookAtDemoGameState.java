@@ -135,9 +135,9 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 			handlePlayerDeath() ;
 		}
 		
-		handlePlayerInput.handlePlayerInput();
+		getHandlePlayerInput().handlePlayerInput();
 		
-		if (handlePlayerInput.testAndClearFire()) {
+		if (getHandlePlayerInput().testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_ROT_Y).hide();
 			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_SS).hide();
 		}
@@ -160,7 +160,8 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 			new Vector3f(1, 1, 1),
 			true,
 			new Vector3f(.5f, 1f, .5f),
-			new Vector3f(.5f, .5f, .5f), null, true
+			new Vector3f(.5f, .5f, .5f), null, true,
+			null
 		) ;
 
 		// getCamera().decPitch(-90);

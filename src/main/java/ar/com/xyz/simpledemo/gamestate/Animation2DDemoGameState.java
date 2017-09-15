@@ -82,7 +82,7 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 			handlePlayerDeath() ;
 		}
 		
-		handlePlayerInput.handlePlayerInput();
+		getHandlePlayerInput().handlePlayerInput();
 		
 		secondsSubtitles += tpf ;
 		if (secondsSubtitles > 10) {
@@ -107,7 +107,8 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 			new Vector3f(1, 1, 1),
 			true,
 			new Vector3f(.5f, 1f, .5f),
-			new Vector3f(.5f, .5f, .5f), null, true
+			new Vector3f(.5f, .5f, .5f), null, true,
+			null
 		) ;
 		
 		getPlayer().setCrushHandler(this);

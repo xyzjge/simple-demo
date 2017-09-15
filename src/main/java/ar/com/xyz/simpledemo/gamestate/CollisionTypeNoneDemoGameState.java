@@ -112,7 +112,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 	public void tick(float tpf) {
 		playerDeathHandler.tick();
 		
-		handlePlayerInput.handlePlayerInput();
+		getHandlePlayerInput().handlePlayerInput();
 		
 		if (sweepSphereInAABB) {
 			sweepSphereInAABBGuiTexture.setTexture(SingletonManager.getInstance().getTextureManager().loadTexture("cube-wireframe-white")) ;
@@ -173,7 +173,8 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 			new Vector3f(1, 1, 1),
 			true,
 			new Vector3f(.5f, 1f, .5f),
-			new Vector3f(.5f, .5f, .5f), null, true
+			new Vector3f(.5f, .5f, .5f), null, true,
+			null
 		) ;
 
 		getCamera().decPitch(-90);
