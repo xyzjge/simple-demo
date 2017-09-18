@@ -5,6 +5,7 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
+import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
@@ -103,7 +104,7 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 		setShowFps(true);
 		setShowPlayerPosition(true);
 		
-		SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_ROT_Y).setAbstractGameState(this);
+		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).setAbstractGameState(this);
 
 	}
 
@@ -118,7 +119,7 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 		getHandlePlayerInput().handlePlayerInput();
 		
 		if (getHandlePlayerInput().testAndClearFire()) {
-			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_ROT_Y).hide();
+			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
 		}
 		
 		secondsSubtitles += tpf ;

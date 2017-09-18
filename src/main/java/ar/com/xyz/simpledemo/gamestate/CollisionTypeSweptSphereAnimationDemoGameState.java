@@ -8,6 +8,7 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.collada.AlfreAnimationInfo;
+import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.AnimatedEntitySpec;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -89,8 +90,8 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 		setShowFps(true);
 		setShowPlayerPosition(true);
 		
-		SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_ROT_Y).setAbstractGameState(this);
-		SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_SS).setAbstractGameState(this);
+		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).setAbstractGameState(this);
+		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).setAbstractGameState(this);
 
 	}
 
@@ -105,8 +106,8 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 		getHandlePlayerInput().handlePlayerInput();
 		
 		if (getHandlePlayerInput().testAndClearFire()) {
-			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_ROT_Y).hide();
-			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_SS).hide();
+			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
+			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).hide();
 		}
 		
 		secondsSubtitles += tpf ;

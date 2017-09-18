@@ -5,6 +5,7 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.client.entitycontroller.CircularMotionEntityController;
+import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -122,8 +123,8 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 		setShowFps(true);
 		setShowPlayerPosition(true);
 		
-		SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_ROT_Y).setAbstractGameState(this);
-		SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_SS).setAbstractGameState(this);
+		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).setAbstractGameState(this);
+		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).setAbstractGameState(this);
 
 	}
 
@@ -138,8 +139,8 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 		getHandlePlayerInput().handlePlayerInput();
 		
 		if (getHandlePlayerInput().testAndClearFire()) {
-			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_ROT_Y).hide();
-			SingletonManager.getInstance().getGraphicDebugger(SingletonManager.DEBUG_SS).hide();
+			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
+			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).hide();
 		}
 		
 		secondsSubtitles += tpf ;
