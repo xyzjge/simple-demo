@@ -5,6 +5,7 @@ import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
+import ar.com.xyz.gameengine.cameracontroller.DefaultCameraController;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
@@ -177,7 +178,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 			null
 		) ;
 
-		getCamera().decPitch(-90);
+		((DefaultCameraController)getCamera().getCameraController()).decPitch(-90);
 		
 		playerDeathHandler = new PlayerDeathHandler(getMainGameLoop(), this) ;
 		getPlayer().setCrushHandler(playerDeathHandler);
