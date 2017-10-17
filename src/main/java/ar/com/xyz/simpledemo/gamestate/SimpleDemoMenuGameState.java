@@ -16,6 +16,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 		"SWEPT SPHERE COLLISION TYPE ENTITIES DEMO (3D ANIMATIONS)",
 		"LOCATION AND ROTATION DEMO",
 		"LOOK AT 3D DEMO",
+		"NEW LOOK AT 3D VERSION DEMO",
 		"2D ANIMATIONS DEMO",
 		"EXIT"
 	} ;
@@ -44,6 +45,8 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 		} else if (selectionIndex == 6) {
 			getMainGameLoop().setNextGameState(new LookAtDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 7) {
+			getMainGameLoop().setNextGameState(new NewLookAtVersionDemoGameState(getMainGameLoop()));
+		} else if (selectionIndex == 8) {
 			getMainGameLoop().setNextGameState(new Animation2DDemoGameState(getMainGameLoop())); 
 		} else {
 			getMainGameLoop().stop(); 

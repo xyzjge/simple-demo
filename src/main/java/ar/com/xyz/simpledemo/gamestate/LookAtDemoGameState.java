@@ -150,7 +150,7 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 			secondsSubtitles = 0 ;
 		}
 		
-		SingletonManager.getInstance().getEntityUtil().lookAt3d(movimientoCircularEntityController.getEntity(), lookAtEntityController.getEntity().getPosition()) ;
+		SingletonManager.getInstance().getEntityUtil().stackOverflowLookAt3d(movimientoCircularEntityController.getEntity(), lookAtEntityController.getEntity().getPosition()) ;
 	}
 
 	private void loadPlayerAndCamera() {

@@ -26,7 +26,7 @@ public class LookAtEntityController extends EntityController {
 
 	@Override
 	public void update(float tpf) {
-		SingletonManager.getInstance().getEntityUtil().lookAt3d(getEntity(), target.getPosition());
+		SingletonManager.getInstance().getEntityUtil().stackOverflowLookAt3d(getEntity(), target.getPosition());
 	}
 
 }
