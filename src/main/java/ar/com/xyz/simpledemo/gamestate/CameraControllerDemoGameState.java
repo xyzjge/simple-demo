@@ -16,6 +16,8 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 	private static final String LEVEL = "s-box" ;
 	private static final float VELOCITY = 50;
 	
+	private CameraController cameraController ;
+	
 	protected CameraControllerDemoGameState(AbstractMainGameLoop mainGameLoop) {
 		super(mainGameLoop);
 		loadPlayerAndCamera() ;
@@ -82,6 +84,8 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 			mainGameLoop, getPlayer(), getCamera(), this, null, null
 		) ;
 		
+		cameraController = getCamera().getCameraController() ;
+		
 		getCamera().setCameraController(this);
 		
 		grabMouseIfNotGrabbed() ;
@@ -95,6 +99,7 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 		getHandlePlayerInput().addInputHandler(Keyboard.KEY_4, this);
 		getHandlePlayerInput().addInputHandler(Keyboard.KEY_5, this);
 		getHandlePlayerInput().addInputHandler(Keyboard.KEY_6, this);
+		getHandlePlayerInput().addInputHandler(Keyboard.KEY_0, this);
 	}
 
 	float secondsSubtitles = 100 ;
@@ -150,6 +155,13 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 	@Override
 	public boolean handleInput(int eventKey) {
 		switch (eventKey) {
+		case Keyboard.KEY_0:
+			if (getCamera().getCameraController().equals(this)) {
+				getCamera().setCameraController(cameraController);
+			} else {
+				getCamera().setCameraController(this);
+			}
+			break;
 		case Keyboard.KEY_1:
 			yaw = true ;
 			break;
