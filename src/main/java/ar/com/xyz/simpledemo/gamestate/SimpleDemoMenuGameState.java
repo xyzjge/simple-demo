@@ -19,6 +19,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 		"NEW LOOK AT 3D VERSION DEMO",
 		"2D ANIMATIONS DEMO",
 		"CAMERA CONTROLLER DEMO",
+		"PARENT CHILD DEMO",
 		"EXIT"
 	} ;
 	
@@ -50,7 +51,9 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 		} else if (selectionIndex == 8) {
 			getMainGameLoop().setNextGameState(new Animation2DDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 9) {
-			getMainGameLoop().setNextGameState(new CameraControllerDemoGameState(getMainGameLoop())); 
+			getMainGameLoop().setNextGameState(new CameraControllerDemoGameState(getMainGameLoop()));
+		} else if (selectionIndex == 10) {
+			getMainGameLoop().setNextGameState(new ParentChildDemoGameState(getMainGameLoop())); 
 		} else {
 			getMainGameLoop().stop(); 
 		}

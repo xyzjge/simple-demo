@@ -15,8 +15,11 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 	
 	private static final String LEVEL = "s-box" ;
 	private static final float VELOCITY = 50;
+	private static final float VELOCITY_2 = 25;
 	
 	private CameraController cameraController ;
+	
+	private boolean automatic = false ;
 	
 	protected CameraControllerDemoGameState(AbstractMainGameLoop mainGameLoop) {
 		super(mainGameLoop);
@@ -100,6 +103,7 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 		getHandlePlayerInput().addInputHandler(Keyboard.KEY_5, this);
 		getHandlePlayerInput().addInputHandler(Keyboard.KEY_6, this);
 		getHandlePlayerInput().addInputHandler(Keyboard.KEY_0, this);
+		getHandlePlayerInput().addInputHandler(Keyboard.KEY_9, this);
 	}
 
 	float secondsSubtitles = 100 ;
@@ -152,6 +156,10 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
 	}
 
+	/**
+	 * aca moviendo tambien se ve que si no se hacen en orden no queda bien
+	 * ej si primero hago el pitch el yaw no le da boliya ...
+	 */
 	@Override
 	public boolean handleInput(int eventKey) {
 		switch (eventKey) {
@@ -179,6 +187,15 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 			break;
 		case Keyboard.KEY_6:
 			minusRoll = true ;
+			break;
+		case Keyboard.KEY_9:
+			automatic = !automatic ;
+//			if (automatic) {
+				cameraPosition.y = 4 ;
+				cameraRotation.x = 0 ;
+				cameraRotation.y = 0 ;
+				cameraRotation.z = 0 ;
+//			}
 			break;
 		default:
 			break;
@@ -213,6 +230,126 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 	
 	@Override
 	public void update(float fts) {
+		if (automatic) {
+			// El problema es que necesito que el ROLL quede para el final ... si no es un lio ubicar la camara ...
+			// Lo ideal seria que funcione igual que las entidades ... primero YAW, despues PITCH y despues ROLL ...
+			// Pareceria que ahi quedo ...
+			if (cameraRotation.y < 10) {
+				cameraRotation.y += (fts * VELOCITY_2);
+			} else if (cameraRotation.x < 10) {
+				cameraRotation.x += (fts * VELOCITY_2);
+			} else if (cameraRotation.z < 150) {
+				cameraRotation.z += (fts * VELOCITY_2);
+			} else {
+				cameraRotation.x = 0 ;
+				cameraRotation.y = 0 ;
+				cameraRotation.z = 0 ;
+			}
+			// PYR: el YAW no tiene en cuenta el PITCH (-> el YAW tiene que ir antes que el PITCH)
+			/* 
+			if (cameraRotation.x < 15) {
+				cameraRotation.x += (fts * VELOCITY_2);
+			} else if (cameraRotation.y < 360) {
+				cameraRotation.y += (fts * VELOCITY_2);
+			} else if (cameraRotation.z < 15) {
+				cameraRotation.z += (fts * VELOCITY_2);
+			} else {
+				cameraRotation.x = 0 ;
+				cameraRotation.y = 0 ;
+				cameraRotation.z = 0 ;
+			}
+			*/
+			// YPR: el PITCH tiene en cuenta el YAW (-> el YAW tiene que ir antes que el PITCH)
+			// MMM aca el rol no esta andando bien me pa ...
+			/* 
+			if (cameraRotation.y < 30) {
+				cameraRotation.y += (fts * VELOCITY_2);
+			} else if (cameraRotation.x < 30) {
+				cameraRotation.x += (fts * VELOCITY_2);
+			} else if (cameraRotation.z < 150) {
+				cameraRotation.z += (fts * VELOCITY_2);
+			} else {
+				cameraRotation.x = 0 ;
+				cameraRotation.y = 0 ;
+				cameraRotation.z = 0 ;
+			}*/
+			// Este pareceria que funciona correctamente !!!
+			/* if (cameraRotation.y < 30) {
+				cameraRotation.y += (fts * VELOCITY_2);
+			} else if (cameraRotation.z < 30) {
+				cameraRotation.z += (fts * VELOCITY_2);
+			} else if (cameraRotation.x < 360) {
+				cameraRotation.x += (fts * VELOCITY_2);
+			} else {
+				cameraRotation.x = 0 ;
+				cameraRotation.y = 0 ;
+				cameraRotation.z = 0 ;
+			}*/
+			// Este tambien
+			/*
+			if (cameraRotation.z < 30) {
+				cameraRotation.z += (fts * VELOCITY_2);
+			} else if (cameraRotation.y < 30) {
+				cameraRotation.y += (fts * VELOCITY_2);
+			} else if (cameraRotation.x < 360) {
+				cameraRotation.x += (fts * VELOCITY_2);
+			} else {
+				cameraRotation.x = 0 ;
+				cameraRotation.y = 0 ;
+				cameraRotation.z = 0 ;
+			}*/
+			// RYP: el PITCH tiene en cuenta el ROLL !!! (-> el PITCH tiene que ir despues del ROLL)
+			/*
+			if (cameraRotation.z < 30) {
+				cameraRotation.z += (fts * VELOCITY_2);
+			} else if (cameraRotation.x < 360) {
+				cameraRotation.x += (fts * VELOCITY_2);
+			} else if (cameraRotation.y < 15) {
+				cameraRotation.y += (fts * VELOCITY_2);
+			} else {
+				cameraRotation.x = 0 ;
+				cameraRotation.y = 0 ;
+				cameraRotation.z = 0 ;
+			}
+			*/
+			// RYP: el YAW tiene en cuenta el ROLL !!! (-> el YAW tiene que ir despues del ROLL)
+			/*
+			if (cameraRotation.z < 30) {
+				cameraRotation.z += (fts * VELOCITY_2);
+			} else if (cameraRotation.y < 360) {
+				cameraRotation.y += (fts * VELOCITY_2);
+			} else if (cameraRotation.x < 15) {
+				cameraRotation.x += (fts * VELOCITY_2);
+			} else {
+				cameraRotation.x = 0 ;
+				cameraRotation.y = 0 ;
+				cameraRotation.z = 0 ;
+			}
+			*/
+			/*if (cameraRotation.y < 15) {
+				cameraRotation.y += (fts * VELOCITY_2);
+			} else if (cameraRotation.x < 15) {
+				cameraRotation.x += (fts * VELOCITY_2);
+			} else if (cameraRotation.z < 15) {
+				cameraRotation.z += (fts * VELOCITY_2);
+			} else {
+				cameraRotation.x = 0 ;
+				cameraRotation.y = 0 ;
+				cameraRotation.z = 0 ;
+			}*/
+/*
+			if (cameraRotation.z < 15) {
+				cameraRotation.z += (fts * VELOCITY_2);
+			} else if (cameraRotation.y < 15) {
+				cameraRotation.y += (fts * VELOCITY_2);
+			} else if (cameraRotation.x < 15) {
+				cameraRotation.x += (fts * VELOCITY_2);
+			} else {
+				cameraRotation.x = 0 ;
+				cameraRotation.y = 0 ;
+				cameraRotation.z = 0 ;
+			}*/
+		}
 		if (yaw) {
 			cameraRotation.y += (fts * VELOCITY);
 			yaw = false ;
