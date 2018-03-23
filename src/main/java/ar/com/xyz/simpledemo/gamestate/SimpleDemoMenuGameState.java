@@ -23,6 +23,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 		"PARENT CHILD DEMO",
 		"OBJ LOADER",
 		"VIEW",
+		"LIGHTS",
 		"EXIT"
 	} ;
 	
@@ -62,7 +63,9 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 		} else if (selectionIndex == 12) {
 			getMainGameLoop().setNextGameState(new ObjLoaderDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 13) {
-			getMainGameLoop().setNextGameState(new ViewStaticSceneDemoGameState(getMainGameLoop())); 
+			getMainGameLoop().setNextGameState(new ViewStaticSceneDemoGameState(getMainGameLoop()));
+		} else if (selectionIndex == 14) {
+			getMainGameLoop().setNextGameState(new LightsDemoGameState(getMainGameLoop())); 
 		} else {
 			getMainGameLoop().stop(); 
 		}
