@@ -20,10 +20,29 @@ import ar.com.xyz.gameengine.singleton.SingletonManager;
  *
  */
 public class ViewStaticSceneDemoGameState extends AbstractGameState implements CrushHandler {
+
+	// Caso viejo (cuando se salia del mapa)
+//	private static final Vector3f POSICION_INICIAL = new Vector3f(-6.834506f,-0.75807726f + 1,96.00639f);
+//	private static final Vector3f MOVIMIENTO_DESEADO = new Vector3f(-0.058697283f,0.0f,-0.042142812f);
+//	private static final Vector3f POSICION_DE_CONTACTO_EN_R3 = new Vector3f(-6.858233f, -0.75807726f + 1, 95.98936f);
+//	private static final Vector3f POSICION_DE_CONTACTO_CORREGIDA_EN_R3 = new Vector3f(-6.824721f, -0.75807726f + 1, 96.01342f);
+
+/*	"posicionInicial":{"x":0.47274402,"y":-1.9812711,"z":95.76924},
+	"movimientoDeseado":{"x":-0.1776495,"y":0.0,"z":0.2898977},
+	"posicionFinalSinCorregir":{"x":0.38602895,"y":-0.98127115,"z":95.91074},
+	"posicionFinal":{"x":0.47274157,"y":-1.9812711,"z":95.76924},
+	"nuevoMovimientoDeseado":{"x":-0.004065834,"y":0.0052333474,"z":0.0069353133}*/
+	
+	// Caso que me anulaba el movimiento ... cuando estaba subiendo una pendiente poco inclinada la diferencia entre la posicion de contacto y la corregida era muy grande y eso casi anulaba el movimiento ...
+	private static final Vector3f POSICION_INICIAL = new Vector3f(0.47274402f,-1.9812711f,95.76924f);
+	private static final Vector3f MOVIMIENTO_DESEADO = new Vector3f(-0.1776495f,0.0f,0.2898977f);
+	private static final Vector3f POSICION_DE_CONTACTO_EN_R3 = new Vector3f(0.38602895f,-0.98127115f - 1,95.91074f);
+	private static final Vector3f POSICION_DE_CONTACTO_CORREGIDA_EN_R3 = new Vector3f(0.47274157f,-1.9812711f,95.76924f);
+	
 	
 	// private static final Vector3f SCALE = new Vector3f(.5f, 1f, .5f);
-	// private static final Vector3f SCALE = new Vector3f(.05f, .1f, .05f);
-	private static final Vector3f SCALE = new Vector3f(.005f, .01f, .005f);
+	private static final Vector3f SCALE = new Vector3f(.05f, .1f, .05f);
+	// private static final Vector3f SCALE = new Vector3f(.005f, .01f, .005f);
 
 	private static final String LEVEL = "s-box" ;
 	
@@ -121,14 +140,14 @@ public class ViewStaticSceneDemoGameState extends AbstractGameState implements C
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
 
-		Vector3f posicionInicial = new Vector3f(-6.834506f,-0.75807726f + 1,96.00639f) ;
-		Vector3f movimientoDeseado = new Vector3f(-0.058697283f,0.0f,-0.042142812f) ;
+		Vector3f posicionInicial = POSICION_INICIAL ;
+		Vector3f movimientoDeseado = MOVIMIENTO_DESEADO ;
 		
 		// Validando posicion (posicionDeContactoEnR3) Vector3f[-6.858233, -0.75807726, 95.98936]
-		Vector3f posicionDeContactoEnR3 = new Vector3f(-6.858233f, -0.75807726f + 1, 95.98936f);
+		Vector3f posicionDeContactoEnR3 = POSICION_DE_CONTACTO_EN_R3;
 
 		// Validando posicion (posicionDeContactoCorregidaEnR3) Vector3f[-6.824721, -0.75807726, 96.01342]
-		Vector3f posicionDeContactoCorregidaEnR3 = new Vector3f(-6.824721f, -0.75807726f + 1, 96.01342f) ;
+		Vector3f posicionDeContactoCorregidaEnR3 = POSICION_DE_CONTACTO_CORREGIDA_EN_R3 ;
 
 		posicionInicialEntityController.updatePosition(posicionInicial);
 		movimientoDeseadoEntityController.updatePosition(Vector3f.add(posicionInicial, movimientoDeseado, null));
