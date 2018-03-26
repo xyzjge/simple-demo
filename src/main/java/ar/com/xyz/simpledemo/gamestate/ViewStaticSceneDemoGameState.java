@@ -8,13 +8,10 @@ import ar.com.xyz.gameengine.collision.ESpaceUtil;
 import ar.com.xyz.gameengine.collision.Triangle;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.debug.collision.ActualizarPosicionEntityController;
-import ar.com.xyz.gameengine.debug.collision.DetailedCollisionDataPlayer;
-import ar.com.xyz.gameengine.debug.collision.Player;
 import ar.com.xyz.gameengine.debug.collision.ResaltarTrianguloYCaso;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
-import ar.com.xyz.gameengine.ray.RayTracerVO;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 
 /**

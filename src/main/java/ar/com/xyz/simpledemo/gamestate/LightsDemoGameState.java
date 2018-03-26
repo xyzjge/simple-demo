@@ -29,6 +29,9 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 	private LigthsDemoEnum state ;
 	private int subState = 1 ;
 	
+	private PointLight pointLightUno ;
+	private PointLight pointLightDos ;
+	
 	private SpotLight spotLight ;
 	
 	private ResaltarXYZ resaltarXYZ ;
@@ -83,13 +86,33 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).setAbstractGameState(this);
 		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).setAbstractGameState(this);
 		
-		Vector3f lightPosition = new Vector3f(-10, 2, 58);
-		PointLight pointLight = new PointLight(new Vector3f(1, 1, 1), lightPosition, .1f /* lightIntensity */);
-		PointLight.Attenuation att = new PointLight.Attenuation(0.0f, 0.0f, 0.002f);
-		pointLight.setAttenuation(att);
-		Vector3f coneDir = new Vector3f(0, 0, -1);
-		float cutoff = 10 ; //.195f ; // (float) Math.cos(Math.toRadians(.1f /* 100 *//*140*/ /*180*/ /* 240*/));
-		spotLight = new SpotLight(pointLight, coneDir, cutoff);
+		{
+			Vector3f lightPosition = new Vector3f(-10, 2, 58);
+			PointLight pointLight = new PointLight(new Vector3f(1, 1, 1), lightPosition, 0 /*.1f *//* lightIntensity */);
+			PointLight.Attenuation att = new PointLight.Attenuation(0.0f, 0.0f, 0.002f);
+			pointLight.setAttenuation(att);
+			Vector3f coneDir = new Vector3f(0, 0, -1);
+			float cutoff = 10 ; //.195f ; // (float) Math.cos(Math.toRadians(.1f /* 100 *//*140*/ /*180*/ /* 240*/));
+			spotLight = new SpotLight(pointLight, coneDir, cutoff);
+			getSpotLightList().add(spotLight) ;
+		}
+		
+		{
+			Vector3f lightPosition = new Vector3f(-5, 0, 94);
+			float lightIntensity = 0 /* .2f */;
+			pointLightUno = new PointLight(new Vector3f(1, 1, 1), lightPosition, lightIntensity);
+			PointLight.Attenuation att = new PointLight.Attenuation(0.0f, 0.0f,.1f/*.5f*/ /*1.0f*/);
+			pointLightUno.setAttenuation(att);
+			getPointLightList().add(pointLightUno) ;
+		}
+		{
+			Vector3f lightPosition = new Vector3f(1, -1, 94);
+			float lightIntensity = 0 ; // .4f;
+			pointLightDos = new PointLight(new Vector3f(.5f, .5f, .5f), lightPosition, lightIntensity);
+			PointLight.Attenuation att = new PointLight.Attenuation(0.0f, 0.0f,.1f/*.5f*/ /*1.0f*/);
+			pointLightDos.setAttenuation(att);
+			getPointLightList().add(pointLightDos) ;
+		}
 		
 		resaltarXYZ = new ResaltarXYZ(this) ;
 	}
@@ -282,9 +305,14 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 		addNotification(state + " light demo");
 		switch (state) {
 		case AMBIENT:
-			getDirectionalLight().setIntensity(0);
-			getPointLightList().clear();
-			getSpotLightList().clear();
+			if (getDirectionalLight() != null) {
+				getDirectionalLight().setIntensity(0);
+			}
+//			getPointLightList().clear();
+//			getSpotLightList().clear();
+			pointLightUno.setIntensity(0);
+			pointLightDos.setIntensity(0);
+			spotLight.getPointLight().setIntensity(0);
 			ambientUno();
 			break;
 		case DIRECTIONAL:
@@ -294,7 +322,8 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 			pointUno();
 			break;
 		case SPOT:
-			getSpotLightList().add(spotLight);
+			// getSpotLightList().add(spotLight);
+			spotLight.getPointLight().setIntensity(.1f);
 			break;
 		default:
 			break;
@@ -387,31 +416,13 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 		setDirectionalLight(directionalLight) ;
 	}
 	private void pointUno() {
-		// TODO: search with equals ...
-		if (getPointLightList().size() > 0) {
-			return ;
-		}
 		addNotification("WHITE (1,1,1) point light at (-5, 0, 94) with intensity " + .2f);
-		Vector3f lightPosition = new Vector3f(-5, 0, 94);
-		float lightIntensity = .2f;
-		PointLight pointLight = new PointLight(new Vector3f(1, 1, 1), lightPosition, lightIntensity);
-		PointLight.Attenuation att = new PointLight.Attenuation(0.0f, 0.0f,.1f/*.5f*/ /*1.0f*/);
-		pointLight.setAttenuation(att);
-		getPointLightList().add(pointLight) ;
+		pointLightUno.setIntensity(.2f);
 	}
 	
 	private void pointDos() {
-		// TODO: search with equals ...
-		if (getPointLightList().size() > 1) {
-			return ;
-		}
 		addNotification("GRAY (.5f, .5f, .5f) point light at (1, -1, 94) with intensity " + .4f);
-		Vector3f lightPosition = new Vector3f(1, -1, 94);
-		float lightIntensity = .4f;
-		PointLight pointLight = new PointLight(new Vector3f(.5f, .5f, .5f), lightPosition, lightIntensity);
-		PointLight.Attenuation att = new PointLight.Attenuation(0.0f, 0.0f,.1f/*.5f*/ /*1.0f*/);
-		pointLight.setAttenuation(att);
-		getPointLightList().add(pointLight) ;
+		pointLightDos.setIntensity(.4f);
 	}
 
 }
