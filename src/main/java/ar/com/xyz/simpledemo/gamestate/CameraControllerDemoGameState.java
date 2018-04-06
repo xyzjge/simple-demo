@@ -219,6 +219,11 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 	}
 
 	@Override
+	public void setPitch(float pitch) {
+		cameraRotation.x = pitch ;
+	}
+	
+	@Override
 	public float getYaw() {
 		return cameraRotation.y;
 	}

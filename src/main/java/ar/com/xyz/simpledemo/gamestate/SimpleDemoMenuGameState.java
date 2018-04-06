@@ -24,6 +24,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 		"OBJ LOADER",
 		"VIEW",
 		"LIGHTS",
+		"WATER",
 		"EXIT"
 	} ;
 	
@@ -65,7 +66,9 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 		} else if (selectionIndex == 13) {
 			getMainGameLoop().setNextGameState(new ViewStaticSceneDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 14) {
-			getMainGameLoop().setNextGameState(new LightsDemoGameState(getMainGameLoop())); 
+			getMainGameLoop().setNextGameState(new LightsDemoGameState(getMainGameLoop()));
+		} else if (selectionIndex == 15) {
+			getMainGameLoop().setNextGameState(new WaterDemoGameState(getMainGameLoop()));
 		} else {
 			getMainGameLoop().stop(); 
 		}
