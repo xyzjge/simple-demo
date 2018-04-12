@@ -13,6 +13,7 @@ import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.input.InputHandler;
+import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 
 public class ParentChildDemoGameState extends AbstractGameState implements CrushHandler, InputHandler {
@@ -104,6 +105,10 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 		getHandlePlayerInput().addInputHandler(Keyboard.KEY_6, this);
 		getHandlePlayerInput().addInputHandler(Keyboard.KEY_0, this);
 		getHandlePlayerInput().addInputHandler(Keyboard.KEY_9, this);
+		
+		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(.5f,.5f,.5f), new Vector3f(-10000,-10000,-10000), 1) ;
+		directionalLight.setCastShadows(true);
+		setDirectionalLight(directionalLight);
 	}
 /*
 	private void demo1() {
