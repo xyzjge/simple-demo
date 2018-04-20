@@ -6,8 +6,10 @@ import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
+import ar.com.xyz.gameengine.entity.SweepSphereCollisionEntity;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.light.DirectionalLight;
+import ar.com.xyz.gameengine.postprocessing.fisheye.FishEyePostProcessingFilter;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.water.WaterTile;
 
@@ -25,6 +27,8 @@ public class WaterDemoGameState extends AbstractGameState implements CrushHandle
 	private static final Vector3f ambientLight = new Vector3f(.5f,.5f,.5f) ;
 	
 	private static final Vector3f underWaterAmbientLight = new Vector3f(.1f,.3f,.3f) ;
+	
+	private FishEyePostProcessingFilter fishEyePostProcessingFilter = new FishEyePostProcessingFilter() ;
 	
 	protected WaterDemoGameState(AbstractMainGameLoop mainGameLoop) {
 		super(mainGameLoop);
@@ -86,6 +90,7 @@ public class WaterDemoGameState extends AbstractGameState implements CrushHandle
 	@Override
 	public void tick(float tpf) {
 
+		// TODO: Asociar un AABB a cada WaterTile ...
 		boolean underWater = false ;
 		for (WaterTile waterTile : getWaterTileList()) {
 			if (getCamera().getPosition().y < waterTile.getHeight()) {
@@ -97,10 +102,37 @@ public class WaterDemoGameState extends AbstractGameState implements CrushHandle
 			getAmbientLight().x = underWaterAmbientLight.x ;
 			getAmbientLight().y = underWaterAmbientLight.y ;
 			getAmbientLight().z = underWaterAmbientLight.z ;
+			
+			if (!containsPostProcessingFilter(fishEyePostProcessingFilter)) {
+				addPostProcessingFilter(fishEyePostProcessingFilter);
+			}
+			
+			getPlayer().setGravity(-1);
+			getPlayer().setJumpPower(1);
+			getPlayer().setRunSpeed(1);
+			getPlayer().setTurnSpeed(1); // ...
+			if (getPlayer().getStrafeSpeed() != 1) {
+				getPlayer().resetUpwardsSpeed();
+			}
+			getPlayer().setStrafeSpeed(1);
+
 		} else {
 			getAmbientLight().x = ambientLight.x ;
 			getAmbientLight().y = ambientLight.y ;
 			getAmbientLight().z = ambientLight.z ;
+			
+			if (containsPostProcessingFilter(fishEyePostProcessingFilter)) {
+				if (!removePostProcessingFilter(fishEyePostProcessingFilter)) {
+					System.out.println("WARN: no fishEyePostProcessingFilter ...");
+				}
+			}
+			
+			getPlayer().setGravity(SweepSphereCollisionEntity.GRAVITY);
+			getPlayer().setJumpPower(SweepSphereCollisionEntity.JUMP_POWER);
+			getPlayer().setRunSpeed(SweepSphereCollisionEntity.RUN_SPEED);
+			getPlayer().setTurnSpeed(SweepSphereCollisionEntity.TURN_SPEED /* TODO ...*/);
+			getPlayer().setStrafeSpeed(SweepSphereCollisionEntity.STRAFE_SPEED);
+			
 		}
 		if (getPlayer().getPosition().y < -100) {
 			handlePlayerDeath() ;
@@ -138,6 +170,11 @@ public class WaterDemoGameState extends AbstractGameState implements CrushHandle
 	}
 
 	private void handlePlayerDeath() {
+		if (containsPostProcessingFilter(fishEyePostProcessingFilter)) {
+			if (!removePostProcessingFilter(fishEyePostProcessingFilter)) {
+				System.out.println("WARN: no fishEyePostProcessingFilter ...");
+			}
+		}
 		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
 	}
 
