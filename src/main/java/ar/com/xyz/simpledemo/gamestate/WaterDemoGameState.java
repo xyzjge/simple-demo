@@ -18,6 +18,8 @@ import ar.com.xyz.gameengine.water.WaterTile;
  */
 public class WaterDemoGameState extends AbstractGameState implements CrushHandler {
 
+	private static final boolean CAST_SHADOWS = true;
+
 	private static final String LEVEL = "water-demo-level" ;
 	
 	private static final Vector3f ambientLight = new Vector3f(.5f,.5f,.5f) ;
@@ -70,9 +72,10 @@ public class WaterDemoGameState extends AbstractGameState implements CrushHandle
 		getWaterTileList().add(new WaterTile(mid(-12, -2) -2 + 1, mid(-4, 10) + 2, -10 - .4f /*+ 1*/, 7)) ;
 		getWaterTileList().add(new WaterTile(mid(-2, 11) + 2, mid(-4, 10) + 1, -10 - .2f, 8)) ;
 		
-		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(.5f,.5f,.5f), new Vector3f(-10000,-10000,-10000), 1) ;
-		// DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1,.5f,.5f), new Vector3f(-10000,-10000,-10000), 1) ;
+		// DirectionalLight directionalLight = new DirectionalLight(new Vector3f(.5f,.5f,.5f), new Vector3f(-10000,-10000,-10000), 1) ;
+		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1,.5f,.5f), new Vector3f(-10000,-10000,-10000), 1) ;
 		// DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1,0,0), new Vector3f(-10000,-10000,-10000), 1) ;
+		directionalLight.setCastShadows(CAST_SHADOWS);
 		setDirectionalLight(directionalLight);
 	}
 	
