@@ -5,6 +5,7 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.util.AbstractMenuGameState;
 import ar.com.xyz.gameengine.util.FontSpec;
+import ar.com.xyz.simpledemo.gamestate.guitexture.GuiDemoGameState;
 
 public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 	
@@ -25,6 +26,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 		"VIEW",
 		"LIGHTS",
 		"WATER",
+		"GUI",
 		"EXIT"
 	} ;
 	
@@ -69,6 +71,8 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 			getMainGameLoop().setNextGameState(new LightsDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 15) {
 			getMainGameLoop().setNextGameState(new WaterDemoGameState(getMainGameLoop()));
+		} else if (selectionIndex == 16) {
+			getMainGameLoop().setNextGameState(new GuiDemoGameState(getMainGameLoop()));
 		} else {
 			getMainGameLoop().stop(); 
 		}
