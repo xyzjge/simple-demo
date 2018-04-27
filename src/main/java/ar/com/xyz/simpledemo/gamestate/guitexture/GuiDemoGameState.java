@@ -5,12 +5,21 @@ import org.lwjgl.util.vector.Vector2f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
+import ar.com.xyz.gameengine.audio.AudioMaster;
+import ar.com.xyz.gameengine.audio.Source;
 import ar.com.xyz.gameengine.gui.GuiTexture;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 
 public class GuiDemoGameState extends AbstractGameState {
 	
 	private static final String CIRCLE_TEXTURE = "circle" ;
+	
+	// private static final String SONIDO_AMBIENTE = "el-ambiente_2.wav" ;
+	private static final String SONIDO_AMBIENTE = "el-ambiente_2.ogg" ;
+	
+	private static final float RED = 0.5f ;
+	private static final float GREEN = 0.5f ;
+	private static final float BLUE = 0.5f ;
 	
 	float w = Display.getWidth() ;
 	float h = Display.getHeight() ;
@@ -42,6 +51,24 @@ public class GuiDemoGameState extends AbstractGameState {
 		getGuis().add(guiCinco) ;
 		
 		grabMouseIfNotGrabbed() ;
+		
+		getDefaultColor().x = RED ;
+		getDefaultColor().y = GREEN ;
+		getDefaultColor().z = BLUE ;
+		
+//		AudioMaster.setListenerData(0,0,0);
+		
+//		AudioMaster.addSoundPath("/sounds") ;
+		{ // TODO: Cuando termina un GE hay que cortar todos los sonidos ...
+			int buffer = AudioMaster.loadSound(SONIDO_AMBIENTE) ;
+			// Source source = new Source(16, 4, 128*2 /*64*/) ;
+			Source source = SingletonManager.getInstance().getSourceMaster().createSource(1, 0, 20) ;
+			source.setLooping(true);
+			source.setPosition(0,0,0);
+			source.setVolume(.5f);
+			source.play(buffer);
+		}
+		
 	}
 
 	private GuiTexture createGuiTexture() {
@@ -53,6 +80,8 @@ public class GuiDemoGameState extends AbstractGameState {
 	}
 
 	boolean going = true ;
+	
+	boolean goingColor = true ;
 	
 	@Override
 	public void tick(float tpf) {
@@ -79,6 +108,28 @@ public class GuiDemoGameState extends AbstractGameState {
 //		guiCinco.getScale().x += (velocity / w) * 1.4f ;
 //		guiCinco.getScale().y += (velocity / h ) * 1.4f;
 		
+		float velocityColor = tpf / 50 ;
+		if (goingColor) {
+			getDefaultColor().x += velocityColor ; 
+			getDefaultColor().y += velocityColor ;
+			getDefaultColor().z += velocityColor ;
+			if (getDefaultColor().x > 1) {
+				getDefaultColor().x = 1 ; 
+				getDefaultColor().y = 1 ;
+				getDefaultColor().z = 1 ;
+				goingColor = false ;
+			}
+		} else {
+			getDefaultColor().x -= velocityColor ; 
+			getDefaultColor().y -= velocityColor ;
+			getDefaultColor().z -= velocityColor ;
+			if (getDefaultColor().x < RED) {
+				getDefaultColor().x = RED ; 
+				getDefaultColor().y = GREEN ;
+				getDefaultColor().z = BLUE ;
+				goingColor = true ;
+			}
+		}
 	}
 	
 }
