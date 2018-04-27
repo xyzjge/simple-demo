@@ -12,7 +12,8 @@ import ar.com.xyz.gameengine.singleton.SingletonManager;
 
 public class GuiDemoGameState extends AbstractGameState {
 	
-	private static final String CIRCLE_TEXTURE = "circle" ;
+	// private static final String CIRCLE_TEXTURE = "circle" ;
+	private static final String CIRCLE_TEXTURE = "circle-1024x1024" ;
 	
 	// private static final String SONIDO_AMBIENTE = "el-ambiente_2.wav" ;
 	private static final String SONIDO_AMBIENTE = "el-ambiente_2.ogg" ;
