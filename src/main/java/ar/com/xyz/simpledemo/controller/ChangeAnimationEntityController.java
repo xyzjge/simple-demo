@@ -13,6 +13,7 @@ import ar.com.xyz.gameengine.particle.ParticleSystem;
 import ar.com.xyz.gameengine.particle.ParticleTexture;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.util.AnimationEventHandler;
+import ar.com.xyz.gameengine.util.VectorUtil;
 
 public class ChangeAnimationEntityController extends EntityController implements CrushHandler, AnimationEventHandler { 
 	
@@ -64,7 +65,7 @@ public class ChangeAnimationEntityController extends EntityController implements
 		particleSystem.setSpeedError(0.1f);
 		particleSystem.setScaleError(0.1f);
 		
-		Vector3f position = getEntity().getPosition() ;
+		Vector3f position = VectorUtil.getInstance().clone( getEntity().getPosition() ) ;
 		position.y += .5f ;
 		
 		ParticleEmission particleEmission = new ParticleEmission(particleSystem, position) ;

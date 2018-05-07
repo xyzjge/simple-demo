@@ -310,8 +310,9 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 				((YawPitchRollEntityController)entityController).setRoll(0);
 				*/
 			} else {
-				entityController.getEntity().getRotation().x = 360 - xxx.x ;
-				entityController.getEntity().getRotation().y = xxx.y ;
+//				entityController.getEntity().getRotation().x = 360 - xxx.x ;
+//				entityController.getEntity().getRotation().y = xxx.y ;
+				entityController.getEntity().setRotation(360 - xxx.x, xxx.y, entityController.getEntity().getRotation().z);
 			}
 
 	}
