@@ -391,5 +391,10 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 		cameraRotation.y = 0;
 		cameraRotation.z = 0;
 	}
+
+	@Override
+	public Vector3f getRotation() {
+		return cameraRotation;
+	}
 	
 }
