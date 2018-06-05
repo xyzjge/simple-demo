@@ -8,7 +8,7 @@ import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
 public class XYZDemoMainGameLoop extends AbstractMainGameLoop {
 
 	public XYZDemoMainGameLoop(String title) {
-		super(title) ;
+		super(title, 800, 600, true) ;
 	}
 
 	public static void main(String[] args) {
