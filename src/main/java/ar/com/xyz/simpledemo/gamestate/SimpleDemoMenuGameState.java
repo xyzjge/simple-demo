@@ -27,6 +27,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 		"LIGHTS",
 		"WATER",
 		"GUI",
+		"LIGHTS AND SHADOWS",
 		"EXIT"
 	} ;
 	
@@ -73,6 +74,8 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 			getMainGameLoop().setNextGameState(new WaterDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 16) {
 			getMainGameLoop().setNextGameState(new GuiDemoGameState(getMainGameLoop()));
+		} else if (selectionIndex == 17) {
+			getMainGameLoop().setNextGameState(new LightsAndShadowsMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png", this));
 		} else {
 			getMainGameLoop().stop(); 
 		}
