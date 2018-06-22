@@ -174,7 +174,7 @@ public class ViewStaticSceneDemoGameState extends AbstractGameState implements C
 	private void resaltarTriangulo(Vector3f p1, Vector3f p2, Vector3f p3) {
 		ResaltarTrianguloYCaso resaltarTrianguloYCaso = new ResaltarTrianguloYCaso(this) ;
 		Triangle triangle = new Triangle(p1,p2,p3) ;
-		resaltarTrianguloYCaso.restaltar(
+		resaltarTrianguloYCaso.resaltar(
 			triangle, p1,p2,p3, 
 			new ESpaceUtil(new Vector3f(1,1,1))
 		);
