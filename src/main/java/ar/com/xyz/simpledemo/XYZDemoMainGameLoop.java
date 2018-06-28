@@ -13,12 +13,17 @@ public class XYZDemoMainGameLoop extends AbstractMainGameLoop {
 	private static final int WIDTH = 1280 ;
 	private static final int HEIGHT = 720 ;
 	
+	private static final boolean FULL_SCREEN = false;
+	
 	public XYZDemoMainGameLoop(String title) {
-		super(title, WIDTH, HEIGHT, true) ;
+		super(title, WIDTH, HEIGHT, FULL_SCREEN) ;
 	}
 
 	public static void main(String[] args) {
 		SingletonManager.getInstance().getTextureManager().addTexturePath("/texture");
+		SingletonManager.getInstance().getTextureManager().addTexturePath("/textures");
+		SingletonManager.getInstance().getTextureManager().addTexturePath("/textures/heightmaps");
+		
 		// TODO: SingletonManager.getInstance().get ...
 		AudioMaster.addSoundPath("/sounds") ;
 		XYZDemoMainGameLoop mainGameLoop = new XYZDemoMainGameLoop("Simple Demo - XYZ Java Game Engine") ;
