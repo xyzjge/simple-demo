@@ -4,9 +4,6 @@ import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
-import ar.com.xyz.gameengine.entity.CrushHandler;
-import ar.com.xyz.gameengine.entity.spec.EntitySpec;
-import ar.com.xyz.gameengine.postprocessing.fisheye.FishEyePostProcessingFilter;
 import ar.com.xyz.gameengine.render.Loader;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.terrain.Terrain;
@@ -18,26 +15,24 @@ import ar.com.xyz.gameengine.texture.TerrainTexturePack;
  * @author alfredo
  *
  */
-public class TerrainDemoGameState extends AbstractGameState implements CrushHandler {
+public class TerrainDemoGameState extends AbstractGameState {
 
-	private static final String LEVEL = "water-demo-level" ;
-	
-	private FishEyePostProcessingFilter fishEyePostProcessingFilter = new FishEyePostProcessingFilter() ;
+//	private static final String LEVEL = "water-demo-level" ;
 	
 	protected TerrainDemoGameState(AbstractMainGameLoop mainGameLoop) {
 		super(mainGameLoop);
-		loadPlayerAndCamera() ;
 		
 		loadTerrain();
+		loadPlayerAndCamera() ;
 		
-		{	// Create SOLID_STATIC for the LEVEL
-			EntitySpec entitySpec ;
-			entitySpec = new EntitySpec(LEVEL) ;
-			entitySpec.setTexture("grass");
-			entitySpec.setScale(new Vector3f(1,1,1));
-			entitySpec.setPosition(new Vector3f(0, 0 /*-10*/,0));
-			createEntity(entitySpec);
-		}
+//		{	// Create SOLID_STATIC for the LEVEL
+//			EntitySpec entitySpec ;
+//			entitySpec = new EntitySpec(LEVEL) ;
+//			entitySpec.setTexture("grass");
+//			entitySpec.setScale(new Vector3f(1,1,1));
+//			entitySpec.setPosition(new Vector3f(0, 0 /*-10*/,0));
+//			createEntity(entitySpec);
+//		}
 		
 		createInputHandler(
 			mainGameLoop, getPlayer(), getCamera(), this, null, null
@@ -84,8 +79,8 @@ public class TerrainDemoGameState extends AbstractGameState implements CrushHand
 	private void loadPlayerAndCamera() {
 
 		createPlayerAndCamera(
-			new Vector3f(-1 /*-5*/, 10, 6 /*94*/), // new Vector3f(-5, 10, 90), // new Vector3f(5, 10, 5), //new Vector3f(10, 10, 10),
-			new Vector3f(0, -30, 0), // new Vector3f(0, 0, 0),
+			new Vector3f(20, 10, 20),
+			new Vector3f(0, 0, 0), 
 			new Vector3f(1, 1, 1),
 			true,
 			new Vector3f(.5f, 1f, .5f),
@@ -95,25 +90,14 @@ public class TerrainDemoGameState extends AbstractGameState implements CrushHand
 
 		// getCamera().decPitch(-90);
 		
-		getPlayer().setCrushHandler(this);
+//		getPlayer().setCrushHandler(this);
 		
 //		SingletonManager.getInstance().getEntityUtil().lookAt(getPlayer(), new Vector3f(0, 0, 0));
 
 		this.enableDebug(getPlayer());
 	}
 
-	@Override
-	public void crush() {
-//		handlePlayerDeath();
-		getPlayer().setPosition(new Vector3f(10, 10, 10));
-	}
-
 	private void handlePlayerDeath() {
-		if (containsPostProcessingFilter(fishEyePostProcessingFilter)) {
-			if (!removePostProcessingFilter(fishEyePostProcessingFilter)) {
-				System.out.println("WARN: no fishEyePostProcessingFilter ...");
-			}
-		}
 		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
 	}
 
