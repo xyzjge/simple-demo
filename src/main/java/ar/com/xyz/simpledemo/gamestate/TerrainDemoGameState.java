@@ -60,8 +60,15 @@ public class TerrainDemoGameState extends AbstractGameState {
 
 		// (0, 0) arranca en (0, 0) y crece hacia los positivos
 		// (x, z) arranca en (x * size, z * size) y crece hacia los positivos
-		setTerrain( new Terrain(0, 0 /* -1*/, loader, texturePack, blendMap, "heightmap", 100, 10) );
-		getAabbManager().addTerrain(getTerrain());
+		Terrain terrain = new Terrain(0, 0 /* -1*/, loader, texturePack, blendMap, "heightmap", 100, 10) ;
+		getTerrainList().add( terrain );
+		getAabbManager().addTerrain(terrain);
+		
+		{
+			Terrain terrain2 = new Terrain(0, -1, loader, texturePack, blendMap, "heightmap", 100, 10) ;
+			getTerrainList().add( terrain2 );
+			getAabbManager().addTerrain(terrain2);
+		}
 
 	}
 	
