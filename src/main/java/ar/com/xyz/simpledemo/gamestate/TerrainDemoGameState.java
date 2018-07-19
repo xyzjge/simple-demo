@@ -4,6 +4,10 @@ import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
+import ar.com.xyz.gameengine.entity.spec.EntitySpec;
+import ar.com.xyz.gameengine.enumerator.ColorEnum;
+import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
+import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.render.Loader;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.terrain.Terrain;
@@ -19,6 +23,10 @@ public class TerrainDemoGameState extends AbstractGameState {
 
 //	private static final String LEVEL = "water-demo-level" ;
 	
+	private static final boolean CAST_SHADOWS = true;
+	
+	private Terrain terrain ;
+
 	protected TerrainDemoGameState(AbstractMainGameLoop mainGameLoop) {
 		super(mainGameLoop);
 		
@@ -43,8 +51,37 @@ public class TerrainDemoGameState extends AbstractGameState {
 		setShowFps(true);
 		setShowPlayerPosition(true);
 		
+		getAmbientLight().x = .5f ;
+		getAmbientLight().y = .5f ;
+		getAmbientLight().z = .5f ;
+		
+		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(.0f,.75f,.75f), new Vector3f(-10000,-10000,-10000), .75f) ;
+		directionalLight.setCastShadows(CAST_SHADOWS);
+		setDirectionalLight(directionalLight);
+		
+		enableDebugKeys();
+		
+		agregarEsferas() ;
+		
+		
 	}
 	
+	private void agregarEsferas() {
+		for (int x = 0; x < 80; x+=20) {
+			for (int z = 0; z < 80; z+=20) {
+				{
+					EntitySpec entitySpec = new EntitySpec("esfera") ;
+					entitySpec.setTexture(ColorEnum.MAROON.getName());
+					entitySpec.setPosition(new Vector3f(x, terrain.getHeightOfTerrain(x, z), z));
+					entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
+		//			entitySpec.setScale(new Vector3f(.1f,.1f,.1f));
+					createEntity(entitySpec);
+				}
+			}
+		}
+		
+	}
+
 	private void loadTerrain() {
 		Loader loader = SingletonManager.getInstance().getLoader() ;
 
@@ -60,15 +97,15 @@ public class TerrainDemoGameState extends AbstractGameState {
 
 		// (0, 0) arranca en (0, 0) y crece hacia los positivos
 		// (x, z) arranca en (x * size, z * size) y crece hacia los positivos
-		Terrain terrain = new Terrain(0, 0 /* -1*/, loader, texturePack, blendMap, "heightmap", 100, 10) ;
+		terrain = new Terrain(0, 0 /* -1*/, loader, texturePack, blendMap, "heightmap", 100, 10) ;
 		getTerrainList().add( terrain );
 		getAabbManager().addTerrain(terrain);
 		
-		{
+/*		{
 			Terrain terrain2 = new Terrain(0, -1, loader, texturePack, blendMap, "heightmap", 100, 10) ;
 			getTerrainList().add( terrain2 );
 			getAabbManager().addTerrain(terrain2);
-		}
+		}*/
 
 	}
 	
