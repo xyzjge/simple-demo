@@ -94,8 +94,6 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).setAbstractGameState(this);
 
 	}
-
-	float secondsSubtitles = 100 ;
 	
 	@Override
 	public void tick(float tpf) {
@@ -108,13 +106,6 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 		if (getHandlePlayerInput().testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).hide();
-		}
-		
-		secondsSubtitles += tpf ;
-		
-		if (secondsSubtitles > 10) {
-			addNotification("Please enable subtitles !!!");
-			secondsSubtitles = 0 ;
 		}
 		
 	}
@@ -134,6 +125,7 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 		// getCamera().decPitch(-90);
 		
 		getPlayer().setCrushHandler(this);
+//		getPlayer().setGravity(0);
 		
 		SingletonManager.getInstance().getEntityUtil().lookAt(getPlayer(), new Vector3f(0, 0, 0));
 
