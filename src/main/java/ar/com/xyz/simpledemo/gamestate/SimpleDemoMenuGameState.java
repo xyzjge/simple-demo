@@ -29,6 +29,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 		"GUI",
 		"LIGHTS AND SHADOWS",
 		"TERRAIN",
+		"PRESENTATION",
 		"EXIT"
 	} ;
 	
@@ -79,6 +80,8 @@ public class SimpleDemoMenuGameState extends AbstractMenuGameState {
 			getMainGameLoop().setNextGameState(new LightsAndShadowsMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png", this));
 		} else if (selectionIndex == 18) {
 			getMainGameLoop().setNextGameState(new TerrainDemoGameState(getMainGameLoop()));
+		} else if (selectionIndex == 19) {
+			getMainGameLoop().setNextGameState(new PresentationMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png", this));
 		} else {
 			getMainGameLoop().stop(); 
 		}
