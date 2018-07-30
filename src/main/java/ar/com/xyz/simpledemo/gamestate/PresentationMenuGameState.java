@@ -5,8 +5,10 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.util.AbstractMenuGameState;
 import ar.com.xyz.gameengine.util.FontSpec;
+import ar.com.xyz.simpledemo.presentation.ColladaAnimationDemoGameState;
 import ar.com.xyz.simpledemo.presentation.ObjMultipleTextureGameState;
 import ar.com.xyz.simpledemo.presentation.ObjSingleTextureGameState;
+import ar.com.xyz.simpledemo.presentation.PositionRotationScaleGameState;
 import ar.com.xyz.simpledemo.presentation.PresentationGameState;
 
 public class PresentationMenuGameState extends AbstractMenuGameState {
@@ -15,6 +17,8 @@ public class PresentationMenuGameState extends AbstractMenuGameState {
 		"PRESENTATION",
 		"OBJ (SINGLE TEXTURE)",
 		"OBJ (MULTIPLE TEXTURE)",
+		"DAE (SINGLE TEXTURE)",
+		"POSITION ROTATION SCALE",
 		"MAIN MENU"
 	} ;
 	
@@ -36,6 +40,10 @@ public class PresentationMenuGameState extends AbstractMenuGameState {
 			getMainGameLoop().setNextGameState(new ObjSingleTextureGameState(getMainGameLoop()));
 		} else if (selectionIndex == 2) {
 			getMainGameLoop().setNextGameState(new ObjMultipleTextureGameState(getMainGameLoop()));
+		} else if (selectionIndex == 3) {
+			getMainGameLoop().setNextGameState(new ColladaAnimationDemoGameState(getMainGameLoop()));
+		} else if (selectionIndex == 4) {
+			getMainGameLoop().setNextGameState(new PositionRotationScaleGameState(getMainGameLoop()));
 		} else {
 			getMainGameLoop().setNextGameState(simpleDemoMenuGameState); 
 		}
