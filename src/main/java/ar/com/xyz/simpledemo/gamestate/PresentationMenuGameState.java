@@ -10,6 +10,7 @@ import ar.com.xyz.simpledemo.presentation.ObjMultipleTextureGameState;
 import ar.com.xyz.simpledemo.presentation.ObjSingleTextureGameState;
 import ar.com.xyz.simpledemo.presentation.PositionRotationScaleGameState;
 import ar.com.xyz.simpledemo.presentation.PresentationGameState;
+import ar.com.xyz.simpledemo.presentation.parentchild.ParentChildRelationshipGameState;
 
 public class PresentationMenuGameState extends AbstractMenuGameState {
 	
@@ -19,6 +20,7 @@ public class PresentationMenuGameState extends AbstractMenuGameState {
 		"OBJ (MULTIPLE TEXTURE)",
 		"DAE (SINGLE TEXTURE)",
 		"POSITION ROTATION SCALE",
+		"PARENT CHILD RELATIONSHIP",
 		"MAIN MENU"
 	} ;
 	
@@ -44,6 +46,8 @@ public class PresentationMenuGameState extends AbstractMenuGameState {
 			getMainGameLoop().setNextGameState(new ColladaAnimationDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 4) {
 			getMainGameLoop().setNextGameState(new PositionRotationScaleGameState(getMainGameLoop()));
+		} else if (selectionIndex == 5) {
+			getMainGameLoop().setNextGameState(new ParentChildRelationshipGameState(getMainGameLoop()));
 		} else {
 			getMainGameLoop().setNextGameState(simpleDemoMenuGameState); 
 		}

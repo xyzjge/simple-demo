@@ -28,25 +28,25 @@ public class OrbitZEntityController extends EntityController {
 		
 		if (seconds > 20) {
 			
-		float xxx = fts * 0.5f ;
-		if (yendo) {
-			if (scale < 3) {
-				scale += xxx ;
+			float xxx = fts /* * 0.75f */;
+			if (yendo) {
+				if (scale < 3) {
+					scale += xxx ;
+				} else {
+					yendo = !yendo ;
+					scale -= xxx ;
+				}
 			} else {
-				yendo = !yendo ;
-				scale -= xxx ;
+				if (scale > 1) {
+					scale -= xxx ;
+				} else {
+					yendo = !yendo ;
+					scale += xxx ;
+				}
 			}
-		} else {
-			if (scale > 1) {
-				scale -= xxx ;
-			} else {
-				yendo = !yendo ;
-				scale += xxx ;
-			}
-		}
 		
-		
-			getEntity().setScale(scale, scale,scale);
+			getEntity().setScale(scale, scale, scale);
+			
 		}
 		
 		getEntity().setPosition(

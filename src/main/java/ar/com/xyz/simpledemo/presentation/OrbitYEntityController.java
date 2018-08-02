@@ -13,27 +13,41 @@ public class OrbitYEntityController extends EntityController {
 
 	boolean yendo = true ;
 	
+	float seconds = 0 ;
+	
+	float scale = 2 ;
+	
 	@Override
 	public void update(float fts) {
+		seconds += fts ;
 		angle += fts ;
 		
-//		float xxx = fts * 2.5f ;
-//		if (yendo) {
-//			if (radio > 2) {
-//				radio -= xxx ;
-//			} else {
-//				yendo = !yendo ;
-//				radio += xxx ;
-//			}
-//		} else {
-//			if (radio < 10) {
-//				radio += xxx ;
-//			} else {
-//				yendo = !yendo ;
-//				radio -= xxx ;
-//			}
-//		}
+		if (seconds > 10) {
+			getEntity().increaseRotation(0, fts * -100, 0);
+		}
 		
+		if (seconds > 20) {
+			
+			float xxx = fts /* * 0.75f */;
+			if (yendo) {
+				if (scale < 3) {
+					scale += xxx ;
+				} else {
+					yendo = !yendo ;
+					scale -= xxx ;
+				}
+			} else {
+				if (scale > 1) {
+					scale -= xxx ;
+				} else {
+					yendo = !yendo ;
+					scale += xxx ;
+				}
+			}
+		
+			getEntity().setScale(scale, scale, scale);
+
+		}
 		getEntity().setPosition(
 			initialPosition.x + ((float)Math.sin(angle + Math.PI ))*radio, 
 			radio, 

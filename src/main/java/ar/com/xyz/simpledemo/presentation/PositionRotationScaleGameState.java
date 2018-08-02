@@ -105,7 +105,7 @@ public class PositionRotationScaleGameState extends AbstractGameState implements
 	private void loadPlayerAndCamera() {
 
 		createPlayerAndCamera(
-			new Vector3f(0, -2, -5),
+			new Vector3f(-25, 25, -25),
 			new Vector3f(0, 0, 0), // new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),
 			true,
