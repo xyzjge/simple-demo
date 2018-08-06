@@ -101,8 +101,6 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 		
 		this.getGuis().add(sweepSphereInAABBGuiTexture) ;
 	}
-
-	float secondsSubtitles = 100 ;
 	
 	float seconds = 0 ;
 	float secondsDebug = 0 ;
@@ -124,12 +122,6 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 		
 		seconds += tpf ;
 		secondsDebug += tpf ;
-		secondsSubtitles += tpf ;
-		
-		if (secondsSubtitles > 10) {
-			addNotification("Please enable subtitles !!!");
-			secondsSubtitles = 0 ;
-		}
 		
 		if (seconds > 20) {
 			seconds = 0;
@@ -174,7 +166,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 			new Vector3f(1, 1, 1),
 			true,
 			new Vector3f(.5f, 1f, .5f),
-			new Vector3f(.5f, .5f, .5f), null, true,
+			new Vector3f(.5f, .5f, .5f), null, false,
 			null
 		) ;
 
@@ -182,6 +174,8 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 		
 		playerDeathHandler = new PlayerDeathHandler(getMainGameLoop(), this) ;
 		getPlayer().setCrushHandler(playerDeathHandler);
+		getPlayer().setRunSpeed(1f);
+		getPlayer().setStrafeSpeed(1f);
 		this.enableDebug(getPlayer());
 	}
 
