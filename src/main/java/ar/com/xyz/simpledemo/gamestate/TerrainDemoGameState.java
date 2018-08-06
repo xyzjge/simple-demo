@@ -1,18 +1,22 @@
 package ar.com.xyz.simpledemo.gamestate;
 
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
+import ar.com.xyz.gameengine.cameracontroller.FollowEntityFromFixedDirectionCameraController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.ColorEnum;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
+import ar.com.xyz.gameengine.gui.GuiTexture;
 import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.render.Loader;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.terrain.Terrain;
 import ar.com.xyz.gameengine.texture.TerrainTexture;
 import ar.com.xyz.gameengine.texture.TerrainTexturePack;
+import ar.com.xyz.gameengine.util.GuiCameraSpec;
 
 /**
  * Terrain
@@ -63,6 +67,31 @@ public class TerrainDemoGameState extends AbstractGameState {
 		
 		agregarEsferas() ;
 		
+	}
+	
+	
+	
+	@Override
+	public void attachedToMainLoop() {
+		// TODO Auto-generated method stub
+		super.attachedToMainLoop();
+		setupSecondCamera() ;
+	}
+
+
+
+	private FollowEntityFromFixedDirectionCameraController followEntityFromFixedDirectionCameraController ;
+	
+	private void setupSecondCamera() {
+		// followEntityFromFixedDirectionCameraController = new FollowEntityFromFixedDirectionCameraController(1, new Vector3f(-10000,-10000,-10000), getPlayer()) ;
+		followEntityFromFixedDirectionCameraController = new FollowEntityFromFixedDirectionCameraController(5, new Vector3f(1,-1,1), getPlayer(), getCamera().getCameraController()) ;
+		GuiCameraSpec guiCameraSpec = new GuiCameraSpec(followEntityFromFixedDirectionCameraController) ;
+		// GuiCameraSpec guiCameraSpec = new GuiCameraSpec(getCamera().getCameraController()) ;
+		
+		GuiTexture guiTexture = new GuiTexture(guiCameraSpec.getOutputFbo().getColourTexture(), new Vector2f(.5f, .5f), new Vector2f(.25f, .25f)) ;
+		guiTexture.setFboTexture(true);
+		getGuis().add(guiTexture) ;
+		getGuiCameraSpecList().add(guiCameraSpec);
 		
 	}
 	
@@ -118,6 +147,7 @@ public class TerrainDemoGameState extends AbstractGameState {
 		
 		getHandlePlayerInput().handlePlayerInput();
 		
+		followEntityFromFixedDirectionCameraController.update(tpf);
 	}
 
 	private void loadPlayerAndCamera() {
@@ -138,6 +168,7 @@ public class TerrainDemoGameState extends AbstractGameState {
 		
 //		SingletonManager.getInstance().getEntityUtil().lookAt(getPlayer(), new Vector3f(0, 0, 0));
 
+		getPlayer().setRunSpeed(3);
 		this.enableDebug(getPlayer());
 	}
 
