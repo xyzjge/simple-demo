@@ -138,8 +138,6 @@ public class CollisionTypeSolidDynamicDemoGameState extends AbstractGameState {
 		
 		this.getGuis().add(sweepSphereInAABBGuiTexture) ;
 	}
-
-	float secondsSubtitles = 100 ;
 	
 	float seconds = 0 ;
 	float secondsDebug = 0 ;
@@ -161,12 +159,6 @@ public class CollisionTypeSolidDynamicDemoGameState extends AbstractGameState {
 		
 		seconds += tpf ;
 		secondsDebug += tpf ;
-		secondsSubtitles += tpf ;
-		
-		if (secondsSubtitles > 10) {
-			addNotification("Please enable subtitles !!!");
-			secondsSubtitles = 0 ;
-		}
 		
 		if (seconds > 10) {
 			seconds = 0;
@@ -218,6 +210,9 @@ public class CollisionTypeSolidDynamicDemoGameState extends AbstractGameState {
 		
 		playerDeathHandler = new PlayerDeathHandler(getMainGameLoop(), this) ;
 		getPlayer().setCrushHandler(playerDeathHandler);
+		
+		getPlayer().setRunSpeed(1);
+		getPlayer().setStrafeSpeed(1);
 		this.enableDebug(getPlayer());
 	}
 
