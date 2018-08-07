@@ -12,6 +12,7 @@ import ar.com.xyz.simpledemo.presentation.PositionRotationScaleGameState;
 import ar.com.xyz.simpledemo.presentation.PresentationGameState;
 import ar.com.xyz.simpledemo.presentation.lights.TerrainDemoGameState ;
 import ar.com.xyz.simpledemo.presentation.parentchild.ParentChildRelationshipGameState;
+import ar.com.xyz.simpledemo.presentation.skybox.SkyboxDemoGameState;
 import ar.com.xyz.simpledemo.presentation.sound.SoundDemoGameState;
 
 public class PresentationMenuGameState extends AbstractMenuGameState {
@@ -25,6 +26,7 @@ public class PresentationMenuGameState extends AbstractMenuGameState {
 		"PARENT CHILD RELATIONSHIP",
 		"LIGHTS",
 		"SOUND",
+		"SKYBOX",
 		"MAIN MENU"
 	} ;
 	
@@ -56,6 +58,8 @@ public class PresentationMenuGameState extends AbstractMenuGameState {
 			getMainGameLoop().setNextGameState(new TerrainDemoGameState(getMainGameLoop()));
 		} else if (selectionIndex == 7) {
 			getMainGameLoop().setNextGameState(new SoundDemoGameState(getMainGameLoop()));
+		} else if (selectionIndex == 8) {
+			getMainGameLoop().setNextGameState(new SkyboxDemoGameState(getMainGameLoop()));
 		} else {
 			getMainGameLoop().setNextGameState(simpleDemoMenuGameState); 
 		}
