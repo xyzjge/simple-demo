@@ -6,7 +6,6 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.cameracontroller.DefaultCameraController;
-import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -62,10 +61,9 @@ public class ObjMultipleTextureGameState extends AbstractGameState implements Cr
 		getHandlePlayerInput().clearMouseEvents();
 	}
 
-	
 	@Override
 	public void tick(float tpf) {
-
+		
 //		System.out.println(rotationEntityController.getEntity().getPosition());
 		if (getPlayer().getPosition().y < -100) {
 			handlePlayerDeath() ;

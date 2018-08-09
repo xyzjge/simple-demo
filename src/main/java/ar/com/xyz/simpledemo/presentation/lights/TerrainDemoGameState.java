@@ -5,6 +5,8 @@ import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
+import ar.com.xyz.gameengine.client.entitycontroller.DummyEntityController;
+import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.ColorEnum;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
@@ -32,8 +34,20 @@ public class TerrainDemoGameState extends AbstractGameState implements InputHand
 	
 	private DemoState state = DemoState.AMBIENT_LIGHT_DEMO ;
 
+	private EntityController entityController = new DummyEntityController() ;
+	
 	public TerrainDemoGameState(AbstractMainGameLoop mainGameLoop) {
 		super(mainGameLoop);
+		
+		{	// Create sphere to debug light position
+			EntitySpec entitySpec ;
+			entitySpec = new EntitySpec("esfera") ;
+			entitySpec.setTexture("red");
+			entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
+			entitySpec.setScale(new Vector3f(.25f, .25f, .25f));
+			entitySpec.setEntityController(entityController);
+			createEntity(entitySpec);
+		}
 		
 		loadTerrain();
 		loadPlayerAndCamera() ;
@@ -166,7 +180,7 @@ public class TerrainDemoGameState extends AbstractGameState implements InputHand
 			directionalLightDemoController.tick(tpf);
 			break;
 		case POINT_LIGHT_DEMO:
-			pointLightDemoController.tick(tpf);
+			pointLightDemoController.tick(tpf, entityController);
 			break ;
 		case SPOT_LIGHT_DEMO:
 			spotLightDemoController.tick(tpf);

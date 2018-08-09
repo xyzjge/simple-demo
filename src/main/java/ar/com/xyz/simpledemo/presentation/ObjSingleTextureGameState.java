@@ -12,6 +12,7 @@ import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.input.InputHandler;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
+import ar.com.xyz.gameengine.util.VectorUtil;
 import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
 
 /**
@@ -58,16 +59,38 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 		getHandlePlayerInput().clearMouseEvents();
 	}
 
+	Vector3f playerLastPosition = new Vector3f(0,0,0) ;
 	
 	@Override
 	public void tick(float tpf) {
 
-		System.out.println(rotationEntityController.getEntity().getPosition());
+		if (getPlayer().getPosition().equals(playerLastPosition)) {
+			
+		} else {
+			agregarEsferaEn(getPlayer().getPosition()) ;
+			VectorUtil.getInstance().copyValues(playerLastPosition, getPlayer().getPosition());
+		}
+		
+		// System.out.println(rotationEntityController.getEntity().getPosition());
 		if (getPlayer().getPosition().y < -100) {
 			handlePlayerDeath() ;
 		}
 		
 		getHandlePlayerInput().handlePlayerInput();
+		
+	}
+
+	private void agregarEsferaEn(Vector3f position) {
+		{	// Create sphere to debug light position
+			EntitySpec entitySpec ;
+			entitySpec = new EntitySpec("esfera") ;
+			entitySpec.setTexture("red");
+			entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
+			entitySpec.setScale(new Vector3f(.25f, .25f, .25f));
+			entitySpec.setPosition(new Vector3f(position.x, position.y, position.z));
+//			entitySpec.setEntityController(entityController);
+			createEntity(entitySpec);
+		}
 		
 	}
 
@@ -77,7 +100,7 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 			new Vector3f(0, -2, -5),
 			new Vector3f(0, 0, 0), // new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),
-			true,
+			false /* true */,
 			new Vector3f(.5f, 1f, .5f),
 			new Vector3f(.5f, .5f, .5f), null, true,
 			null
