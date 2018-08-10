@@ -15,7 +15,7 @@ import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
  */
 public class SkyboxDemoGameState extends AbstractGameState {
 
-	private static float UNIT = 8 ;
+	private static float STATE_TIME_UNIT = 8 ;
 	
 	private static String[] DAY_TEXTURE_FILES = {"right", "left", "top", "bottom", "back", "front"} ;
 	private static String[] NIGHT_TEXTURE_FILES = {"nightRight", "nightLeft", "nightTop", "nightBottom", "nightBack", "nightFront"} ;
@@ -24,6 +24,8 @@ public class SkyboxDemoGameState extends AbstractGameState {
 	private SkyboxTexture daySkyboxTexture = new SkyboxTexture("/texture/skybox/", DAY_TEXTURE_FILES) ;
 	private SkyboxTexture nightSkyboxTexture = new SkyboxTexture("/texture/skybox/", NIGHT_TEXTURE_FILES) ;
 	private SkyboxTexture redSkyboxTexture = new SkyboxTexture("/texture/skybox/", RED_TEXTURE_FILES) ;
+	
+	private StateEnum state = null ;
 	
 	private static final String LEVEL = "s-box" ;
 	
@@ -67,12 +69,9 @@ public class SkyboxDemoGameState extends AbstractGameState {
 	}
 
 	float xxx = 0 ;
-	boolean nightSkyboxTextureSet = false ;
-	boolean redSkyboxTextureSet = false ;
 	
 	@Override
 	public void tick(float tpf) {
-		xxx+=tpf ;
 
 		if (getPlayer().getPosition().y < -100) {
 			handlePlayerDeath() ;
@@ -80,21 +79,45 @@ public class SkyboxDemoGameState extends AbstractGameState {
 		
 		getHandlePlayerInput().handlePlayerInput();
 		
-		if (xxx>UNIT && !nightSkyboxTextureSet) {
-			setSkyboxTextureA(nightSkyboxTexture);
-			nightSkyboxTextureSet = true ;
-		}
-		if (xxx>UNIT*2 && !redSkyboxTextureSet) {
-			setSkyboxTextureA(redSkyboxTexture);
-			redSkyboxTextureSet = true ;
+		xxx+=tpf ;
+		
+		if (state != null && (state == StateEnum.DAY_RED || state == StateEnum.RED_NIGHT)) {
+			setSkyboxBlendFactor(xxx / STATE_TIME_UNIT);
+			System.out.println(getSkyboxBlendFactor());
 		}
 		
-		if (xxx>UNIT*3) {
+		if (xxx > STATE_TIME_UNIT) {
 			xxx = 0 ;
-			nightSkyboxTextureSet = false ;
-			redSkyboxTextureSet = false ;
-			setSkyboxTextureA(daySkyboxTexture);
+			if (state == null) {
+				state = StateEnum.DAY ;
+				setSkyboxTextureA(daySkyboxTexture);
+				return ;
+			}
+			
+			switch (state) {
+			case DAY:
+				state = StateEnum.DAY_RED ;
+				setSkyboxTextureA(daySkyboxTexture);
+				setSkyboxTextureB(redSkyboxTexture);
+				setSkyboxBlendFactor(0);
+				break;
+			case DAY_RED:
+				state = StateEnum.RED_NIGHT ;
+				setSkyboxTextureA(redSkyboxTexture);
+				setSkyboxTextureB(nightSkyboxTexture);
+				setSkyboxBlendFactor(0);
+				break;
+			case RED_NIGHT:
+				state = StateEnum.NIGHT ;
+				setSkyboxTextureA(nightSkyboxTexture);
+				setSkyboxTextureB(null);
+				break;
+			default:
+				break;
+			}
+			
 		}
+		
 	}
 
 	private void loadPlayerAndCamera() {
@@ -108,12 +131,6 @@ public class SkyboxDemoGameState extends AbstractGameState {
 			new Vector3f(.5f, .5f, .5f), null, true,
 			null
 		) ;
-
-		// getCamera().decPitch(-90);
-		
-//		getPlayer().setCrushHandler(this);
-		
-//		SingletonManager.getInstance().getEntityUtil().lookAt(getPlayer(), new Vector3f(0, 0, 0));
 
 		getPlayer().setRunSpeed(3);
 		getPlayer().setStrafeSpeed(3);
