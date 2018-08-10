@@ -81,11 +81,11 @@ public class SkyboxDemoGameState extends AbstractGameState {
 		getHandlePlayerInput().handlePlayerInput();
 		
 		if (xxx>UNIT && !nightSkyboxTextureSet) {
-			getMainGameLoop().getMasterRenderer().setSkyboxTexture(nightSkyboxTexture);
+			setSkyboxTextureA(nightSkyboxTexture);
 			nightSkyboxTextureSet = true ;
 		}
 		if (xxx>UNIT*2 && !redSkyboxTextureSet) {
-			getMainGameLoop().getMasterRenderer().setSkyboxTexture(redSkyboxTexture);
+			setSkyboxTextureA(redSkyboxTexture);
 			redSkyboxTextureSet = true ;
 		}
 		
@@ -93,7 +93,7 @@ public class SkyboxDemoGameState extends AbstractGameState {
 			xxx = 0 ;
 			nightSkyboxTextureSet = false ;
 			redSkyboxTextureSet = false ;
-			getMainGameLoop().getMasterRenderer().setSkyboxTexture(daySkyboxTexture);
+			setSkyboxTextureA(daySkyboxTexture);
 		}
 	}
 
@@ -124,10 +124,11 @@ public class SkyboxDemoGameState extends AbstractGameState {
 		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
 	}
 
+	float skyboxRotationSpeed = -10;
+
 	@Override
-	protected SkyboxTexture getSkyboxTexture() {
-		return daySkyboxTexture ;
-//		return new SkyboxTexture("/texture/skybox/", TEXTURE_FILES) ;
+	public float getSkyboxRotationSpeed() {
+		return skyboxRotationSpeed ;
 	}
 	
 }
