@@ -1,4 +1,4 @@
-package ar.com.xyz.simpledemo.gamestate.lightandshadow;
+package ar.com.xyz.simpledemo.lightandshadow;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -14,7 +14,7 @@ import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.light.PointLight;
 import ar.com.xyz.gameengine.light.SpotLight;
 import ar.com.xyz.simpledemo.enumerator.LigthsDemoEnum;
-import ar.com.xyz.simpledemo.gamestate.lightandshadow.menuitem.LightsAndShadowsMenuMenuItem;
+import ar.com.xyz.simpledemo.lightandshadow.menuitem.LightsAndShadowsMenuMenuItem;
 
 /**
  * @author alfredo

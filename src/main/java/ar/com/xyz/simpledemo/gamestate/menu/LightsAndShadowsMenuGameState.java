@@ -8,9 +8,9 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.util.AbstractMenuItemBasedMenuGameState;
 import ar.com.xyz.gameengine.util.FontSpec;
 import ar.com.xyz.gameengine.util.MenuItem;
-import ar.com.xyz.simpledemo.gamestate.lightandshadow.menuitem.LightAndShadowBoxWithInNormalsMenuItem;
-import ar.com.xyz.simpledemo.gamestate.lightandshadow.menuitem.LightAndShadowMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
+import ar.com.xyz.simpledemo.lightandshadow.menuitem.LightAndShadowBoxWithInNormalsMenuItem;
+import ar.com.xyz.simpledemo.lightandshadow.menuitem.LightAndShadowMenuItem;
 
 public class LightsAndShadowsMenuGameState extends AbstractMenuItemBasedMenuGameState {
 	
