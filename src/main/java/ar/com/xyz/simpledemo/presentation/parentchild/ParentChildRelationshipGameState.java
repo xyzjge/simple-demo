@@ -7,7 +7,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
@@ -16,7 +15,7 @@ import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.input.InputHandler;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 /**
  * @author alfredo
@@ -26,8 +25,7 @@ public class ParentChildRelationshipGameState extends AbstractGameState implemen
 	
 	private List<EntityController> entityControllerList = new ArrayList<EntityController>() ;
 	
-	public ParentChildRelationshipGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public ParentChildRelationshipGameState() {
 		
 		SingletonManager.getInstance().getObjWithMaterialFileLoader().addObjPath("/models/presentation") ;
 		SingletonManager.getInstance().getObjWithMaterialFileLoader().addMtlPath("/models/presentation") ;
@@ -55,9 +53,6 @@ public class ParentChildRelationshipGameState extends AbstractGameState implemen
 				createChildEntity(entityController, i, -5, 5, 30, false, "blue");
 			}
 		}
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -95,11 +90,15 @@ public class ParentChildRelationshipGameState extends AbstractGameState implemen
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 		getHandlePlayerInput().clearEvents();
 		getHandlePlayerInput().clearMouseEvents();
 	}
 
-	
 	@Override
 	public void tick(float tpf) {
 
@@ -158,7 +157,7 @@ public class ParentChildRelationshipGameState extends AbstractGameState implemen
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 	
 	@Override

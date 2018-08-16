@@ -6,17 +6,15 @@ import java.util.Map;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.cameracontroller.CameraController;
 import ar.com.xyz.gameengine.collada.AlfreAnimationInfo;
-import ar.com.xyz.gameengine.collision.EntityUtil;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.AnimatedEntitySpec;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 public class ColladaAnimationDemoGameState extends AbstractGameState implements CrushHandler, CameraController {
 	
@@ -28,8 +26,7 @@ public class ColladaAnimationDemoGameState extends AbstractGameState implements 
 	private static final String AXE_ZOMBIE_WAIT_MODEL = "/models/axe-zombie-wait.dae" ;
 	private static final String AXE_ZOMBIE_ATTACK_MODEL = "/models/axe-zombie-attack.dae" ;
 	
-	public ColladaAnimationDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public ColladaAnimationDemoGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -74,10 +71,6 @@ public class ColladaAnimationDemoGameState extends AbstractGameState implements 
 			createAnimatedEntity(animatedEntitySpec) ;
 		}
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
@@ -89,6 +82,16 @@ public class ColladaAnimationDemoGameState extends AbstractGameState implements 
 		// getCamera().setCameraController(this);
 		getCamera().setCameraController(new OrbitCameraController());
 
+	}
+	
+	@Override
+	public void attachedToMainLoop() {
+		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 	}
 	
 	@Override
@@ -141,7 +144,7 @@ public class ColladaAnimationDemoGameState extends AbstractGameState implements 
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 	private Vector3f cameraPosition = new Vector3f(0,12,10) ;

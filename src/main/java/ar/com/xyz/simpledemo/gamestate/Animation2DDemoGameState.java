@@ -7,13 +7,13 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.gui.AnimatedGuiTexture;
 import ar.com.xyz.gameengine.gui.SpriteSheetAnimationSpec;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.util.SpriteSheetAnimationEventHandler;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 public class Animation2DDemoGameState extends AbstractGameState implements CrushHandler, SpriteSheetAnimationEventHandler {
 	
@@ -26,8 +26,7 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 	
 	private AnimatedGuiTexture dynamiteBundlesAnimatedTexture ;
 	
-	protected Animation2DDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public Animation2DDemoGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -62,10 +61,6 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 //			weaponTypeAnimatedGuiTextureMap.put(WeaponTypeEnum.DYNAMITE_BUNDLES, dynamiteBundlesAnimatedTexture) ;
 		}
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
@@ -73,7 +68,16 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 		
 	}
 
-	float secondsSubtitles = 100 ;
+	@Override
+	public void attachedToMainLoop() {
+		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
+	}
+
 	float secondsAnim = 0 ;
 	
 	@Override
@@ -83,12 +87,6 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 		}
 		
 		getHandlePlayerInput().handlePlayerInput();
-		
-		secondsSubtitles += tpf ;
-		if (secondsSubtitles > 10) {
-			addNotification("Please enable subtitles !!!");
-			secondsSubtitles = 0 ;
-		}
 		
 		dynamiteBundlesAnimatedTexture.update(tpf);
 //		secondsAnim += tpf ;
@@ -122,7 +120,7 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 	
 	@Override

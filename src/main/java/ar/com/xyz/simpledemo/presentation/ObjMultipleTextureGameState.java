@@ -4,7 +4,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.cameracontroller.DefaultCameraController;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
@@ -12,7 +11,7 @@ import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.input.InputHandler;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 /**
  * @author alfredo
@@ -22,8 +21,7 @@ public class ObjMultipleTextureGameState extends AbstractGameState implements Cr
 	
 //	private RotationEntityController rotationEntityController = new RotationEntityController(0, 20, 0) ;
 	
-	public ObjMultipleTextureGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public ObjMultipleTextureGameState() {
 		
 		loadPlayerAndCamera() ;
 		
@@ -40,10 +38,6 @@ public class ObjMultipleTextureGameState extends AbstractGameState implements Cr
 			createEntity(entitySpec);
 		}
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 //		setShowFps(true);
@@ -57,10 +51,15 @@ public class ObjMultipleTextureGameState extends AbstractGameState implements Cr
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 		getHandlePlayerInput().clearEvents();
 		getHandlePlayerInput().clearMouseEvents();
 	}
-
+	
 	@Override
 	public void tick(float tpf) {
 		
@@ -118,7 +117,7 @@ public class ObjMultipleTextureGameState extends AbstractGameState implements Cr
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 	
 	@Override

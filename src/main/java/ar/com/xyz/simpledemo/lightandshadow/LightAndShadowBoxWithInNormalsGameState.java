@@ -4,7 +4,6 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.debug.ResaltarXYZ;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -17,7 +16,7 @@ import ar.com.xyz.gameengine.light.PointLight;
 import ar.com.xyz.gameengine.light.SpotLight;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.enumerator.LigthsDemoEnum;
-import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 /**
  * @author alfredo
@@ -41,8 +40,7 @@ public class LightAndShadowBoxWithInNormalsGameState extends AbstractGameState i
 	
 	private ResaltarXYZ resaltarXYZ ;
 	
-	public LightAndShadowBoxWithInNormalsGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public LightAndShadowBoxWithInNormalsGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -91,9 +89,6 @@ public class LightAndShadowBoxWithInNormalsGameState extends AbstractGameState i
 			createEntity(entitySpec);
 		}
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
 		//configureKeys();
 		
 		grabMouseIfNotGrabbed() ;
@@ -103,15 +98,23 @@ public class LightAndShadowBoxWithInNormalsGameState extends AbstractGameState i
 		
 		setupDirectionalLight();
 		
-
-		GuiTexture guiTexture2 = new GuiTexture(getMainGameLoop().getMasterRenderer().getShadowMapTexture(), new Vector2f(-.5f, .5f), new Vector2f(.25f, .25f)) ;
-		guiTexture2.setFboTexture(true);
-		getGuis().add(guiTexture2) ;
-		
 		resaltarXYZ = new ResaltarXYZ(this) ;
 
 	}
 
+	@Override
+	public void attachedToMainLoop() {
+		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+			GuiTexture guiTexture2 = new GuiTexture(getMainGameLoop().getMasterRenderer().getShadowMapTexture(), new Vector2f(-.5f, .5f), new Vector2f(.25f, .25f)) ;
+			guiTexture2.setFboTexture(true);
+			getGuis().add(guiTexture2) ;
+		}
+	}
+	
 	@Override
 	public void tick(float tpf) {
 
@@ -154,7 +157,7 @@ public class LightAndShadowBoxWithInNormalsGameState extends AbstractGameState i
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 	
 	private void setupDirectionalLight() {

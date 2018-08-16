@@ -3,7 +3,6 @@ package ar.com.xyz.simpledemo.gamestate;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.collision.Triangle;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.debug.collision.DetailedCollisionDataPlayer;
@@ -12,6 +11,7 @@ import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.ray.RayTracerVO;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 /**
  * Para debugear colisiones con una parte de un nivel ...
@@ -26,8 +26,7 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameSta
 	
 	private Player collisionDataPlayer ;
 	
-	protected CollisionTypeSweptSphereSimpleDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public CollisionTypeSweptSphereSimpleDemoGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -52,10 +51,6 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameSta
 			createEntity(entitySpec);
 		}
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
@@ -66,10 +61,14 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameSta
 
 	}
 	
-	
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 		if (!PLAY) {
 			SingletonManager.getInstance().getCollisionDataRecorder().setActive(true);
 		} else {
@@ -77,7 +76,6 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameSta
 			collisionDataPlayer = new DetailedCollisionDataPlayer(this) ;
 		}
 	}
-
 
 	@Override
 	public void tick(float tpf) {
@@ -156,7 +154,7 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameSta
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 }

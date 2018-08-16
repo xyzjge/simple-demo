@@ -4,7 +4,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
@@ -13,7 +12,7 @@ import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.input.InputHandler;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.util.VectorUtil;
-import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 /**
  * @author alfredo
@@ -23,8 +22,7 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 	
 	private RotationEntityController rotationEntityController = new RotationEntityController(0, 20, 0) ;
 	
-	public ObjSingleTextureGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public ObjSingleTextureGameState() {
 		
 		loadPlayerAndCamera() ;
 		
@@ -37,10 +35,6 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 			entitySpec.setEntityController(rotationEntityController);
 			createEntity(entitySpec);
 		}
-		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -55,10 +49,15 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 		getHandlePlayerInput().clearEvents();
 		getHandlePlayerInput().clearMouseEvents();
 	}
-
+	
 	Vector3f playerLastPosition = new Vector3f(0,0,0) ;
 	
 	@Override
@@ -134,7 +133,7 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 	
 	@Override

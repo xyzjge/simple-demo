@@ -4,7 +4,6 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.audio.AudioMaster;
 import ar.com.xyz.gameengine.audio.Source;
 import ar.com.xyz.gameengine.gui.GuiTexture;
@@ -33,8 +32,7 @@ public class GuiDemoGameState extends AbstractGameState {
 	
 	private GuiTexture guiCinco ;
 	
-	public GuiDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public GuiDemoGameState() {
 		
 		guiUno = createGuiTexture() ;
 		getGuis().add(guiUno) ;

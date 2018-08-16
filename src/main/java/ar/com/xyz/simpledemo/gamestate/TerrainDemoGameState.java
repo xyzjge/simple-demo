@@ -4,7 +4,6 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.cameracontroller.FollowEntityFromFixedDirectionCameraController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.ColorEnum;
@@ -17,6 +16,7 @@ import ar.com.xyz.gameengine.terrain.Terrain;
 import ar.com.xyz.gameengine.texture.TerrainTexture;
 import ar.com.xyz.gameengine.texture.TerrainTexturePack;
 import ar.com.xyz.gameengine.util.GuiCameraSpec;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 /**
  * Terrain
@@ -31,8 +31,7 @@ public class TerrainDemoGameState extends AbstractGameState {
 	
 	private Terrain terrain ;
 
-	protected TerrainDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public TerrainDemoGameState() {
 		
 		loadTerrain();
 		loadPlayerAndCamera() ;
@@ -45,10 +44,6 @@ public class TerrainDemoGameState extends AbstractGameState {
 //			entitySpec.setPosition(new Vector3f(0, 0 /*-10*/,0));
 //			createEntity(entitySpec);
 //		}
-		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -70,15 +65,16 @@ public class TerrainDemoGameState extends AbstractGameState {
 	}
 	
 	
-	
 	@Override
 	public void attachedToMainLoop() {
-		// TODO Auto-generated method stub
 		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 		setupSecondCamera() ;
 	}
-
-
 
 	private FollowEntityFromFixedDirectionCameraController followEntityFromFixedDirectionCameraController ;
 	
@@ -173,7 +169,7 @@ public class TerrainDemoGameState extends AbstractGameState {
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 }

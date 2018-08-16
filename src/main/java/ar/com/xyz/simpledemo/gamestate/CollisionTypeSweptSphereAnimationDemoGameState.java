@@ -6,7 +6,6 @@ import java.util.Map;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.collada.AlfreAnimationInfo;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
@@ -15,6 +14,7 @@ import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.controller.ChangeAnimationEntityController;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGameState implements CrushHandler {
 	
@@ -32,8 +32,7 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 	private static final String AXE_ZOMBIE_WAIT_MODEL = "/models/axe-zombie-wait.dae" ;
 	private static final String AXE_ZOMBIE_ATTACK_MODEL = "/models/axe-zombie-attack.dae" ;
 	
-	protected CollisionTypeSweptSphereAnimationDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public CollisionTypeSweptSphereAnimationDemoGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -81,10 +80,6 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 			createAnimatedEntity(animatedEntitySpec) ;
 		}
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
@@ -93,6 +88,16 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).setAbstractGameState(this);
 		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).setAbstractGameState(this);
 
+	}
+	
+	@Override
+	public void attachedToMainLoop() {
+		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 	}
 	
 	@Override
@@ -139,7 +144,7 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 }

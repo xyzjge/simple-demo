@@ -16,6 +16,7 @@ import ar.com.xyz.simpledemo.presentation.particles.ParticleSystemDemoGameState;
 import ar.com.xyz.simpledemo.presentation.skybox.SkyboxDemoGameState;
 import ar.com.xyz.simpledemo.presentation.sound.SoundDemoGameState;
 
+@Deprecated
 public class PresentationMenuGameState extends AbstractMenuGameState {
 	
 	private static final String[] OPCIONES = {
@@ -38,32 +39,32 @@ public class PresentationMenuGameState extends AbstractMenuGameState {
 	private SimpleDemoMenuGameState simpleDemoMenuGameState ;
 	
 	public PresentationMenuGameState(AbstractMainGameLoop mainGameLoop, String sound, String background, SimpleDemoMenuGameState simpleDemoMenuGameState) {
-		super(mainGameLoop, OPCIONES, normalFontSpec, seleccionadoFontSpec, sound, background, 0.15f) ;
+		super(OPCIONES, normalFontSpec, seleccionadoFontSpec, sound, background, 0.15f) ;
 		this.simpleDemoMenuGameState = simpleDemoMenuGameState ;
 	}
 
 	@Override
 	protected void handleSelection(int selectionIndex) {
 		if (selectionIndex == 0) {
-			getMainGameLoop().setNextGameState(new PresentationGameState(getMainGameLoop())); 
+			getMainGameLoop().setNextGameState(new PresentationGameState()); 
 		} else if (selectionIndex == 1) {
-			getMainGameLoop().setNextGameState(new ObjSingleTextureGameState(getMainGameLoop()));
+			getMainGameLoop().setNextGameState(new ObjSingleTextureGameState());
 		} else if (selectionIndex == 2) {
-			getMainGameLoop().setNextGameState(new ObjMultipleTextureGameState(getMainGameLoop()));
+			getMainGameLoop().setNextGameState(new ObjMultipleTextureGameState());
 		} else if (selectionIndex == 3) {
-			getMainGameLoop().setNextGameState(new ColladaAnimationDemoGameState(getMainGameLoop()));
+			getMainGameLoop().setNextGameState(new ColladaAnimationDemoGameState());
 		} else if (selectionIndex == 4) {
-			getMainGameLoop().setNextGameState(new PositionRotationScaleGameState(getMainGameLoop()));
+			getMainGameLoop().setNextGameState(new PositionRotationScaleGameState());
 		} else if (selectionIndex == 5) {
-			getMainGameLoop().setNextGameState(new ParentChildRelationshipGameState(getMainGameLoop()));
+			getMainGameLoop().setNextGameState(new ParentChildRelationshipGameState());
 		} else if (selectionIndex == 6) {
-			getMainGameLoop().setNextGameState(new TerrainDemoGameState(getMainGameLoop()));
+			getMainGameLoop().setNextGameState(new TerrainDemoGameState());
 		} else if (selectionIndex == 7) {
-			getMainGameLoop().setNextGameState(new SoundDemoGameState(getMainGameLoop()));
+			getMainGameLoop().setNextGameState(new SoundDemoGameState());
 		} else if (selectionIndex == 8) {
-			getMainGameLoop().setNextGameState(new SkyboxDemoGameState(getMainGameLoop()));
+			getMainGameLoop().setNextGameState(new SkyboxDemoGameState());
 		} else if (selectionIndex == 9) {
-			getMainGameLoop().setNextGameState(new ParticleSystemDemoGameState(getMainGameLoop()));
+			getMainGameLoop().setNextGameState(new ParticleSystemDemoGameState());
 		} else {
 			getMainGameLoop().setNextGameState(simpleDemoMenuGameState); 
 		}

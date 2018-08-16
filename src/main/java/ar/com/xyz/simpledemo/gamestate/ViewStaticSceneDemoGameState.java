@@ -3,7 +3,6 @@ package ar.com.xyz.simpledemo.gamestate;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.collision.ESpaceUtil;
 import ar.com.xyz.gameengine.collision.Triangle;
 import ar.com.xyz.gameengine.configuration.Configuration;
@@ -13,6 +12,7 @@ import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 /**
  * Ver un elipsoide y un triangulo ... para debugear colisiones
@@ -51,8 +51,7 @@ public class ViewStaticSceneDemoGameState extends AbstractGameState implements C
 	private ActualizarPosicionEntityController posicionDeContactoEntityController ;
 	private ActualizarPosicionEntityController posicionDeContactoCorregidaEntityController ;
 	 
-	protected ViewStaticSceneDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public ViewStaticSceneDemoGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -121,10 +120,6 @@ public class ViewStaticSceneDemoGameState extends AbstractGameState implements C
 			createEntity(entitySpec);
 		}
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
@@ -140,6 +135,12 @@ public class ViewStaticSceneDemoGameState extends AbstractGameState implements C
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
 
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
+		
 		Vector3f posicionInicial = POSICION_INICIAL ;
 		Vector3f movimientoDeseado = MOVIMIENTO_DESEADO ;
 		
@@ -219,7 +220,7 @@ public class ViewStaticSceneDemoGameState extends AbstractGameState implements C
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 }

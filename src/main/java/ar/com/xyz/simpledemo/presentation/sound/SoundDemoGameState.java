@@ -3,14 +3,12 @@ package ar.com.xyz.simpledemo.presentation.sound;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.audio.AudioMaster;
 import ar.com.xyz.gameengine.audio.Source;
 import ar.com.xyz.gameengine.client.entitycontroller.PositionEntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
-import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
+import ar.com.xyz.simpledemo.gamestate.presentation.menuitem.PresentationMenuMenuItem;
 
 /**
  * Terrain
@@ -25,8 +23,7 @@ public class SoundDemoGameState extends AbstractGameState {
 	
 	private PositionEntityController entityController = new PositionEntityController(new Vector3f(1, 0, 0), 10, 2) ;
 	
-	public SoundDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public SoundDemoGameState() {
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -49,7 +46,9 @@ public class SoundDemoGameState extends AbstractGameState {
 		
 		{ // TODO: Cuando termina un GE hay que cortar todos los sonidos ...
 			int buffer = AudioMaster.loadSound("ZIPCLOSE.wav") ;
-			source = SingletonManager.getInstance().getSourceMaster().createSource(1, 0, 10) ;
+			// source = SingletonManager.getInstance().getSourceMaster().createSource(1, 0, 10) ;
+			source = createSource("EXAMPLE-SOURCE", 1, 0, 10) ; // TODO: En el cleanUp eliminarlas ... siempre y cuando no sea un menu ??? Analizar ...
+			// Si no siguen sonando en otro ge !!!
 			source.setLooping(true);
 			source.setPosition(0, 0, 0);
 			source.setVolume(.5f);
@@ -58,10 +57,6 @@ public class SoundDemoGameState extends AbstractGameState {
 		
 		
 		loadPlayerAndCamera() ;
-		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -81,8 +76,13 @@ public class SoundDemoGameState extends AbstractGameState {
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 	}
-
+	
 	@Override
 	public void tick(float tpf) {
 
@@ -119,7 +119,8 @@ public class SoundDemoGameState extends AbstractGameState {
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		// getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
+		getMainGameLoop().setNextGameState(PresentationMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 }

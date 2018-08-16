@@ -4,7 +4,6 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.cameracontroller.DefaultCameraController;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -25,9 +24,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 	
 	private PlayerDeathHandler playerDeathHandler ;
 	
-	protected CollisionTypeNoneDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
-		loadPlayerAndCamera() ;
+	public CollisionTypeNoneDemoGameState() {
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -84,10 +81,6 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 		
 //		levelGameStateDefaultPlayerInputHandler = new LevelGameStateDefaultPlayerInputHandler(mainGameLoop, getPlayer(), getCamera(), this, null, null) ;
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
@@ -100,6 +93,17 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 		) ;
 		
 		this.getGuis().add(sweepSphereInAABBGuiTexture) ;
+	}
+	
+	@Override
+	public void attachedToMainLoop() {
+		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			loadPlayerAndCamera() ;
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 	}
 	
 	float seconds = 0 ;

@@ -3,10 +3,9 @@ package ar.com.xyz.simpledemo.presentation.skybox;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.skybox.SkyboxTexture;
-import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
+import ar.com.xyz.simpledemo.gamestate.presentation.menuitem.PresentationMenuMenuItem;
 
 /**
  * Terrain
@@ -29,8 +28,7 @@ public class SkyboxDemoGameState extends AbstractGameState {
 	
 	private static final String LEVEL = "s-box" ;
 	
-	public SkyboxDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public SkyboxDemoGameState() {
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -43,10 +41,6 @@ public class SkyboxDemoGameState extends AbstractGameState {
 		}
 		
 		loadPlayerAndCamera() ;
-		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -66,8 +60,13 @@ public class SkyboxDemoGameState extends AbstractGameState {
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 	}
-
+	
 	float xxx = 0 ;
 	
 	@Override
@@ -138,7 +137,8 @@ public class SkyboxDemoGameState extends AbstractGameState {
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		// getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
+		getMainGameLoop().setNextGameState(PresentationMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 	float skyboxRotationSpeed = -10;

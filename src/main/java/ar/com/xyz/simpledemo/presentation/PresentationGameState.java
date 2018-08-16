@@ -4,7 +4,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.cameracontroller.DefaultCameraController;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
@@ -14,7 +13,7 @@ import ar.com.xyz.gameengine.input.InputHandler;
 import ar.com.xyz.gameengine.light.PointLight;
 import ar.com.xyz.gameengine.light.SpotLight;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 /**
  * @author alfredo
@@ -34,8 +33,7 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 	YEntityController yEntityController = new YEntityController(xEntityController) ;
 	ZEntityController zEntityController = new ZEntityController(yEntityController) ;
 	
-	public PresentationGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public PresentationGameState() {
 		
 		SingletonManager.getInstance().getObjWithMaterialFileLoader().addObjPath("/models/presentation") ;
 		SingletonManager.getInstance().getObjWithMaterialFileLoader().addMtlPath("/models/presentation") ;
@@ -103,11 +101,7 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 //			entitySpec.setEntityController(xEntityController);
 			createEntity(entitySpec);
 		}
-*/		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		configureKeys();
+*/
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -160,9 +154,14 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+			configureKeys();
+		}
 	}
-
+	
 	private Vector3f origin = new Vector3f(0,0,0) ;
 	private Vector3f cameraPositionMinusOrigin = new Vector3f(0,0,0) ;
 	@Override
@@ -223,7 +222,7 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 	
 	@Override

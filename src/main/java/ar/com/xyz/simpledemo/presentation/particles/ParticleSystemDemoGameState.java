@@ -3,12 +3,10 @@ package ar.com.xyz.simpledemo.presentation.particles;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.particle.ParticleEmission;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.gameengine.util.VectorUtil;
-import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
+import ar.com.xyz.simpledemo.gamestate.presentation.menuitem.PresentationMenuMenuItem;
 
 /**
  * Terrain
@@ -19,8 +17,7 @@ public class ParticleSystemDemoGameState extends AbstractGameState {
 	
 	private static final String LEVEL = "s-box" ;
 	
-	public ParticleSystemDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public ParticleSystemDemoGameState() {
 		
 		SingletonManager.getInstance().getTextureManager().addTexturePath("/textures/particles");
 		particleEmission = new ParticleEmission(ParticleSystemSingleton.getInstance().getParticleSystemDust(), new Vector3f(0,1,0)) ;
@@ -39,10 +36,6 @@ public class ParticleSystemDemoGameState extends AbstractGameState {
 		
 		loadPlayerAndCamera() ;
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
@@ -57,12 +50,16 @@ public class ParticleSystemDemoGameState extends AbstractGameState {
 		
 	}
 	
-	
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 	}
-
+	
 	float xxx = 0 ;
 
 	private int current = 0 ;
@@ -130,7 +127,8 @@ public class ParticleSystemDemoGameState extends AbstractGameState {
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		// getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
+		getMainGameLoop().setNextGameState(PresentationMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 }

@@ -4,7 +4,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.client.entitycontroller.DummyEntityController;
 import ar.com.xyz.gameengine.client.entitycontroller.PositionEntityController;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
@@ -15,6 +14,7 @@ import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.input.InputHandler;
 import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 public class ParentChildDemoGameState extends AbstractGameState implements CrushHandler, InputHandler {
 	
@@ -26,8 +26,7 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 	EntityController parentEntityController = null ;
 	EntityController childEntityController = null ;
 	
-	protected ParentChildDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public ParentChildDemoGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -88,28 +87,34 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 			createEntity(entitySpec);
 		}
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
 		setShowPlayerPosition(true);
 		
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_3, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_4, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_5, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_6, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_0, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_9, this);
-		
 		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(.5f,.5f,.5f), new Vector3f(-10000,-10000,-10000), 1) ;
 		directionalLight.setCastShadows(true);
 		setDirectionalLight(directionalLight);
 	}
+	
+	@Override
+	public void attachedToMainLoop() {
+		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_3, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_4, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_5, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_6, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_0, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_9, this);
+		}
+	}
+	
 /*
 	private void demo1() {
 		// Create parent and child
@@ -386,7 +391,7 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 	@Override

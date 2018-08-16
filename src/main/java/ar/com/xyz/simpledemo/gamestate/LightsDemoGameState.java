@@ -4,7 +4,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.debug.ResaltarXYZ;
 import ar.com.xyz.gameengine.entity.CrushHandler;
@@ -17,6 +16,7 @@ import ar.com.xyz.gameengine.light.PointLight;
 import ar.com.xyz.gameengine.light.SpotLight;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.enumerator.LigthsDemoEnum;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 /**
  * @author alfredo
@@ -36,8 +36,7 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 	
 	private ResaltarXYZ resaltarXYZ ;
 	
-	protected LightsDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public LightsDemoGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -72,11 +71,6 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 //			entitySpec.setEntityController(xEntityController);
 			createEntity(entitySpec);
 		}
-		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		configureKeys();
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -130,9 +124,15 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 		actualizarEstado(LigthsDemoEnum.AMBIENT) ;
+		configureKeys();
 	}
-
+	
 	@Override
 	public void tick(float tpf) {
 
@@ -199,7 +199,7 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 	
 	@Override

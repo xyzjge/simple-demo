@@ -3,7 +3,6 @@ package ar.com.xyz.simpledemo.gamestate;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.SweepSphereCollisionEntity;
@@ -12,6 +11,7 @@ import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.postprocessing.fisheye.FishEyePostProcessingFilter;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.water.WaterTile;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 /**
  * Water demo
@@ -30,8 +30,7 @@ public class WaterDemoGameState extends AbstractGameState implements CrushHandle
 	
 	private FishEyePostProcessingFilter fishEyePostProcessingFilter = new FishEyePostProcessingFilter() ;
 	
-	protected WaterDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public WaterDemoGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -61,10 +60,6 @@ public class WaterDemoGameState extends AbstractGameState implements CrushHandle
 			createEntity(entitySpec);
 		}
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
@@ -81,6 +76,16 @@ public class WaterDemoGameState extends AbstractGameState implements CrushHandle
 		// DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1,0,0), new Vector3f(-10000,-10000,-10000), 1) ;
 		directionalLight.setCastShadows(CAST_SHADOWS);
 		setDirectionalLight(directionalLight);
+	}
+	
+	@Override
+	public void attachedToMainLoop() {
+		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 	}
 	
 	private float mid(float inicio, float fin) {
@@ -175,7 +180,7 @@ public class WaterDemoGameState extends AbstractGameState implements CrushHandle
 				System.out.println("WARN: no fishEyePostProcessingFilter ...");
 			}
 		}
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 }

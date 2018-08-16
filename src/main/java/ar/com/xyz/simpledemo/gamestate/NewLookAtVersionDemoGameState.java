@@ -7,7 +7,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.client.entitycontroller.DummyEntityController;
 import ar.com.xyz.gameengine.client.entitycontroller.YawPitchRollEntityController;
 import ar.com.xyz.gameengine.collision.Triangle;
@@ -20,6 +19,7 @@ import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.input.InputHandler;
 import ar.com.xyz.gameengine.ray.RayTracerVO;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 public class NewLookAtVersionDemoGameState extends AbstractGameState implements CrushHandler, InputHandler {
 	
@@ -38,8 +38,7 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 	
 	private List<EntityController> entityControllerList = new ArrayList<EntityController>() ;
 	
-	protected NewLookAtVersionDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public NewLookAtVersionDemoGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -127,10 +126,6 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 			createEntity(entitySpec);
 		}
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
@@ -139,11 +134,19 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).setAbstractGameState(this);
 		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).setAbstractGameState(this);
 
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
 	}
 
-	float secondsSubtitles = 100 ;
+	@Override
+	public void attachedToMainLoop() {
+		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
+		}
+	}
 	
 	@Override
 	public void tick(float tpf) {
@@ -204,13 +207,6 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 			}
 		}
 		
-		secondsSubtitles += tpf ;
-		
-		if (secondsSubtitles > 10) {
-			addNotification("Please enable subtitles !!!");
-			secondsSubtitles = 0 ;
-		}
-		
 //		SingletonManager.getInstance().getEntityUtil().lookAt3d(movimientoCircularEntityController.getEntity(), lookAtEntityController.getEntity().getPosition()) ;
 	}
 
@@ -240,7 +236,7 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 	private void addMark(RayTracerVO rayTracerVO) {

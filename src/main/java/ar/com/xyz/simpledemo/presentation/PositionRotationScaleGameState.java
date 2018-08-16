@@ -4,15 +4,13 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
-import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.input.InputHandler;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 /**
  * @author alfredo
@@ -20,8 +18,7 @@ import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
  */
 public class PositionRotationScaleGameState extends AbstractGameState implements CrushHandler, InputHandler {
 	
-	public PositionRotationScaleGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public PositionRotationScaleGameState() {
 		
 		SingletonManager.getInstance().getObjWithMaterialFileLoader().addObjPath("/models/presentation") ;
 		SingletonManager.getInstance().getObjWithMaterialFileLoader().addMtlPath("/models/presentation") ;
@@ -68,10 +65,7 @@ public class PositionRotationScaleGameState extends AbstractGameState implements
 			entitySpec.setEntityController(new OrbitZEntityController());
 			entitySpec.setScale(new Vector3f(2,2,2));
 			createEntity(entitySpec);
-		}		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
+		}
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -86,10 +80,14 @@ public class PositionRotationScaleGameState extends AbstractGameState implements
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 		getHandlePlayerInput().clearEvents();
 		getHandlePlayerInput().clearMouseEvents();
 	}
-
 	
 	@Override
 	public void tick(float tpf) {
@@ -142,7 +140,7 @@ public class PositionRotationScaleGameState extends AbstractGameState implements
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 	
 	@Override

@@ -3,7 +3,8 @@ package ar.com.xyz.simpledemo;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.audio.AudioMaster;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
+//import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
 
 public class XYZDemoMainGameLoop extends AbstractMainGameLoop {
 
@@ -28,7 +29,8 @@ public class XYZDemoMainGameLoop extends AbstractMainGameLoop {
 		AudioMaster.addSoundPath("/sounds") ;
 		XYZDemoMainGameLoop mainGameLoop = new XYZDemoMainGameLoop("Simple Demo - XYZ Java Game Engine") ;
 		// mainGameLoop.setNextGameState(new XYZDemoLevelGameState(mainGameLoop));
-		mainGameLoop.setNextGameState(new SimpleDemoMenuGameState(mainGameLoop, "ZIPCLOSE.wav", "stone.png")) ;
+		// mainGameLoop.setNextGameState(new SimpleDemoMenuGameState(mainGameLoop, "ZIPCLOSE.wav", "stone.png")) ;
+		mainGameLoop.setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 		mainGameLoop.loop();
 	}
 

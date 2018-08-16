@@ -4,12 +4,12 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.cameracontroller.CameraController;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.input.InputHandler;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 public class CameraControllerDemoGameState extends AbstractGameState implements CrushHandler, InputHandler, CameraController {
 	
@@ -21,8 +21,7 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 	
 	private boolean automatic = false ;
 	
-	protected CameraControllerDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public CameraControllerDemoGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -83,10 +82,6 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 			createEntity(entitySpec);
 		}
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		cameraController = getCamera().getCameraController() ;
 		
 		getCamera().setCameraController(this);
@@ -95,18 +90,25 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 		
 		setShowFps(true);
 		setShowPlayerPosition(true);
-		
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_3, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_4, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_5, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_6, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_0, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_9, this);
 	}
 
-	float secondsSubtitles = 100 ;
+	@Override
+	public void attachedToMainLoop() {
+		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_3, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_4, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_5, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_6, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_0, this);
+			getHandlePlayerInput().addInputHandler(Keyboard.KEY_9, this);
+		}
+	}
 	
 	@Override
 	public void tick(float tpf) {
@@ -115,13 +117,6 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 		}
 		
 		getHandlePlayerInput().handlePlayerInput();
-		
-		secondsSubtitles += tpf ;
-		
-		if (secondsSubtitles > 10) {
-			addNotification("Please enable subtitles !!!");
-			secondsSubtitles = 0 ;
-		}
 		
 	}
 
@@ -153,7 +148,7 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 	/**

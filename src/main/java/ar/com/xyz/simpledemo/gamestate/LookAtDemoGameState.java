@@ -3,7 +3,6 @@ package ar.com.xyz.simpledemo.gamestate;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.client.entitycontroller.CircularMotionEntityController;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
@@ -12,6 +11,7 @@ import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.controller.LookAtEntityController;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 public class LookAtDemoGameState extends AbstractGameState implements CrushHandler {
 	
@@ -21,8 +21,7 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 	
 	private EntityController lookAtEntityController = null ;
 	
-	protected LookAtDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public LookAtDemoGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -114,10 +113,6 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 		createExampleAt(0, 10) ;
 		createExampleAt(0, -10) ;
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
@@ -128,7 +123,15 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 
 	}
 
-	float secondsSubtitles = 100 ;
+	@Override
+	public void attachedToMainLoop() {
+		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
+	}
 	
 	@Override
 	public void tick(float tpf) {
@@ -141,13 +144,6 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 		if (getHandlePlayerInput().testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).hide();
-		}
-		
-		secondsSubtitles += tpf ;
-		
-		if (secondsSubtitles > 10) {
-			addNotification("Please enable subtitles !!!");
-			secondsSubtitles = 0 ;
 		}
 		
 		SingletonManager.getInstance().getEntityUtil().stackOverflowLookAt3d(movimientoCircularEntityController.getEntity(), lookAtEntityController.getEntity().getPosition()) ;
@@ -181,7 +177,7 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 	
 	private void createExampleAt(float x, float z) {

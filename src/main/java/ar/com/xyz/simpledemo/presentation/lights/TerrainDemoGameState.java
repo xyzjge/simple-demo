@@ -4,7 +4,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.client.entitycontroller.DummyEntityController;
 import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -19,7 +18,7 @@ import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.terrain.Terrain;
 import ar.com.xyz.gameengine.texture.TerrainTexture;
 import ar.com.xyz.gameengine.texture.TerrainTexturePack;
-import ar.com.xyz.simpledemo.gamestate.SimpleDemoMenuGameState;
+import ar.com.xyz.simpledemo.gamestate.presentation.menuitem.PresentationMenuMenuItem;
 
 /**
  * Terrain
@@ -36,8 +35,7 @@ public class TerrainDemoGameState extends AbstractGameState implements InputHand
 
 	private EntityController entityController = new DummyEntityController() ;
 	
-	public TerrainDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public TerrainDemoGameState() {
 		
 		{	// Create sphere to debug light position
 			EntitySpec entitySpec ;
@@ -51,10 +49,6 @@ public class TerrainDemoGameState extends AbstractGameState implements InputHand
 		
 		loadTerrain();
 		loadPlayerAndCamera() ;
-		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -104,6 +98,13 @@ public class TerrainDemoGameState extends AbstractGameState implements InputHand
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
+		
+		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
 		
 		getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
 		getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
@@ -214,7 +215,8 @@ public class TerrainDemoGameState extends AbstractGameState implements InputHand
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		// getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
+		getMainGameLoop().setNextGameState(PresentationMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 	@Override

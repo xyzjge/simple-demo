@@ -3,20 +3,19 @@ package ar.com.xyz.simpledemo.gamestate;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGameState implements CrushHandler {
 	
 	private static final String LEVEL = "s-box" ;
 	
-	protected CollisionTypeSolidDynamicRotationDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public CollisionTypeSolidDynamicRotationDemoGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -95,10 +94,6 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 		this.enableDebug(rotationEntityController.getEntity());
 	}
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
@@ -108,7 +103,15 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 
 	}
 
-	float secondsSubtitles = 100 ;
+	@Override
+	public void attachedToMainLoop() {
+		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
+	}
 	
 	@Override
 	public void tick(float tpf) {
@@ -120,13 +123,6 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 		
 		if (getHandlePlayerInput().testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
-		}
-		
-		secondsSubtitles += tpf ;
-		
-		if (secondsSubtitles > 10) {
-			addNotification("Please enable subtitles !!!");
-			secondsSubtitles = 0 ;
 		}
 		
 	}
@@ -159,7 +155,7 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 }

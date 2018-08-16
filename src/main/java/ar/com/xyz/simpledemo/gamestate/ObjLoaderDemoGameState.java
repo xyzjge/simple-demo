@@ -3,12 +3,12 @@ package ar.com.xyz.simpledemo.gamestate;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
+import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 public class ObjLoaderDemoGameState extends AbstractGameState implements CrushHandler {
 
@@ -18,8 +18,7 @@ public class ObjLoaderDemoGameState extends AbstractGameState implements CrushHa
 	EntityController parentEntityController = null ;
 	EntityController childEntityController = null ;
 	
-	protected ObjLoaderDemoGameState(AbstractMainGameLoop mainGameLoop) {
-		super(mainGameLoop);
+	public ObjLoaderDemoGameState() {
 		loadPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -98,18 +97,22 @@ public class ObjLoaderDemoGameState extends AbstractGameState implements CrushHa
 			}
 		}
 		
-		createInputHandler(
-			mainGameLoop, getPlayer(), getCamera(), this, null, null
-		) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
 		setShowPlayerPosition(true);
 		
 	}
-
-	float secondsSubtitles = 100 ;
+	
+	@Override
+	public void attachedToMainLoop() {
+		super.attachedToMainLoop();
+		if (getHandlePlayerInput() == null) {
+			createInputHandler(
+				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
+			) ;
+		}
+	}
 	
 	@Override
 	public void tick(float tpf) {
@@ -118,13 +121,6 @@ public class ObjLoaderDemoGameState extends AbstractGameState implements CrushHa
 		}
 		
 		getHandlePlayerInput().handlePlayerInput();
-		
-		secondsSubtitles += tpf ;
-		
-		if (secondsSubtitles > 10) {
-			addNotification("Please enable subtitles !!!");
-			secondsSubtitles = 0 ;
-		}
 		
 	}
 
@@ -156,7 +152,7 @@ public class ObjLoaderDemoGameState extends AbstractGameState implements CrushHa
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(new SimpleDemoMenuGameState(getMainGameLoop(), "ZIPCLOSE.wav", "stone.png")) ;
+		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 }
