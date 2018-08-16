@@ -8,7 +8,7 @@ import ar.com.xyz.gameengine.audio.Source;
 import ar.com.xyz.gameengine.client.entitycontroller.PositionEntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
-import ar.com.xyz.simpledemo.gamestate.presentation.menuitem.PresentationMenuMenuItem;
+import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
 
 /**
  * Terrain

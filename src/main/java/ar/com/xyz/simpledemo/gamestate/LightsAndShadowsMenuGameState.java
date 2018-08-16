@@ -5,8 +5,8 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.util.AbstractMenuGameState;
 import ar.com.xyz.gameengine.util.FontSpec;
-import ar.com.xyz.simpledemo.lightandshadow.LightAndShadowBoxWithInNormalsGameState;
-import ar.com.xyz.simpledemo.lightandshadow.LightAndShadowGameState;
+import ar.com.xyz.simpledemo.gamestate.lightandshadow.LightAndShadowBoxWithInNormalsGameState;
+import ar.com.xyz.simpledemo.gamestate.lightandshadow.LightAndShadowGameState;
 
 @Deprecated
 public class LightsAndShadowsMenuGameState extends AbstractMenuGameState {

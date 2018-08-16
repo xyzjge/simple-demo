@@ -18,7 +18,7 @@ import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.terrain.Terrain;
 import ar.com.xyz.gameengine.texture.TerrainTexture;
 import ar.com.xyz.gameengine.texture.TerrainTexturePack;
-import ar.com.xyz.simpledemo.gamestate.presentation.menuitem.PresentationMenuMenuItem;
+import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
 
 /**
  * Terrain

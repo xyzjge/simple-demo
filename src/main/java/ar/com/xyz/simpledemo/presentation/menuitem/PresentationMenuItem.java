@@ -1,4 +1,4 @@
-package ar.com.xyz.simpledemo.gamestate.presentation.menuitem;
+package ar.com.xyz.simpledemo.presentation.menuitem;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.util.MenuItem;

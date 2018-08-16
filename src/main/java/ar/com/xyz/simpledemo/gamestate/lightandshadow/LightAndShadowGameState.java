@@ -1,4 +1,4 @@
-package ar.com.xyz.simpledemo.lightandshadow;
+package ar.com.xyz.simpledemo.gamestate.lightandshadow;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;

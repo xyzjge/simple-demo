@@ -5,7 +5,7 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.skybox.SkyboxTexture;
-import ar.com.xyz.simpledemo.gamestate.presentation.menuitem.PresentationMenuMenuItem;
+import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
 
 /**
  * Terrain

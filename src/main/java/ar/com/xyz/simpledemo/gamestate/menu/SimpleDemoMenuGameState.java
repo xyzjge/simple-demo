@@ -27,7 +27,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.ParentChildDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.TerrainDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ViewStaticSceneDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.WaterDemoMenuItem;
-import ar.com.xyz.simpledemo.gamestate.presentation.menuitem.PresentationMenuMenuItem;
+import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
 
 public class SimpleDemoMenuGameState extends AbstractMenuItemBasedMenuGameState {
 

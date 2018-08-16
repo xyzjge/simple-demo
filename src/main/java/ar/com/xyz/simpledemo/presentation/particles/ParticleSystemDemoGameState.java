@@ -6,7 +6,7 @@ import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.particle.ParticleEmission;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.simpledemo.gamestate.presentation.menuitem.PresentationMenuMenuItem;
+import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
 
 /**
  * Terrain
