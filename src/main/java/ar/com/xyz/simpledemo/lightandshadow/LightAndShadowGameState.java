@@ -14,7 +14,7 @@ import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.light.PointLight;
 import ar.com.xyz.gameengine.light.SpotLight;
 import ar.com.xyz.simpledemo.enumerator.LigthsDemoEnum;
-import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
+import ar.com.xyz.simpledemo.gamestate.lightandshadow.menuitem.LightsAndShadowsMenuMenuItem;
 
 /**
  * @author alfredo
@@ -144,7 +144,7 @@ public class LightAndShadowGameState extends AbstractGameState implements CrushH
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
+		getMainGameLoop().setNextGameState(LightsAndShadowsMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 	
 	private void setupDirectionalLight() {

@@ -16,6 +16,7 @@ import ar.com.xyz.gameengine.light.PointLight;
 import ar.com.xyz.gameengine.light.SpotLight;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.enumerator.LigthsDemoEnum;
+import ar.com.xyz.simpledemo.gamestate.lightandshadow.menuitem.LightsAndShadowsMenuMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 /**
@@ -157,7 +158,7 @@ public class LightAndShadowBoxWithInNormalsGameState extends AbstractGameState i
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
+		getMainGameLoop().setNextGameState(LightsAndShadowsMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 	
 	private void setupDirectionalLight() {
