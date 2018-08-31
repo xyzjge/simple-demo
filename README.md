@@ -1,9 +1,8 @@
 # simple-demo
 
 ## Introduction
-XYZ game engine basic demo.
 
-This project showcase assorted features of the engine.
+This project showcase assorted features of the XYZ game engine.
 
 Among other things it showcase:
 
