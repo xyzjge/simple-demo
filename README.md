@@ -3,7 +3,7 @@
 ## Introduction
 XYZ game engine basic demo.
 
-This proyects showcase assorted features of the engine.
+This project showcase assorted features of the engine.
 
 Among other things it showcase:
 
