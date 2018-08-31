@@ -3,18 +3,27 @@
 ## Introduction
 XYZ game engine basic demo.
 
-Uses an FPS camera with basic functions to walk around a simple environment
+This proyects showcase assorted features of the engine.
 
-Features:
+Among other things it showcase:
 
-* FPS camera
-* SOLID_STATIC collision type entities (ie. the level)
-* SWEPT_SPHERE collision type entites (ie. the player)
-* NONE collision type entities (ie. the moving boxes)
-* SweepSphereInAABBHandler
-* Simple HUD demo
-* Adding and removing NONE collision type entities dynamically from the game state
-* Enabling and disabling graphic AABB debug on NONE collision type entities
+* Entities
+* Cameras
+* Game States
+* Input System
+* Lights and Shadows
+* Sound
+* Terrains
+* Skybox
+* Water
+* Particle systems
+* Translucent entities
+* 2D elements (Text, Images, Animations)
+* Ray casting
+* Swept sphere in AABB
+* 3D look at
+* Post processing pipeline
+* Crush detection
 
 ## Controls
 
