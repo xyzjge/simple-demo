@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>ar.com.xyz</groupId>
 			<artifactId>game-engine</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>slick-util</groupId>
