@@ -82,7 +82,7 @@ public class SkyboxDemoGameState extends AbstractGameState {
 		
 		if (state != null && (state == StateEnum.DAY_RED || state == StateEnum.RED_NIGHT)) {
 			setSkyboxBlendFactor(xxx / STATE_TIME_UNIT);
-			System.out.println(getSkyboxBlendFactor());
+			// System.out.println(getSkyboxBlendFactor());
 		}
 		
 		if (xxx > STATE_TIME_UNIT) {
