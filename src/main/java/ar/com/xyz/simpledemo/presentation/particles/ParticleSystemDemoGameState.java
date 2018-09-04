@@ -34,6 +34,16 @@ public class ParticleSystemDemoGameState extends AbstractGameState {
 			createEntity(entitySpec);
 		}
 		
+		{	// Create SOLID_STATIC for the LEVEL
+			EntitySpec entitySpec ;
+			entitySpec = new EntitySpec(LEVEL) ;
+			entitySpec.setTexture("grid.png");
+//			entitySpec.setRotation(new Vector3f(0, 0, 0)) ;
+			entitySpec.setScale(new Vector3f(5,5,1));
+			entitySpec.setPosition(new Vector3f(0,5,5));
+			createEntity(entitySpec);
+		}
+		
 		loadPlayerAndCamera() ;
 		
 		grabMouseIfNotGrabbed() ;
@@ -75,7 +85,7 @@ public class ParticleSystemDemoGameState extends AbstractGameState {
 		}
 		
 		getHandlePlayerInput().handlePlayerInput();
-		
+
 		if (xxx> 6) {
 			xxx = 0 ;
 			current++ ;
