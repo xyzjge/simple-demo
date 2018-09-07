@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.lwjgl.util.vector.Vector3f;
 
+import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.util.AbstractMenuItemBasedMenuGameState;
 import ar.com.xyz.gameengine.util.FontSpec;
 import ar.com.xyz.gameengine.util.MenuItem;
@@ -26,7 +27,7 @@ public class PresentationMenuGameState extends AbstractMenuItemBasedMenuGameStat
 	private static FontSpec seleccionadoFontSpec = new FontSpec("arial", 2f, new Vector3f(1f, 1f, 1f));
 	
 	public PresentationMenuGameState(String sound, String background) {
-		super(normalFontSpec, seleccionadoFontSpec, sound, background, 0.15f, null) ;
+		super(normalFontSpec, seleccionadoFontSpec, sound, background, 0.15f, null, EventOriginEnum.MOUSE) ;
 	}
 
 	private List<MenuItem> menuItemList = new ArrayList<MenuItem>() ;
