@@ -7,11 +7,13 @@ import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.cameracontroller.CameraController;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
-import ar.com.xyz.gameengine.input.InputHandler;
+import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
+import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
-public class CameraControllerDemoGameState extends AbstractGameState implements CrushHandler, InputHandler, CameraController {
+public class CameraControllerDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener, CameraController {
 	
 	private static final String LEVEL = "s-box" ;
 	private static final float VELOCITY = 50;
@@ -90,6 +92,8 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 		
 		setShowFps(true);
 		setShowPlayerPosition(true);
+		
+		addInputEventListener(this) ;
 	}
 
 	@Override
@@ -99,14 +103,6 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 			createInputHandler(
 				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
 			) ;
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_3, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_4, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_5, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_6, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_0, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_9, this);
 		}
 	}
 	
@@ -149,53 +145,6 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 
 	private void handlePlayerDeath() {
 		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
-	}
-
-	/**
-	 * aca moviendo tambien se ve que si no se hacen en orden no queda bien
-	 * ej si primero hago el pitch el yaw no le da boliya ...
-	 */
-	@Override
-	public boolean handleInput(int eventKey) {
-		switch (eventKey) {
-		case Keyboard.KEY_0:
-			if (getCamera().getCameraController().equals(this)) {
-				getCamera().setCameraController(cameraController);
-			} else {
-				getCamera().setCameraController(this);
-			}
-			break;
-		case Keyboard.KEY_1:
-			yaw = true ;
-			break;
-		case Keyboard.KEY_2:
-			minusYaw = true ;
-			break;
-		case Keyboard.KEY_3:
-			pitch = true ;
-			break;
-		case Keyboard.KEY_4:
-			minusPitch = true ;
-			break;
-		case Keyboard.KEY_5:
-			roll = true ;
-			break;
-		case Keyboard.KEY_6:
-			minusRoll = true ;
-			break;
-		case Keyboard.KEY_9:
-			automatic = !automatic ;
-//			if (automatic) {
-				cameraPosition.y = 4 ;
-				cameraRotation.x = 0 ;
-				cameraRotation.y = 0 ;
-				cameraRotation.z = 0 ;
-//			}
-			break;
-		default:
-			break;
-		}
-		return false;
 	}
 
 	private Vector3f cameraPosition = new Vector3f(2,2,2) ;
@@ -390,6 +339,61 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 	@Override
 	public Vector3f getRotation() {
 		return cameraRotation;
+	}
+
+	/**
+	 * aca moviendo tambien se ve que si no se hacen en orden no queda bien
+	 * ej si primero hago el pitch el yaw no le da boliya ...
+	 */
+	@Override
+	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+		switch (keyOrButton) {
+		case Keyboard.KEY_0:
+			if (getCamera().getCameraController().equals(this)) {
+				getCamera().setCameraController(cameraController);
+			} else {
+				getCamera().setCameraController(this);
+			}
+			break;
+		case Keyboard.KEY_1:
+			yaw = true ;
+			break;
+		case Keyboard.KEY_2:
+			minusYaw = true ;
+			break;
+		case Keyboard.KEY_3:
+			pitch = true ;
+			break;
+		case Keyboard.KEY_4:
+			minusPitch = true ;
+			break;
+		case Keyboard.KEY_5:
+			roll = true ;
+			break;
+		case Keyboard.KEY_6:
+			minusRoll = true ;
+			break;
+		case Keyboard.KEY_9:
+			automatic = !automatic ;
+//			if (automatic) {
+				cameraPosition.y = 4 ;
+				cameraRotation.x = 0 ;
+				cameraRotation.y = 0 ;
+				cameraRotation.z = 0 ;
+//			}
+			break;
+		default:
+			break;
+		}
+		// return false;
+	}
+
+	@Override
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+		if (origin == EventOriginEnum.KEYBOARD) {
+			return true ;
+		}
+		return false;
 	}
 	
 }
