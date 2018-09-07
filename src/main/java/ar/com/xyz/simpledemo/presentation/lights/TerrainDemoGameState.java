@@ -9,7 +9,9 @@ import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.ColorEnum;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
-import ar.com.xyz.gameengine.input.InputHandler;
+import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
+import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.light.PointLight;
 import ar.com.xyz.gameengine.light.SpotLight;
@@ -25,7 +27,7 @@ import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
  * @author alfredo
  *
  */
-public class TerrainDemoGameState extends AbstractGameState implements InputHandler {
+public class TerrainDemoGameState extends AbstractGameState implements InputEventListener {
 	
 	private static final boolean CAST_SHADOWS = true;
 	
@@ -104,13 +106,8 @@ public class TerrainDemoGameState extends AbstractGameState implements InputHand
 			createInputHandler(
 				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
 			) ;
+			addInputEventListener(this);
 		}
-		
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_3, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_4, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_5, this);
 
 		ambientLightDemoController = new AmbientLightDemoController(this) ;
 		directionalLightDemoController = new DirectionalLightDemoController(this) ;
@@ -219,30 +216,6 @@ public class TerrainDemoGameState extends AbstractGameState implements InputHand
 		getMainGameLoop().setNextGameState(PresentationMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
-	@Override
-	public boolean handleInput(int eventKey) {
-		switch (eventKey) {
-		case Keyboard.KEY_1:
-			setupAmbientLightDemo() ;
-			break;
-		case Keyboard.KEY_2:
-			setupDirectionalLightDemo() ;
-			break;
-		case Keyboard.KEY_3:
-			setupDirectionalLightCastingShadowsDemo() ;
-			break;
-		case Keyboard.KEY_4:
-			setupPointLightDemo() ;
-			break;
-		case Keyboard.KEY_5:
-			setupSpotLightDemo() ;
-			break;
-		default:
-			break;
-		}
-		return false;
-	}
-	
 	private void setupAmbientLightDemo() {
 		state = DemoState.AMBIENT_LIGHT_DEMO ;
 	}
@@ -269,4 +242,36 @@ public class TerrainDemoGameState extends AbstractGameState implements InputHand
 		getSpotLightList().get(0).getPointLight().setIntensity(.5f);
 	}
 
+	@Override
+	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+		switch (keyOrButton) {
+		case Keyboard.KEY_1:
+			setupAmbientLightDemo() ;
+			break;
+		case Keyboard.KEY_2:
+			setupDirectionalLightDemo() ;
+			break;
+		case Keyboard.KEY_3:
+			setupDirectionalLightCastingShadowsDemo() ;
+			break;
+		case Keyboard.KEY_4:
+			setupPointLightDemo() ;
+			break;
+		case Keyboard.KEY_5:
+			setupSpotLightDemo() ;
+			break;
+		default:
+			break;
+		}
+//		return false; TODO: ...
+	}
+
+	@Override
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+		if (origin == EventOriginEnum.KEYBOARD) {
+			return true ;
+		}
+		return false;
+	}
+	
 }

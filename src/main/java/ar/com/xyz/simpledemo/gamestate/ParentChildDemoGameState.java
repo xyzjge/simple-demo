@@ -11,12 +11,14 @@ import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
-import ar.com.xyz.gameengine.input.InputHandler;
+import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
+import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
-public class ParentChildDemoGameState extends AbstractGameState implements CrushHandler, InputHandler {
+public class ParentChildDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener {
 	
 	private static final float Y_ROT_VEL = 10;
 
@@ -104,14 +106,15 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 			createInputHandler(
 				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
 			) ;
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_3, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_4, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_5, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_6, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_0, this);
-			getHandlePlayerInput().addInputHandler(Keyboard.KEY_9, this);
+			addInputEventListener(this);
+//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
+//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
+//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_3, this);
+//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_4, this);
+//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_5, this);
+//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_6, this);
+//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_0, this);
+//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_9, this);
 		}
 	}
 	
@@ -394,9 +397,25 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
+	private void cleanup() {
+		if (grandparentEntityController != null) {
+			scheduleEntityForRemoval(grandparentEntityController.getEntity());
+			grandparentEntityController = null ;
+		}
+		if (parentEntityController != null) {
+			scheduleEntityForRemoval(parentEntityController.getEntity());
+			parentEntityController = null ;
+		}
+		if (childEntityController != null) {
+			scheduleEntityForRemoval(childEntityController.getEntity());
+			childEntityController = null ;
+		}
+		
+	}
+
 	@Override
-	public boolean handleInput(int eventKey) {
-		switch (eventKey) {
+	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+		switch (keyOrButton) {
 		case Keyboard.KEY_1:
 			cleanup() ;
 			demo1() ;
@@ -422,23 +441,16 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 		default:
 			break;
 		}
-		return false;
+//		return false; TODO: ...
+		
 	}
 
-	private void cleanup() {
-		if (grandparentEntityController != null) {
-			scheduleEntityForRemoval(grandparentEntityController.getEntity());
-			grandparentEntityController = null ;
+	@Override
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+		if (origin == EventOriginEnum.KEYBOARD) {
+			return true ;
 		}
-		if (parentEntityController != null) {
-			scheduleEntityForRemoval(parentEntityController.getEntity());
-			parentEntityController = null ;
-		}
-		if (childEntityController != null) {
-			scheduleEntityForRemoval(childEntityController.getEntity());
-			childEntityController = null ;
-		}
-		
+		return false;
 	}
 
 }

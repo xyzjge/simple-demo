@@ -9,7 +9,9 @@ import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
-import ar.com.xyz.gameengine.input.InputHandler;
+import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
+import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.light.PointLight;
 import ar.com.xyz.gameengine.light.SpotLight;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
@@ -19,7 +21,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
  * @author alfredo
  *
  */
-public class PresentationGameState extends AbstractGameState implements CrushHandler, InputHandler {
+public class PresentationGameState extends AbstractGameState implements CrushHandler, InputEventListener {
 
 	public static final float ROT_VEL = 200f ;
 	public static final float LOC_VEL = 2.5f ;
@@ -141,16 +143,6 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 		
 	}
 	
-	private void configureKeys() {
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_G, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_3, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_4, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_5, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_6, this);
-	}
-	
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
@@ -158,7 +150,7 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 			createInputHandler(
 				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
 			) ;
-			configureKeys();
+			addInputEventListener(this) ;
 		}
 	}
 	
@@ -226,14 +218,23 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 	}
 	
 	@Override
-	public boolean handleInput(int eventKey) {
-		switch (eventKey) {
+	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+		switch (keyOrButton) {
 		case Keyboard.KEY_G: {
 		}
 		break;
 		case Keyboard.KEY_1:
 		default:
 			break;
+		}
+//		return false;
+		
+	}
+
+	@Override
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+		if (origin == EventOriginEnum.KEYBOARD) {
+			return true ;
 		}
 		return false;
 	}

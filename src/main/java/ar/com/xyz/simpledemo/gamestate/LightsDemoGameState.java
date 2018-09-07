@@ -10,7 +10,9 @@ import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.ColorEnum;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
-import ar.com.xyz.gameengine.input.InputHandler;
+import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
+import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.light.PointLight;
 import ar.com.xyz.gameengine.light.SpotLight;
@@ -22,7 +24,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
  * @author alfredo
  *
  */
-public class LightsDemoGameState extends AbstractGameState implements CrushHandler, InputHandler {
+public class LightsDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener {
 
 	private static final String LEVEL = "s-box" ;
 	
@@ -111,16 +113,6 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 		resaltarXYZ = new ResaltarXYZ(this) ;
 	}
 	
-	private void configureKeys() {
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_G, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_3, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_4, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_5, this);
-		getHandlePlayerInput().addInputHandler(Keyboard.KEY_6, this);
-	}
-	
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
@@ -130,7 +122,8 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 			) ;
 		}
 		actualizarEstado(LigthsDemoEnum.AMBIENT) ;
-		configureKeys();
+		
+		addInputEventListener(this) ;
 	}
 	
 	@Override
@@ -200,104 +193,6 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 
 	private void handlePlayerDeath() {
 		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
-	}
-	
-	@Override
-	public boolean handleInput(int eventKey) {
-		switch (eventKey) {
-		case Keyboard.KEY_G: {
-			subState = 1 ;
-			actualizarEstado(state.next()) ;
-		}
-		break;
-		case Keyboard.KEY_1:
-			subState = 1 ;
-			switch (state) {
-			case AMBIENT:
-				ambientUno() ;
-				break;
-			case DIRECTIONAL:
-				directionalUno() ;
-				break;
-			case POINT:
-				pointUno() ;
-				break;
-			default:
-				break;
-			}
-			break;
-		case Keyboard.KEY_2:
-			subState = 2 ;
-			switch (state) {
-			case AMBIENT:
-				ambientDos() ;
-				break;
-			case DIRECTIONAL:
-				directionalDos() ;
-				break;
-			case POINT:
-				pointDos() ;
-				break;
-			default:
-				break;
-			}
-			break;
-		case Keyboard.KEY_3:
-			subState = 3 ;
-			switch (state) {
-			case AMBIENT:
-				ambientTres() ;
-				break;
-			case DIRECTIONAL:
-				directionalTres() ;
-				break;
-			default:
-				break;
-			}
-			break;
-		case Keyboard.KEY_4:
-			subState = 4 ;
-			switch (state) {
-			case AMBIENT:
-				ambientCuatro() ;
-				break;
-			case DIRECTIONAL:
-				directionalCuatro() ;
-				break;
-			default:
-				break;
-			}
-			break;
-		case Keyboard.KEY_5:
-			subState = 5 ;
-			switch (state) {
-			case AMBIENT:
-				ambientCinco() ;
-				break;
-			case DIRECTIONAL:
-				directionalCinco() ;
-				break;
-			default:
-				break;
-			}
-			break;
-		case Keyboard.KEY_6:
-			subState = 6 ;
-			switch (state) {
-			case AMBIENT:
-				ambientSeis() ;
-				break;
-			case DIRECTIONAL:
-				directionalSeis() ;
-				break;
-			default:
-				break;
-			}
-			break;
-		default:
-			break;
-		}
-		return false;
 	}
 	
 	private void actualizarEstado(LigthsDemoEnum state) {
@@ -425,4 +320,110 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 		pointLightDos.setIntensity(.4f);
 	}
 
+	@Override
+	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+		switch (keyOrButton) {
+		case Keyboard.KEY_G: {
+			subState = 1 ;
+			actualizarEstado(state.next()) ;
+		}
+		break;
+		case Keyboard.KEY_1:
+			subState = 1 ;
+			switch (state) {
+			case AMBIENT:
+				ambientUno() ;
+				break;
+			case DIRECTIONAL:
+				directionalUno() ;
+				break;
+			case POINT:
+				pointUno() ;
+				break;
+			default:
+				break;
+			}
+			break;
+		case Keyboard.KEY_2:
+			subState = 2 ;
+			switch (state) {
+			case AMBIENT:
+				ambientDos() ;
+				break;
+			case DIRECTIONAL:
+				directionalDos() ;
+				break;
+			case POINT:
+				pointDos() ;
+				break;
+			default:
+				break;
+			}
+			break;
+		case Keyboard.KEY_3:
+			subState = 3 ;
+			switch (state) {
+			case AMBIENT:
+				ambientTres() ;
+				break;
+			case DIRECTIONAL:
+				directionalTres() ;
+				break;
+			default:
+				break;
+			}
+			break;
+		case Keyboard.KEY_4:
+			subState = 4 ;
+			switch (state) {
+			case AMBIENT:
+				ambientCuatro() ;
+				break;
+			case DIRECTIONAL:
+				directionalCuatro() ;
+				break;
+			default:
+				break;
+			}
+			break;
+		case Keyboard.KEY_5:
+			subState = 5 ;
+			switch (state) {
+			case AMBIENT:
+				ambientCinco() ;
+				break;
+			case DIRECTIONAL:
+				directionalCinco() ;
+				break;
+			default:
+				break;
+			}
+			break;
+		case Keyboard.KEY_6:
+			subState = 6 ;
+			switch (state) {
+			case AMBIENT:
+				ambientSeis() ;
+				break;
+			case DIRECTIONAL:
+				directionalSeis() ;
+				break;
+			default:
+				break;
+			}
+			break;
+		default:
+			break;
+		}
+		// return false;
+	}
+
+	@Override
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+		if (origin == EventOriginEnum.KEYBOARD) {
+			return true ;
+		}
+		return false;
+	}
+	
 }

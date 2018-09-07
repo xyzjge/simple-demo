@@ -9,7 +9,9 @@ import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
-import ar.com.xyz.gameengine.input.InputHandler;
+import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
+import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
@@ -17,7 +19,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
  * @author alfredo
  *
  */
-public class ObjMultipleTextureGameState extends AbstractGameState implements CrushHandler, InputHandler {
+public class ObjMultipleTextureGameState extends AbstractGameState implements CrushHandler, InputEventListener {
 	
 //	private RotationEntityController rotationEntityController = new RotationEntityController(0, 20, 0) ;
 	
@@ -56,8 +58,7 @@ public class ObjMultipleTextureGameState extends AbstractGameState implements Cr
 				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
 			) ;
 		}
-		getHandlePlayerInput().clearEvents();
-		getHandlePlayerInput().clearMouseEvents();
+		clearEvents();
 	}
 	
 	@Override
@@ -120,15 +121,24 @@ public class ObjMultipleTextureGameState extends AbstractGameState implements Cr
 		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 	
+
 	@Override
-	public boolean handleInput(int eventKey) {
-		switch (eventKey) {
+	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+		switch (keyOrButton) {
 		case Keyboard.KEY_G: {
 		}
 		break;
 		case Keyboard.KEY_1:
 		default:
 			break;
+		}
+//		return false;
+	}
+
+	@Override
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+		if (origin == EventOriginEnum.KEYBOARD) {
+			return true ;
 		}
 		return false;
 	}
