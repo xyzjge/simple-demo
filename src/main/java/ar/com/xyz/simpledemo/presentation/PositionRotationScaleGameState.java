@@ -145,7 +145,7 @@ public class PositionRotationScaleGameState extends AbstractGameState implements
 	}
 	
 	@Override
-	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_G: {
 		}
@@ -154,7 +154,7 @@ public class PositionRotationScaleGameState extends AbstractGameState implements
 		default:
 			break;
 		}
-//		return false;
+		return false;
 	}
 
 	@Override

@@ -321,7 +321,7 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 	}
 
 	@Override
-	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_G: {
 			subState = 1 ;
@@ -415,7 +415,7 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 		default:
 			break;
 		}
-		// return false;
+		return false;
 	}
 
 	@Override

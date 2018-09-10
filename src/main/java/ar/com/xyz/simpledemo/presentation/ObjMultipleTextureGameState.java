@@ -123,7 +123,7 @@ public class ObjMultipleTextureGameState extends AbstractGameState implements Cr
 	
 
 	@Override
-	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_G: {
 		}
@@ -132,7 +132,7 @@ public class ObjMultipleTextureGameState extends AbstractGameState implements Cr
 		default:
 			break;
 		}
-//		return false;
+		return false;
 	}
 
 	@Override

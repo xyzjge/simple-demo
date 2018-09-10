@@ -138,7 +138,7 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 	}
 	
 	@Override
-	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_G: {
 		}
@@ -147,7 +147,7 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 		default:
 			break;
 		}
-		// return false;
+		return false;
 	}
 
 	@Override

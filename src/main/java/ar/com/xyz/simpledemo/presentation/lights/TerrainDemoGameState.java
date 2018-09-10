@@ -243,7 +243,7 @@ public class TerrainDemoGameState extends AbstractGameState implements InputEven
 	}
 
 	@Override
-	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_1:
 			setupAmbientLightDemo() ;
@@ -263,7 +263,7 @@ public class TerrainDemoGameState extends AbstractGameState implements InputEven
 		default:
 			break;
 		}
-//		return false; TODO: ...
+		return false; 
 	}
 
 	@Override

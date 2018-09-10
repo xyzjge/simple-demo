@@ -414,7 +414,7 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 	}
 
 	@Override
-	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_1:
 			cleanup() ;
@@ -441,8 +441,7 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 		default:
 			break;
 		}
-//		return false; TODO: ...
-		
+		return false;
 	}
 
 	@Override

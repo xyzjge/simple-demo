@@ -162,7 +162,7 @@ public class ParentChildRelationshipGameState extends AbstractGameState implemen
 	}
 	
 	@Override
-	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_G: {
 		}
@@ -171,7 +171,7 @@ public class ParentChildRelationshipGameState extends AbstractGameState implemen
 		default:
 			break;
 		}
-		// return false;
+		return false;
 	}
 
 	@Override

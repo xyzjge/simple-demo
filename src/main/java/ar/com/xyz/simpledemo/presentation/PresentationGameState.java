@@ -218,7 +218,7 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 	}
 	
 	@Override
-	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_G: {
 		}
@@ -227,7 +227,7 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 		default:
 			break;
 		}
-//		return false;
+		return false;
 		
 	}
 

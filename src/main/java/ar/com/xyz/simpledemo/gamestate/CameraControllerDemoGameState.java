@@ -346,7 +346,7 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 	 * ej si primero hago el pitch el yaw no le da boliya ...
 	 */
 	@Override
-	public void handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_0:
 			if (getCamera().getCameraController().equals(this)) {
@@ -385,7 +385,7 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 		default:
 			break;
 		}
-		// return false;
+		return false;
 	}
 
 	@Override
