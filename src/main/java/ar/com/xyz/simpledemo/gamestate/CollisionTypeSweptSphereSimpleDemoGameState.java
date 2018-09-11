@@ -65,9 +65,7 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameSta
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
 		if (getHandlePlayerInput() == null) {
-			createInputHandler(
-				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
-			) ;
+			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
 		}
 		if (!PLAY) {
 			SingletonManager.getInstance().getCollisionDataRecorder().setActive(true);

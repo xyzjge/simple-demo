@@ -147,9 +147,7 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
 		if (getHandlePlayerInput() == null) {
-			createInputHandler(
-				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
-			) ;
+			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
 			addInputEventListener(this) ;
 		}
 	}

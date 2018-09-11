@@ -117,9 +117,7 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
 		if (getHandlePlayerInput() == null) {
-			createInputHandler(
-				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
-			) ;
+			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
 		}
 		actualizarEstado(LigthsDemoEnum.AMBIENT) ;
 		

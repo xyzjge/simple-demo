@@ -107,9 +107,7 @@ public class LightAndShadowBoxWithInNormalsGameState extends AbstractGameState i
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
 		if (getHandlePlayerInput() == null) {
-			createInputHandler(
-				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
-			) ;
+			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
 			GuiTexture guiTexture2 = new GuiTexture(getMainGameLoop().getMasterRenderer().getShadowMapTexture(), new Vector2f(-.5f, .5f), new Vector2f(.25f, .25f)) ;
 			guiTexture2.setFboTexture(true);
 			getGuis().add(guiTexture2) ;

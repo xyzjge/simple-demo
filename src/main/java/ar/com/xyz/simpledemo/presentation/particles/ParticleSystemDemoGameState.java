@@ -64,9 +64,7 @@ public class ParticleSystemDemoGameState extends AbstractGameState {
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
 		if (getHandlePlayerInput() == null) {
-			createInputHandler(
-				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
-			) ;
+			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}
 	

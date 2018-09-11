@@ -100,9 +100,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 		super.attachedToMainLoop();
 		if (getHandlePlayerInput() == null) {
 			loadPlayerAndCamera() ;
-			createInputHandler(
-				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
-			) ;
+			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}
 	

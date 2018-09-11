@@ -136,9 +136,7 @@ public class ViewStaticSceneDemoGameState extends AbstractGameState implements C
 		super.attachedToMainLoop();
 
 		if (getHandlePlayerInput() == null) {
-			createInputHandler(
-				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
-			) ;
+			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
 		}
 		
 		Vector3f posicionInicial = POSICION_INICIAL ;

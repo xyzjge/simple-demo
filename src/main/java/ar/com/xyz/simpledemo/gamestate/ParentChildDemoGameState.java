@@ -103,18 +103,8 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
 		if (getHandlePlayerInput() == null) {
-			createInputHandler(
-				getMainGameLoop(), getPlayer(), getCamera(), this, null, null
-			) ;
+			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
 			addInputEventListener(this);
-//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_1, this);
-//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_2, this);
-//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_3, this);
-//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_4, this);
-//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_5, this);
-//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_6, this);
-//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_0, this);
-//			getHandlePlayerInput().addInputHandler(Keyboard.KEY_9, this);
 		}
 	}
 	
