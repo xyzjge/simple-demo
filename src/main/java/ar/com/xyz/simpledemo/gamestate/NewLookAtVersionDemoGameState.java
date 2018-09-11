@@ -155,7 +155,7 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		if (getHandlePlayerInput().testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
@@ -315,7 +315,7 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 	}
 
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_1:
 			SingletonManager.getInstance().getGraphicDebugger(DEBUG_TRIANGLE).hide();
@@ -332,11 +332,16 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		if (origin == EventOriginEnum.KEYBOARD) {
 			return true ;
 		}
 		return false;
+	}
+
+	@Override
+	public void tick() {
+		
 	}
 	
 }

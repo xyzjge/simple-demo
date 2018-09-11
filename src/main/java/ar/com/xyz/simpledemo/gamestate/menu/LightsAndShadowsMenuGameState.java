@@ -34,4 +34,9 @@ public class LightsAndShadowsMenuGameState extends AbstractMenuItemBasedMenuGame
 		return menuItemList;
 	}
 
+	@Override
+	public void tick() {
+		
+	}
+
 }

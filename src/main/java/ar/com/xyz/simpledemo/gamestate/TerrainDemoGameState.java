@@ -141,7 +141,7 @@ public class TerrainDemoGameState extends AbstractGameState {
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		followEntityFromFixedDirectionCameraController.update(tpf);
 	}

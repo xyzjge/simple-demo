@@ -115,7 +115,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 	public void tick(float tpf) {
 		playerDeathHandler.tick();
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		if (sweepSphereInAABB) {
 			sweepSphereInAABBGuiTexture.setTexture(SingletonManager.getInstance().getTextureManager().loadTexture("cube-wireframe-white")) ;

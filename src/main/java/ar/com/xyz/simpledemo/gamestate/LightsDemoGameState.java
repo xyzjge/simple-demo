@@ -133,7 +133,7 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		resaltarXYZ.restaltar(getPlayer().getPosition(), 3);
 		// Actualizar la posicion y la direccion de la spotLight en funcion de la posicion y la direccion del jugador (como si fuese una linterna)
@@ -321,7 +321,7 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 	}
 
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_G: {
 			subState = 1 ;
@@ -419,11 +419,17 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		if (origin == EventOriginEnum.KEYBOARD) {
 			return true ;
 		}
 		return false;
 	}
+
+	@Override
+	public void tick() {
+		
+	}
+
 	
 }

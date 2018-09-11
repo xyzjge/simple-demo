@@ -119,7 +119,7 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		if (getHandlePlayerInput().testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();

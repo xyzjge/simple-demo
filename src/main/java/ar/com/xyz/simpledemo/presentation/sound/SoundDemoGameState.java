@@ -90,7 +90,7 @@ public class SoundDemoGameState extends AbstractGameState {
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		source.setPosition(entityController.getEntity().getPosition().x, entityController.getEntity().getPosition().y, entityController.getEntity().getPosition().z);
 	}

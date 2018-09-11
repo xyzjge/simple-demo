@@ -76,7 +76,7 @@ public class SkyboxDemoGameState extends AbstractGameState {
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		xxx+=tpf ;
 		

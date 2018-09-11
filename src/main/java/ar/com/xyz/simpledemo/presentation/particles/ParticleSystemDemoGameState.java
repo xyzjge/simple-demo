@@ -84,7 +84,7 @@ public class ParticleSystemDemoGameState extends AbstractGameState {
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 
 		if (xxx> 6) {
 			xxx = 0 ;

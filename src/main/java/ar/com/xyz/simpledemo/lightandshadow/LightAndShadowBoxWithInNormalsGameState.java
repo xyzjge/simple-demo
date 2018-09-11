@@ -125,7 +125,7 @@ public class LightAndShadowBoxWithInNormalsGameState extends AbstractGameState i
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		resaltarXYZ.restaltar(getPlayer().getPosition(), 3);
 	}

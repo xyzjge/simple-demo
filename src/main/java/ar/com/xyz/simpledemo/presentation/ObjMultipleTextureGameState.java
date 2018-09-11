@@ -69,7 +69,7 @@ public class ObjMultipleTextureGameState extends AbstractGameState implements Cr
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		// ((DefaultCameraController)getCamera().getCameraController()).decPitch(-20);
 		getPlayer().moveForward();
@@ -123,7 +123,7 @@ public class ObjMultipleTextureGameState extends AbstractGameState implements Cr
 	
 
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_G: {
 		}
@@ -136,11 +136,16 @@ public class ObjMultipleTextureGameState extends AbstractGameState implements Cr
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		if (origin == EventOriginEnum.KEYBOARD) {
 			return true ;
 		}
 		return false;
+	}
+
+	@Override
+	public void tick() {
+		
 	}
 	
 }

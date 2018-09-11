@@ -120,7 +120,7 @@ public class ObjLoaderDemoGameState extends AbstractGameState implements CrushHa
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 	}
 

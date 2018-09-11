@@ -51,4 +51,9 @@ public class PresentationMenuGameState extends AbstractMenuItemBasedMenuGameStat
 		return menuItemList;
 	}
 
+	@Override
+	public void tick() {
+		
+	}
+
 }

@@ -67,5 +67,10 @@ public class SimpleDemoMenuGameState extends AbstractMenuItemBasedMenuGameState 
 		}
 		return menuItemList;
 	}
+
+	@Override
+	public void tick() {
+		
+	}
 	
 }

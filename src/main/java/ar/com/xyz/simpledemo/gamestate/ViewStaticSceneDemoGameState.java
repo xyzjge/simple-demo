@@ -188,7 +188,7 @@ public class ViewStaticSceneDemoGameState extends AbstractGameState implements C
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 	}
 

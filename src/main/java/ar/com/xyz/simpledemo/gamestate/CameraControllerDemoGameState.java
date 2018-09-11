@@ -112,7 +112,7 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 	}
 
@@ -346,7 +346,7 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 	 * ej si primero hago el pitch el yaw no le da boliya ...
 	 */
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_0:
 			if (getCamera().getCameraController().equals(this)) {
@@ -389,11 +389,16 @@ public class CameraControllerDemoGameState extends AbstractGameState implements 
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		if (origin == EventOriginEnum.KEYBOARD) {
 			return true ;
 		}
 		return false;
+	}
+
+	@Override
+	public void tick() {
+		
 	}
 	
 }

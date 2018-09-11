@@ -84,7 +84,7 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameSta
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		if (getHandlePlayerInput().testAndClearFire()) {
 			if (collisionDataPlayer != null) {

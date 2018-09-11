@@ -76,7 +76,7 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 	}
 
@@ -138,7 +138,7 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 	}
 	
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_G: {
 		}
@@ -151,11 +151,16 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		if (origin == EventOriginEnum.KEYBOARD) {
 			return true ;
 		}
 		return false;
+	}
+
+	@Override
+	public void tick() {
+		
 	}
 	
 }

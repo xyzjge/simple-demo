@@ -86,7 +86,7 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		dynamiteBundlesAnimatedTexture.update(tpf);
 //		secondsAnim += tpf ;

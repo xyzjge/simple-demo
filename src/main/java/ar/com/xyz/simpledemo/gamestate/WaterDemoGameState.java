@@ -143,7 +143,7 @@ public class WaterDemoGameState extends AbstractGameState implements CrushHandle
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 	}
 

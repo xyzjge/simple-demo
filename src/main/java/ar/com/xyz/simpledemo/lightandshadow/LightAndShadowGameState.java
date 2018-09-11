@@ -110,7 +110,7 @@ public class LightAndShadowGameState extends AbstractGameState implements CrushH
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		resaltarXYZ.restaltar(getPlayer().getPosition(), 3);
 

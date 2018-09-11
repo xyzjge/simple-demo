@@ -163,7 +163,7 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		if (xEntityController.isDone()) {
 			Vector3f cameraPosition = getCamera().getCameraController().getPosition() ;
@@ -218,7 +218,7 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 	}
 	
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_G: {
 		}
@@ -232,11 +232,16 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		if (origin == EventOriginEnum.KEYBOARD) {
 			return true ;
 		}
 		return false;
+	}
+
+	@Override
+	public void tick() {
+		
 	}
 	
 }

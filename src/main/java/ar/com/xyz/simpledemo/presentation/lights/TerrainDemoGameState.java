@@ -167,7 +167,7 @@ public class TerrainDemoGameState extends AbstractGameState implements InputEven
 			handlePlayerDeath() ;
 		}
 		
-		getHandlePlayerInput().handlePlayerInput();
+//		getHandlePlayerInput().handlePlayerInput();
 		
 		switch (state) {
 		case AMBIENT_LIGHT_DEMO:
@@ -243,7 +243,7 @@ public class TerrainDemoGameState extends AbstractGameState implements InputEven
 	}
 
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		switch (keyOrButton) {
 		case Keyboard.KEY_1:
 			setupAmbientLightDemo() ;
@@ -267,11 +267,16 @@ public class TerrainDemoGameState extends AbstractGameState implements InputEven
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton) {
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
 		if (origin == EventOriginEnum.KEYBOARD) {
 			return true ;
 		}
 		return false;
+	}
+
+	@Override
+	public void tick() {
+		
 	}
 	
 }
