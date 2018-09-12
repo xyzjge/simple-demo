@@ -39,7 +39,7 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 	private ResaltarXYZ resaltarXYZ ;
 	
 	public LightsDemoGameState() {
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -116,8 +116,8 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 		actualizarEstado(LigthsDemoEnum.AMBIENT) ;
 		
@@ -162,9 +162,9 @@ public class LightsDemoGameState extends AbstractGameState implements CrushHandl
 		}
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(-5, 0, 94), // new Vector3f(-5, 10, 90), // new Vector3f(5, 10, 5), //new Vector3f(10, 10, 10),
 			new Vector3f(0, -30, 0), // new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),

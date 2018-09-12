@@ -22,7 +22,7 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 	private EntityController lookAtEntityController = null ;
 	
 	public LookAtDemoGameState() {
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -126,8 +126,8 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}
 	
@@ -139,7 +139,7 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 		
 //		getHandlePlayerInput().handlePlayerInput();
 		
-		if (getHandlePlayerInput().testAndClearFire()) {
+		if (getPlayerInputEventListener().testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).hide();
 		}
@@ -147,9 +147,9 @@ public class LookAtDemoGameState extends AbstractGameState implements CrushHandl
 		SingletonManager.getInstance().getEntityUtil().stackOverflowLookAt3d(movimientoCircularEntityController.getEntity(), lookAtEntityController.getEntity().getPosition()) ;
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(0, 0, 0),
 			new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),

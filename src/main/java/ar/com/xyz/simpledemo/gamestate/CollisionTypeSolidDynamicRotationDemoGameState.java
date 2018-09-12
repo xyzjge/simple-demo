@@ -16,7 +16,7 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 	private static final String LEVEL = "s-box" ;
 	
 	public CollisionTypeSolidDynamicRotationDemoGameState() {
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -106,8 +106,8 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}
 	
@@ -119,15 +119,15 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 		
 //		getHandlePlayerInput().handlePlayerInput();
 		
-		if (getHandlePlayerInput().testAndClearFire()) {
+		if (getPlayerInputEventListener().testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
 		}
 		
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(10, 10, 10),
 			new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),

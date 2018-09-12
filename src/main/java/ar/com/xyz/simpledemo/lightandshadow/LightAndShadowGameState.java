@@ -39,7 +39,7 @@ public class LightAndShadowGameState extends AbstractGameState implements CrushH
 	private ResaltarXYZ resaltarXYZ ;
 	
 	public LightAndShadowGameState() {
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -93,8 +93,8 @@ public class LightAndShadowGameState extends AbstractGameState implements CrushH
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 			GuiTexture guiTexture2 = new GuiTexture(getMainGameLoop().getMasterRenderer().getShadowMapTexture(), new Vector2f(-.5f, .5f), new Vector2f(.25f, .25f)) ;
 			guiTexture2.setFboTexture(true);
 			getGuis().add(guiTexture2) ;
@@ -114,9 +114,9 @@ public class LightAndShadowGameState extends AbstractGameState implements CrushH
 
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(0, 2, 0),
 			new Vector3f(0, -30, 0),
 			new Vector3f(1, 1, 1),

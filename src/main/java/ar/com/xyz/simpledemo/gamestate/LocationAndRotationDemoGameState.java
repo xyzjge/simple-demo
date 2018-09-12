@@ -16,7 +16,7 @@ public class LocationAndRotationDemoGameState extends AbstractGameState implemen
 	private static final String LEVEL = "s-box" ;
 	
 	public LocationAndRotationDemoGameState() {
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -100,8 +100,8 @@ public class LocationAndRotationDemoGameState extends AbstractGameState implemen
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}
 	
@@ -113,16 +113,16 @@ public class LocationAndRotationDemoGameState extends AbstractGameState implemen
 		
 //		getHandlePlayerInput().handlePlayerInput();
 		
-		if (getHandlePlayerInput().testAndClearFire()) {
+		if (getPlayerInputEventListener().testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).hide();
 		}
 		
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(0, 0, 0),
 			new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),

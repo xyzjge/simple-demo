@@ -44,7 +44,7 @@ public class ParticleSystemDemoGameState extends AbstractGameState {
 			createEntity(entitySpec);
 		}
 		
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -63,8 +63,8 @@ public class ParticleSystemDemoGameState extends AbstractGameState {
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}
 	
@@ -111,9 +111,9 @@ public class ParticleSystemDemoGameState extends AbstractGameState {
 
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(0, 1, -4),
 			new Vector3f(0, 0, 0), 
 			new Vector3f(1, 1, 1),

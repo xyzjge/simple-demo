@@ -26,7 +26,7 @@ public class PositionRotationScaleGameState extends AbstractGameState implements
 		SingletonManager.getInstance().getObjWithMaterialFileLoader().addMtlPath("/models/presentation") ;
 		SingletonManager.getInstance().getTextureManager().addTexturePath("/texture/presentation/");
 		
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{
 			EntitySpec entitySpec ;
@@ -82,8 +82,8 @@ public class PositionRotationScaleGameState extends AbstractGameState implements
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 		clearEvents();
 	}
@@ -99,9 +99,9 @@ public class PositionRotationScaleGameState extends AbstractGameState implements
 		
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(-25, 25, -25),
 			new Vector3f(0, 0, 0), // new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),

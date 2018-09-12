@@ -50,7 +50,7 @@ public class TerrainDemoGameState extends AbstractGameState implements InputEven
 		}
 		
 		loadTerrain();
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -102,8 +102,8 @@ public class TerrainDemoGameState extends AbstractGameState implements InputEven
 		super.attachedToMainLoop();
 		
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 			addInputEventListener(this);
 		}
 
@@ -186,9 +186,9 @@ public class TerrainDemoGameState extends AbstractGameState implements InputEven
 		}
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(20, 10, 20),
 			new Vector3f(0, 0, 0), 
 			new Vector3f(1, 1, 1),

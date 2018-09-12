@@ -135,9 +135,9 @@ public class CollisionTypeSolidDynamicDemoGameState extends AbstractGameState {
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			loadPlayerAndCamera() ;
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupPlayerAndCamera() ;
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}
 	
@@ -196,9 +196,9 @@ public class CollisionTypeSolidDynamicDemoGameState extends AbstractGameState {
 		}
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(0, 100, 0),
 			new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),

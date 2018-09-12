@@ -33,7 +33,7 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 	private static final String AXE_ZOMBIE_ATTACK_MODEL = "/models/axe-zombie-attack.dae" ;
 	
 	public CollisionTypeSweptSphereAnimationDemoGameState() {
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -93,8 +93,8 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}
 	
@@ -106,16 +106,16 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 		
 //		getHandlePlayerInput().handlePlayerInput();
 		
-		if (getHandlePlayerInput().testAndClearFire()) {
+		if (getPlayerInputEventListener().testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).hide();
 		}
 		
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(10, 10, 10),
 			new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),

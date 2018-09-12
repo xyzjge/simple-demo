@@ -33,7 +33,7 @@ public class ParentChildRelationshipGameState extends AbstractGameState implemen
 		SingletonManager.getInstance().getObjWithMaterialFileLoader().addMtlPath("/models/presentation") ;
 		SingletonManager.getInstance().getTextureManager().addTexturePath("/texture/presentation/");
 		
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		RotationEntityController parentEntityController = new RotationEntityController(0, 10, 0) ;
 		{	// Parent
@@ -92,8 +92,8 @@ public class ParentChildRelationshipGameState extends AbstractGameState implemen
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 		clearEvents();
 	}
@@ -118,9 +118,9 @@ public class ParentChildRelationshipGameState extends AbstractGameState implemen
 
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			// new Vector3f(-15, -(10 + (10 + 5)) /* -25 *//* -15 */ /* -10*/, -15),
 			new Vector3f(0, -(10 + (10 + 5)) /* -25 *//* -15 */ /* -10*/, 0), // TODO: esto falla con NaN en XZ !!!
 //			new Vector3f(0.1f, -(10 + (10 + 5)) /* -25 *//* -15 */ /* -10*/, 0.1f),

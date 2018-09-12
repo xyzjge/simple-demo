@@ -34,7 +34,7 @@ public class TerrainDemoGameState extends AbstractGameState {
 	public TerrainDemoGameState() {
 		
 		loadTerrain();
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 //		{	// Create SOLID_STATIC for the LEVEL
 //			EntitySpec entitySpec ;
@@ -68,8 +68,8 @@ public class TerrainDemoGameState extends AbstractGameState {
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 		setupSecondCamera() ;
 	}
@@ -144,9 +144,9 @@ public class TerrainDemoGameState extends AbstractGameState {
 		followEntityFromFixedDirectionCameraController.update(tpf);
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(20, 10, 20),
 			new Vector3f(0, 0, 0), 
 			new Vector3f(1, 1, 1),

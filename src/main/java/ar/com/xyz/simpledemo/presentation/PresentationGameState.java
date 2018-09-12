@@ -41,7 +41,7 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 		SingletonManager.getInstance().getObjWithMaterialFileLoader().addMtlPath("/models/presentation") ;
 		SingletonManager.getInstance().getTextureManager().addTexturePath("/texture/presentation/");
 		
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{
 			EntitySpec entitySpec ;
@@ -146,8 +146,8 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 			addInputEventListener(this) ;
 		}
 	}
@@ -172,9 +172,9 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 		}
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(-6, 10, -21),
 			new Vector3f(0, 0, 0), // new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),

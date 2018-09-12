@@ -29,7 +29,7 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 	EntityController childEntityController = null ;
 	
 	public ParentChildDemoGameState() {
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -102,8 +102,8 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 			addInputEventListener(this);
 		}
 	}
@@ -356,9 +356,9 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 		
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(5, 5, 5),
 			new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),

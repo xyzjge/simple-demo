@@ -56,7 +56,7 @@ public class SoundDemoGameState extends AbstractGameState {
 		}
 		
 		
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		grabMouseIfNotGrabbed() ;
 		
@@ -76,8 +76,8 @@ public class SoundDemoGameState extends AbstractGameState {
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}
 	
@@ -93,9 +93,9 @@ public class SoundDemoGameState extends AbstractGameState {
 		source.setPosition(entityController.getEntity().getPosition().x, entityController.getEntity().getPosition().y, entityController.getEntity().getPosition().z);
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(0, 1, 0),
 			new Vector3f(0, 0, 0), 
 			new Vector3f(1, 1, 1),

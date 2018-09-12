@@ -41,7 +41,7 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 	private List<EntityController> entityControllerList = new ArrayList<EntityController>() ;
 	
 	public NewLookAtVersionDemoGameState() {
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -141,8 +141,8 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 			addInputEventListener(this);
 		}
 	}
@@ -155,7 +155,7 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 		
 //		getHandlePlayerInput().handlePlayerInput();
 		
-		if (getHandlePlayerInput().testAndClearFire()) {
+		if (getPlayerInputEventListener().testAndClearFire()) {
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
 			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).hide();
 			
@@ -209,9 +209,9 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 //		SingletonManager.getInstance().getEntityUtil().lookAt3d(movimientoCircularEntityController.getEntity(), lookAtEntityController.getEntity().getPosition()) ;
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(5, 5, 5),
 			new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),

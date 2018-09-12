@@ -27,7 +27,7 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameSta
 	private Player collisionDataPlayer ;
 	
 	public CollisionTypeSweptSphereSimpleDemoGameState() {
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -64,8 +64,8 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameSta
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 		if (!PLAY) {
 			SingletonManager.getInstance().getCollisionDataRecorder().setActive(true);
@@ -84,7 +84,7 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameSta
 		
 //		getHandlePlayerInput().handlePlayerInput();
 		
-		if (getHandlePlayerInput().testAndClearFire()) {
+		if (getPlayerInputEventListener().testAndClearFire()) {
 			if (collisionDataPlayer != null) {
 				collisionDataPlayer.print();
 			}
@@ -95,7 +95,7 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameSta
 //			return ;
 		}
 		
-		if (getHandlePlayerInput().testAndClearEmpujar()) {
+		if (getPlayerInputEventListener().testAndClearEmpujar()) {
 			// La posicion del jugador es en el piso, con el espace y si esta agachado o no podría determinar el y
 			// TODO: Si esta volviendo de crouch el rayo sale de mas arriba de la camara ... por ahora queda asi ...
 			Vector3f rayOrigin = new Vector3f(
@@ -124,9 +124,9 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameSta
 		
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(-5, 0, 94), // new Vector3f(-5, 10, 90), // new Vector3f(5, 10, 5), //new Vector3f(10, 10, 10),
 			new Vector3f(0, -30, 0), // new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),

@@ -27,7 +27,7 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 	private AnimatedGuiTexture dynamiteBundlesAnimatedTexture ;
 	
 	public Animation2DDemoGameState() {
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -71,8 +71,8 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}
 
@@ -95,9 +95,9 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 //		}
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(0, 0, 0),
 			new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),

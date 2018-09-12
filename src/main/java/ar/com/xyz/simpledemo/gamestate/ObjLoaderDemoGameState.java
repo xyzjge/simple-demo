@@ -19,7 +19,7 @@ public class ObjLoaderDemoGameState extends AbstractGameState implements CrushHa
 	EntityController childEntityController = null ;
 	
 	public ObjLoaderDemoGameState() {
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -107,8 +107,8 @@ public class ObjLoaderDemoGameState extends AbstractGameState implements CrushHa
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}
 	
@@ -122,9 +122,9 @@ public class ObjLoaderDemoGameState extends AbstractGameState implements CrushHa
 		
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(5, 5, 5),
 			new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),

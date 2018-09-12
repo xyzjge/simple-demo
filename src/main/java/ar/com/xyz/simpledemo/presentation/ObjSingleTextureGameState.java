@@ -26,7 +26,7 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 	
 	public ObjSingleTextureGameState() {
 		
-		loadPlayerAndCamera() ;
+		setupPlayerAndCamera() ;
 		
 		{
 			EntitySpec entitySpec ;
@@ -51,8 +51,8 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getHandlePlayerInput() == null) {
-			createInputHandler(getMainGameLoop(), getPlayer(), null) ;
+		if (getPlayerInputEventListener() == null) {
+			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 		clearEvents();
 	}
@@ -92,9 +92,9 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 		
 	}
 
-	private void loadPlayerAndCamera() {
+	private void setupPlayerAndCamera() {
 
-		createPlayerAndCamera(
+		setupPlayerAndCamera(
 			new Vector3f(0, -2, -5),
 			new Vector3f(0, 0, 0), // new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),
