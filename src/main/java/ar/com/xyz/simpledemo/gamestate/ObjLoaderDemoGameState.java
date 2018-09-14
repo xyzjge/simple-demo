@@ -107,7 +107,7 @@ public class ObjLoaderDemoGameState extends AbstractGameState implements CrushHa
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getPlayerInputEventListener() == null) {
+		if (getInputManager().getNumberOfConfiguredInputEventListener() == 0) {
 			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}

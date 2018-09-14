@@ -104,7 +104,7 @@ public class LocationAndRotationDemoGameState extends AbstractGameState implemen
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getPlayerInputEventListener() == null) {
+		if (getInputManager().getNumberOfConfiguredInputEventListener() == 0) {
 			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}

@@ -135,7 +135,7 @@ public class CollisionTypeSolidDynamicDemoGameState extends AbstractGameState {
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getPlayerInputEventListener() == null) {
+		if (getInputManager().getNumberOfConfiguredInputEventListener() == 0) {
 			setupPlayerAndCamera() ;
 			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}

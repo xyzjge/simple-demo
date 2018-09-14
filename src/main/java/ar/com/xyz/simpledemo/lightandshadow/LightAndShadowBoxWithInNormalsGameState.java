@@ -106,7 +106,7 @@ public class LightAndShadowBoxWithInNormalsGameState extends AbstractGameState i
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getPlayerInputEventListener() == null) {
+		if (getInputManager().getNumberOfConfiguredInputEventListener() == 0) {
 			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 			GuiTexture guiTexture2 = new GuiTexture(getMainGameLoop().getMasterRenderer().getShadowMapTexture(), new Vector2f(-.5f, .5f), new Vector2f(.25f, .25f)) ;
 			guiTexture2.setFboTexture(true);

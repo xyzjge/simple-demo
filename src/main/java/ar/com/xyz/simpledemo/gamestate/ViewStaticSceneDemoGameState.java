@@ -135,7 +135,7 @@ public class ViewStaticSceneDemoGameState extends AbstractGameState implements C
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
 
-		if (getPlayerInputEventListener() == null) {
+		if (getInputManager().getNumberOfConfiguredInputEventListener() == 0) {
 			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 		

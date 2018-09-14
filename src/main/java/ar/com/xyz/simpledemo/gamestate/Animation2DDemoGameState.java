@@ -71,7 +71,7 @@ public class Animation2DDemoGameState extends AbstractGameState implements Crush
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
-		if (getPlayerInputEventListener() == null) {
+		if (getInputManager().getNumberOfConfiguredInputEventListener() == 0) {
 			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
 	}

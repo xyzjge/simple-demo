@@ -102,7 +102,7 @@ public class TerrainDemoGameState extends AbstractGameState implements InputEven
 		super.attachedToMainLoop();
 		
 		super.attachedToMainLoop();
-		if (getPlayerInputEventListener() == null) {
+		if (getInputManager().getNumberOfConfiguredInputEventListener() == 0) {
 			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 			addInputEventListener(this);
 		}
