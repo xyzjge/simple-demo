@@ -152,61 +152,6 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 		if (getPlayer().getPosition().y < -10) {
 			handlePlayerDeath() ;
 		}
-		
-//		getHandlePlayerInput().handlePlayerInput();
-		
-		if (getPlayerInputEventListener().testAndClearFire()) {
-			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
-			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).hide();
-			
-			Vector3f rayOrigin ;
-			if (getPlayer().isCrouch()) {
-				rayOrigin = new Vector3f(
-					getPlayer().getPosition().x, 
-					getPlayer().getPosition().y + (getPlayer().getESpaceUtil().getRadius().y * 2), 
-					getPlayer().getPosition().z
-				) ;
-			} else {
-				rayOrigin = new Vector3f(
-					getPlayer().getPosition().x, 
-					getPlayer().getPosition().y + (getPlayer().getESpaceUtil().getRadius().y * 2), 
-					getPlayer().getPosition().z
-				) ;
-			}
-
-			float rotY = getPlayer().getRotation().y ;
-			Vector3f rayDirection = new Vector3f((float)Math.sin(Math.toRadians(rotY)), (float) - Math.sin(Math.toRadians(getCamera().getPitch())) , (float)Math.cos(Math.toRadians(rotY))) ;
-
-			if (DEBUG_RAY_ENABLED) {
-				SingletonManager.getInstance().getGraphicDebugger(DEBUG_RAY).activate();
-				SingletonManager.getInstance().getGraphicDebugger(DEBUG_RAY).setAbstractGameState(this);
-				SingletonManager.getInstance().getGraphicDebugger(DEBUG_RAY).addMensaje(rayOrigin.x, rayOrigin.y, rayOrigin.z, ColorEnum.BLACK.getName() , true);
-				SingletonManager.getInstance().getGraphicDebugger(DEBUG_RAY).addMensaje(rayDirection.x, rayDirection.y, rayDirection.z, ColorEnum.GRAY.getName(), true);
-				SingletonManager.getInstance().getGraphicDebugger(DEBUG_RAY).addMensaje(rayOrigin.x + rayDirection.x, rayOrigin.y + rayDirection.y, rayOrigin.z + rayDirection.z, ColorEnum.GREEN.getName(), true);
-				SingletonManager.getInstance().getGraphicDebugger(DEBUG_RAY).deactivateAndShowMessages();
-			}
-			
-			// TODO: Pq sera necesario el ignore ??? En teoria los triangulos no estan enfrentados al rayo ...
-			// RayTracerVO rayTracerVO = getMainGameLoop().getRayTracer().getTriangle(rayOrigin, rayDirection, 1/* 20*/, getAabbManager()) ;
-			RayTracerVO rayTracerVO = getMainGameLoop().getRayTracer().getTriangle(rayOrigin, rayDirection, 5/* 20*/, getAabbManager(), getPlayer()) ;
-			if (rayTracerVO != null) {
-				Triangle triangle = rayTracerVO.getTriangle() ;
-				
-				if (DEBUG_TRIANGLE_ENABLED) {
-					SingletonManager.getInstance().getGraphicDebugger(DEBUG_TRIANGLE).activate();
-					SingletonManager.getInstance().getGraphicDebugger(DEBUG_TRIANGLE).setAbstractGameState(this);
-					SingletonManager.getInstance().getGraphicDebugger(DEBUG_TRIANGLE).addMensaje(triangle.getP1().x, triangle.getP1().y, triangle.getP1().z, ColorEnum.GREEN.getName() , true);
-					SingletonManager.getInstance().getGraphicDebugger(DEBUG_TRIANGLE).addMensaje(triangle.getP2().x, triangle.getP2().y, triangle.getP2().z, ColorEnum.GREEN.getName(), true);
-					SingletonManager.getInstance().getGraphicDebugger(DEBUG_TRIANGLE).addMensaje(triangle.getP3().x, triangle.getP3().y, triangle.getP3().z, ColorEnum.GREEN.getName(), true);
-					SingletonManager.getInstance().getGraphicDebugger(DEBUG_TRIANGLE).deactivateAndShowMessages();
-				}
-				
-				addNotification("shoot " + triangle.toShortString());
-				addMark(rayTracerVO);
-			}
-		}
-		
-//		SingletonManager.getInstance().getEntityUtil().lookAt3d(movimientoCircularEntityController.getEntity(), lookAtEntityController.getEntity().getPosition()) ;
 	}
 
 	private void setupPlayerAndCamera() {
@@ -323,6 +268,58 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 				scheduleEntityForRemoval(entityController.getEntity());
 			}
 			break;
+		case Keyboard.KEY_X: {
+			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
+			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).hide();
+			
+			Vector3f rayOrigin ;
+			if (getPlayer().isCrouch()) {
+				rayOrigin = new Vector3f(
+					getPlayer().getPosition().x, 
+					getPlayer().getPosition().y + (getPlayer().getESpaceUtil().getRadius().y * 2), 
+					getPlayer().getPosition().z
+				) ;
+			} else {
+				rayOrigin = new Vector3f(
+					getPlayer().getPosition().x, 
+					getPlayer().getPosition().y + (getPlayer().getESpaceUtil().getRadius().y * 2), 
+					getPlayer().getPosition().z
+				) ;
+			}
+
+			float rotY = getPlayer().getRotation().y ;
+			Vector3f rayDirection = new Vector3f((float)Math.sin(Math.toRadians(rotY)), (float) - Math.sin(Math.toRadians(getCamera().getPitch())) , (float)Math.cos(Math.toRadians(rotY))) ;
+
+			if (DEBUG_RAY_ENABLED) {
+				SingletonManager.getInstance().getGraphicDebugger(DEBUG_RAY).activate();
+				SingletonManager.getInstance().getGraphicDebugger(DEBUG_RAY).setAbstractGameState(this);
+				SingletonManager.getInstance().getGraphicDebugger(DEBUG_RAY).addMensaje(rayOrigin.x, rayOrigin.y, rayOrigin.z, ColorEnum.BLACK.getName() , true);
+				SingletonManager.getInstance().getGraphicDebugger(DEBUG_RAY).addMensaje(rayDirection.x, rayDirection.y, rayDirection.z, ColorEnum.GRAY.getName(), true);
+				SingletonManager.getInstance().getGraphicDebugger(DEBUG_RAY).addMensaje(rayOrigin.x + rayDirection.x, rayOrigin.y + rayDirection.y, rayOrigin.z + rayDirection.z, ColorEnum.GREEN.getName(), true);
+				SingletonManager.getInstance().getGraphicDebugger(DEBUG_RAY).deactivateAndShowMessages();
+			}
+			
+			// TODO: Pq sera necesario el ignore ??? En teoria los triangulos no estan enfrentados al rayo ...
+			// RayTracerVO rayTracerVO = getMainGameLoop().getRayTracer().getTriangle(rayOrigin, rayDirection, 1/* 20*/, getAabbManager()) ;
+			RayTracerVO rayTracerVO = getMainGameLoop().getRayTracer().getTriangle(rayOrigin, rayDirection, 5/* 20*/, getAabbManager(), getPlayer()) ;
+			if (rayTracerVO != null) {
+				Triangle triangle = rayTracerVO.getTriangle() ;
+				
+				if (DEBUG_TRIANGLE_ENABLED) {
+					SingletonManager.getInstance().getGraphicDebugger(DEBUG_TRIANGLE).activate();
+					SingletonManager.getInstance().getGraphicDebugger(DEBUG_TRIANGLE).setAbstractGameState(this);
+					SingletonManager.getInstance().getGraphicDebugger(DEBUG_TRIANGLE).addMensaje(triangle.getP1().x, triangle.getP1().y, triangle.getP1().z, ColorEnum.GREEN.getName() , true);
+					SingletonManager.getInstance().getGraphicDebugger(DEBUG_TRIANGLE).addMensaje(triangle.getP2().x, triangle.getP2().y, triangle.getP2().z, ColorEnum.GREEN.getName(), true);
+					SingletonManager.getInstance().getGraphicDebugger(DEBUG_TRIANGLE).addMensaje(triangle.getP3().x, triangle.getP3().y, triangle.getP3().z, ColorEnum.GREEN.getName(), true);
+					SingletonManager.getInstance().getGraphicDebugger(DEBUG_TRIANGLE).deactivateAndShowMessages();
+				}
+				
+				addNotification("shoot " + triangle.toShortString());
+				addMark(rayTracerVO);
+			}
+
+			}
+			break;
 		default:
 			break;
 		}
@@ -331,7 +328,7 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 
 	@Override
 	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		if (origin == EventOriginEnum.KEYBOARD) {
+		if (origin == EventOriginEnum.KEYBOARD && type == EventTypeEnum.RELEASED) {
 			return true ;
 		}
 		return false;

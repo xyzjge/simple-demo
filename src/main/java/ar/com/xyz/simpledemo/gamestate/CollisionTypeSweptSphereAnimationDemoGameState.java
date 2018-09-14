@@ -3,6 +3,7 @@ package ar.com.xyz.simpledemo.gamestate;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
@@ -12,11 +13,14 @@ import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.AnimatedEntitySpec;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
+import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
+import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.controller.ChangeAnimationEntityController;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
-public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGameState implements CrushHandler {
+public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener {
 	
 	private static final String LEVEL = "s-box" ;
 	
@@ -104,13 +108,6 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 			handlePlayerDeath() ;
 		}
 		
-//		getHandlePlayerInput().handlePlayerInput();
-		
-		if (getPlayerInputEventListener().testAndClearFire()) {
-			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
-			SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).hide();
-		}
-		
 	}
 
 	private void setupPlayerAndCamera() {
@@ -143,6 +140,27 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 
 	private void handlePlayerDeath() {
 		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
+	}
+
+	@Override
+	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
+		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
+		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).hide();
+		return false;
+	}
+
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
+		if (origin == EventOriginEnum.KEYBOARD && type == EventTypeEnum.RELEASED && keyOrButton == Keyboard.KEY_X) {
+			return true ;
+		}
+		return false;
 	}
 
 }
