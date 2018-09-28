@@ -9,6 +9,7 @@ import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.gui.GuiTexture;
+import ar.com.xyz.gameengine.reflectivequad.ReflectiveQuadTile;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.controller.SimpleDemoEntityController;
 import ar.com.xyz.simpledemo.handler.PlayerDeathHandler;
@@ -79,8 +80,6 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 			this.enableDebug(rec.getEntity());
 		}
 		
-//		levelGameStateDefaultPlayerInputHandler = new LevelGameStateDefaultPlayerInputHandler(mainGameLoop, getPlayer(), getCamera(), this, null, null) ;
-		
 		grabMouseIfNotGrabbed() ;
 		
 		setShowFps(true);
@@ -93,6 +92,36 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 		) ;
 		
 		this.getGuis().add(sweepSphereInAABBGuiTexture) ;
+		
+		// Este esta en plano con normal Y=1 y funciona ok
+		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(0, 0), /*.25f*/ .75f)) ;
+		
+		// A ver si le pongo un toque de pitch ...
+		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(45, 0), /*.25f*/ .75f)) ;
+		
+		// Este esta en plano con normal Y=-1 y funciona ok
+		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 4 /* height */, new Vector2f(8, 10), new Vector2f(180, 0), /*.25f*/ .75f)) ;
+		
+		
+		
+		// Este esta en plano Z=1 y funciona ok
+		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(90, 0), /*.25f*/ .75f)) ;
+		
+		
+		// Esta funciono bien!!!!
+		//this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(80, 0), /*.25f*/ .75f)) ;
+		// Probe con varios valores de X entre 0 y 180 y va ... a ver mas de 180 ... parece que funciona
+		this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(220, 0), /*.25f*/ .75f)) ;
+		
+		// Este esta en plano Z=1 y funciona ok
+		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(270, 0), /*.25f*/ .75f)) ;
+		
+		// Aparentemente es lo mismo para X=1 y X=-1
+		// Este esta en plano con normal X=-1 y funciona ok
+		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(0, 90), /*.25f*/ .75f)) ;
+		
+		// Este esta en plano con normal X=1 y funciona ok
+		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(0, 270), /*.25f*/ .75f)) ;
 	}
 	
 	@Override
@@ -112,8 +141,6 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState {
 	@Override
 	public void tick(float tpf) {
 		playerDeathHandler.tick();
-		
-//		getHandlePlayerInput().handlePlayerInput();
 		
 		if (sweepSphereInAABB) {
 			sweepSphereInAABBGuiTexture.setTexture(SingletonManager.getInstance().getTextureManager().loadTexture("cube-wireframe-white")) ;
