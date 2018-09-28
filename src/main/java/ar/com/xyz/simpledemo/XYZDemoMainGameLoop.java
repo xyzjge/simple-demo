@@ -13,6 +13,7 @@ public class XYZDemoMainGameLoop extends AbstractMainGameLoop {
 	
 	private static final int WIDTH = 1280 ;
 	private static final int HEIGHT = 720 ;
+	// private static final int HEIGHT = 1280 ;
 	
 	private static final boolean FULL_SCREEN = false;
 	
