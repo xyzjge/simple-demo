@@ -24,6 +24,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.LookAtDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.NewLookAtVersionDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ObjLoaderDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ParentChildDemoMenuItem;
+import ar.com.xyz.simpledemo.gamestate.menuitem.ReflectiveQuadsDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.TerrainDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ViewStaticSceneDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.WaterDemoMenuItem;
@@ -36,7 +37,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuItemBasedMenuGameState 
 	private static FontSpec seleccionadoFontSpec = new FontSpec("arial", 2f, new Vector3f(1f, 1f, 1f));
 	
 	public SimpleDemoMenuGameState(String sound, String background) {
-		super(normalFontSpec, seleccionadoFontSpec, sound, background, 0.15f, "EXIT", EventOriginEnum.MOUSE) ;
+		super(normalFontSpec, seleccionadoFontSpec, sound, background, 0.05f, "EXIT", EventOriginEnum.MOUSE) ;
 	}
 
 	private List<MenuItem> menuItemList = new ArrayList<MenuItem>() ;
@@ -64,6 +65,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuItemBasedMenuGameState 
 			menuItemList.add(LightsAndShadowsMenuMenuItem.getInstance());
 			menuItemList.add(new TerrainDemoMenuItem());
 			menuItemList.add(PresentationMenuMenuItem.getInstance());
+			menuItemList.add(ReflectiveQuadsDemoMenuItem.getInstance());
 		}
 		return menuItemList;
 	}
