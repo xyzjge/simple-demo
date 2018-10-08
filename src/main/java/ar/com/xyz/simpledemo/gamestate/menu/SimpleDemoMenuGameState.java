@@ -11,6 +11,7 @@ import ar.com.xyz.gameengine.util.FontSpec;
 import ar.com.xyz.gameengine.util.MenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.Animation2DDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.CameraControllerDemoMenuItem;
+import ar.com.xyz.simpledemo.gamestate.menuitem.CameraQuadsDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.CollisionTypeNoneDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.CollisionTypeSolidDynamicDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.CollisionTypeSolidDynamicRotationDemoMenuItem;
@@ -66,6 +67,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuItemBasedMenuGameState 
 			menuItemList.add(new TerrainDemoMenuItem());
 			menuItemList.add(PresentationMenuMenuItem.getInstance());
 			menuItemList.add(ReflectiveQuadsDemoMenuItem.getInstance());
+			menuItemList.add(CameraQuadsDemoMenuItem.getInstance());
 		}
 		return menuItemList;
 	}
