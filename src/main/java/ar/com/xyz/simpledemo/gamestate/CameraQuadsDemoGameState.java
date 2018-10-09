@@ -5,11 +5,12 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.cameracontroller.FollowEntityFromFixedDirectionCameraController;
 import ar.com.xyz.gameengine.cameracontroller.PositionAndRotationCameraController;
 import ar.com.xyz.gameengine.cameraquad.CameraQuadTile;
+import ar.com.xyz.gameengine.client.entitycontroller.DummyEntityController;
 import ar.com.xyz.gameengine.debug.ResaltarXYZ;
 import ar.com.xyz.gameengine.entity.CrushHandler;
+import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.ColorEnum;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
@@ -17,6 +18,7 @@ import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.reflectivequad.ReflectiveQuadTile;
+import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.lightandshadow.menuitem.LightsAndShadowsMenuMenuItem;
 
 /**
@@ -25,7 +27,7 @@ import ar.com.xyz.simpledemo.lightandshadow.menuitem.LightsAndShadowsMenuMenuIte
  */
 public class CameraQuadsDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener {
 	
-	private ResaltarXYZ resaltarXYZ ;
+//	private ResaltarXYZ resaltarXYZ ;
 	
 	public CameraQuadsDemoGameState() {
 		setupPlayerAndCamera() ;
@@ -45,7 +47,7 @@ public class CameraQuadsDemoGameState extends AbstractGameState implements Crush
 		{
 			EntitySpec entitySpec = new EntitySpec("esfera") ;
 			entitySpec.setTexture(ColorEnum.MAROON.getName());
-			entitySpec.setPosition(new Vector3f(0, 1, 0));
+			entitySpec.setPosition(new Vector3f(0, -10, 0));
 //			entitySpec.setWireframe(false);
 			entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
 //			entitySpec.setScale(new Vector3f(.1f,.1f,.1f));
@@ -58,12 +60,14 @@ public class CameraQuadsDemoGameState extends AbstractGameState implements Crush
 		setShowFps(true);
 		setShowPlayerPosition(true);
 		
-		resaltarXYZ = new ResaltarXYZ(this) ;
-		
-		// addInputEventListener(this) ;
+//		resaltarXYZ = new ResaltarXYZ(this) ;
 
 	}
 
+	private EntityController entityControllerRed = null ;
+	private EntityController entityControllerGreen = null ;
+	private EntityController entityControllerBlue = null ;
+	
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
@@ -71,8 +75,40 @@ public class CameraQuadsDemoGameState extends AbstractGameState implements Crush
 			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 			addInputEventListener(this) ;
 			
-			configure() ;
+			{
+				entityControllerRed = new DummyEntityController() ;
+				EntitySpec entitySpec ;
+				entitySpec = new EntitySpec("esfera") ;
+				entitySpec.setTexture("red");
+				entitySpec.setScale(new Vector3f(.5f, .5f, .5f));
+				entitySpec.setEntityController(entityControllerRed);
+				entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
+				createEntity(entitySpec);
+			}
+			{
+				entityControllerGreen = new DummyEntityController() ;
+				EntitySpec entitySpec ;
+				entitySpec = new EntitySpec("esfera") ;
+				entitySpec.setTexture("green");
+				entitySpec.setScale(new Vector3f(.25f, .25f, .25f));
+				entitySpec.setEntityController(entityControllerGreen);
+				entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
+				createEntity(entitySpec);
+			}
+			{
+				entityControllerBlue = new DummyEntityController() ;
+				EntitySpec entitySpec ;
+				entitySpec = new EntitySpec("esfera") ;
+				entitySpec.setTexture("blue");
+				entitySpec.setScale(new Vector3f(0, 0, 0));
+				entitySpec.setEntityController(entityControllerBlue);
+				entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
+				createEntity(entitySpec);
+			}
 		}
+		
+		configure() ;
+		
 	}
 	
 	@Override
@@ -82,16 +118,22 @@ public class CameraQuadsDemoGameState extends AbstractGameState implements Crush
 			handlePlayerDeath() ;
 		}
 		
-		resaltarXYZ.restaltar(getPlayer().getPosition(), 3);
+//		resaltarXYZ.restaltar(getPlayer().getPosition(), 3);
 		
-		if (getReflectiveQuadTileList().isEmpty()) {
-			return ;
-		}
-		if (getReflectiveQuadTileList().contains(reflectiveQuadTileF7)) {
-			reflectiveQuadTileF7.getRotation().x+= tpf * 10 ;
-		} else if (getReflectiveQuadTileList().contains(reflectiveQuadTileF8)) {
-			reflectiveQuadTileF8.getRotation().y += tpf * 10;
-		}
+//		if (getReflectiveQuadTileList().isEmpty()) {
+//			return ;
+//		}
+//		if (getReflectiveQuadTileList().contains(reflectiveQuadTileF7)) {
+//			reflectiveQuadTileF7.getRotation().x+= tpf * 10 ;
+//		} else if (getReflectiveQuadTileList().contains(reflectiveQuadTileF8)) {
+//			reflectiveQuadTileF8.getRotation().y += tpf * 10;
+//		}
+		
+		positionAndRotationCameraController.update(tpf);
+		
+		Vector3f cameraLookAt = SingletonManager.getInstance().getEntityUtil().directionFromPitchAndYaw(positionAndRotationCameraController.getRotation().x, positionAndRotationCameraController.getRotation().y) ;
+		Vector3f posicionCamaraMasNormal = Vector3f.add(positionAndRotationCameraController.getPosition(), cameraLookAt, null) ;
+		entityControllerGreen.getEntity().setPosition(posicionCamaraMasNormal);
 	}
 
 	private void setupPlayerAndCamera() {
@@ -128,26 +170,18 @@ public class CameraQuadsDemoGameState extends AbstractGameState implements Crush
 			handleF1();
 			break;
 		case Keyboard.KEY_F2:
-			handleF2();
+			positionAndRotationCameraController.setSwing(!positionAndRotationCameraController.isSwing()) ;
 			break;
-		case Keyboard.KEY_F3:
-			handleF3();
-			break;
-		case Keyboard.KEY_F4:
-			handleF4();
-			break;
-		case Keyboard.KEY_F5:
-			handleF5();
-			break;
-		case Keyboard.KEY_F6:
-			handleF6();
-			break;
-		case Keyboard.KEY_F7:
-			handleF7();
-			break;
-		case Keyboard.KEY_F8:
-			handleF8();
-			break;
+		case Keyboard.KEY_X:
+			if (entityControllerRed.getEntity().getScale().x == 0) {
+				entityControllerRed.getEntity().setScale(.5f, .5f, .5f);
+				entityControllerGreen.getEntity().setScale(.25f, .25f, .25f);
+				entityControllerBlue.getEntity().setScale(0,0,0);
+			} else {
+				entityControllerRed.getEntity().setScale(0,0,0);
+				entityControllerGreen.getEntity().setScale(0,0,0);
+				entityControllerBlue.getEntity().setScale(0,0,0);
+			}
 		default:
 			break;
 		}
@@ -167,72 +201,24 @@ public class CameraQuadsDemoGameState extends AbstractGameState implements Crush
 		
 	}
 	
-	private FollowEntityFromFixedDirectionCameraController followEntityFromFixedDirectionCameraController ;
-	
 	private CameraQuadTile cameraQuadTileF1 ;
 	
+	PositionAndRotationCameraController positionAndRotationCameraController = new PositionAndRotationCameraController(new Vector3f(9f, 9f ,9f), new Vector3f(45,-45,0), -70, -20) ;
+	
 	private void configure() {
-//		followEntityFromFixedDirectionCameraController = new FollowEntityFromFixedDirectionCameraController(5, new Vector3f(1,-1,1), getPlayer(), getCamera().getCameraController()) ;
-//		cameraQuadTileF1 = new CameraQuadTile(0, 0, -9.99f, new Vector2f(2, 2), new Vector2f(90, 0), /*.25f*/ .75f, followEntityFromFixedDirectionCameraController) ;
-		// 1280x720
-		PositionAndRotationCameraController positionAndRotationCameraController = new PositionAndRotationCameraController(new Vector3f(9.9f, 9.9f ,9.9f), new Vector3f(0,0,0)) ;
+
 		//cameraQuadTileF1 = new CameraQuadTile(0, 0, -8f, new Vector2f(1.280f, 0.720f), new Vector2f(90, 0), /*0*//*.25f*/ /*.75f*/1, positionAndRotationCameraController) ;
 		
-		cameraQuadTileF1 = new CameraQuadTile(0, 0, -8f, new Vector2f(2, 2), new Vector2f(90, 0), /*0*//*.25f*/ /*.75f*/1, positionAndRotationCameraController) ;
+
+		entityControllerRed.getEntity().setPosition(positionAndRotationCameraController.getPosition());
+		
+//		private EntityController entityControllerBlue = null ;
+		cameraQuadTileF1 = new CameraQuadTile(0, -9, -7f, new Vector2f(3, 2), new Vector2f(90, 0), /*0*//*.25f*/ /*.75f*/1, positionAndRotationCameraController) ;
 	}
 
 	private void handleF1() {
 		getCameraQuadTileList().clear() ;
 		getCameraQuadTileList().add(cameraQuadTileF1) ;
-	}
-	
-	private ReflectiveQuadTile reflectiveQuadTileF2 = new ReflectiveQuadTile(0, -9.99f, 0.0f, new Vector2f(10, 10), new Vector2f(90, 0), /*.25f*/ .75f) ;
-	
-	private void handleF2() {
-		getReflectiveQuadTileList().clear() ;
-		getReflectiveQuadTileList().add(reflectiveQuadTileF2) ;
-	}
-	
-	private ReflectiveQuadTile reflectiveQuadTileF3 = new ReflectiveQuadTile(0, 0, 9.99f, new Vector2f(10, 10), new Vector2f(180, 0), /*.25f*/ .75f) ;
-	
-	private void handleF3() {
-		getReflectiveQuadTileList().clear() ;
-		getReflectiveQuadTileList().add(reflectiveQuadTileF3) ;
-	}
-	
-	private ReflectiveQuadTile reflectiveQuadTileF4 = new ReflectiveQuadTile(0, 9.99f, 0.0f, new Vector2f(10, 10), new Vector2f(270, 0), /*.25f*/ .75f) ;
-	
-	private void handleF4() {
-		getReflectiveQuadTileList().clear() ;
-		getReflectiveQuadTileList().add(reflectiveQuadTileF4) ;
-	}
-	
-	private ReflectiveQuadTile reflectiveQuadTileF5 = new ReflectiveQuadTile(9.99f, 0f, 0.0f, new Vector2f(10, 10), new Vector2f(90, 90), /*.25f*/ .75f) ;
-	
-	private void handleF5() {
-		getReflectiveQuadTileList().clear() ;
-		getReflectiveQuadTileList().add(reflectiveQuadTileF5) ;
-	}
-	
-	private ReflectiveQuadTile reflectiveQuadTileF6 = new ReflectiveQuadTile(-9.99f, 0f, 0.0f, new Vector2f(10, 10), new Vector2f(90, 90 + 180), /*.25f*/ .75f) ;
-	
-	private void handleF6() {
-		getReflectiveQuadTileList().clear() ;
-		getReflectiveQuadTileList().add(reflectiveQuadTileF6) ;
-	}
-	
-	private ReflectiveQuadTile reflectiveQuadTileF7 = new ReflectiveQuadTile(0.0f, 0.0f, 0.0f, new Vector2f(10, 10), new Vector2f(0, 0), /*.25f*/ .75f) ;
-	
-	private void handleF7() {
-		getReflectiveQuadTileList().clear() ;
-		getReflectiveQuadTileList().add(reflectiveQuadTileF7) ;
-	}
-	
-	private ReflectiveQuadTile reflectiveQuadTileF8 = new ReflectiveQuadTile(0.0f, 0.0f, 0.0f, new Vector2f(10, 10), new Vector2f(90, 0), /*.25f*/ .75f) ;
-	
-	private void handleF8() {
-		getReflectiveQuadTileList().clear() ;
-		getReflectiveQuadTileList().add(reflectiveQuadTileF8) ;
 	}
 	
 }
