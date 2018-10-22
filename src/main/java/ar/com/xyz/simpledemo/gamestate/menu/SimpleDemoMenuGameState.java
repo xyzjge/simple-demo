@@ -23,6 +23,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.LightsDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.LocationAndRotationDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.LookAtDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.NewLookAtVersionDemoMenuItem;
+import ar.com.xyz.simpledemo.gamestate.menuitem.NormalMapDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ObjLoaderDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ParentChildDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ReflectiveQuadsDemoMenuItem;
@@ -68,6 +69,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuItemBasedMenuGameState 
 			menuItemList.add(PresentationMenuMenuItem.getInstance());
 			menuItemList.add(ReflectiveQuadsDemoMenuItem.getInstance());
 			menuItemList.add(CameraQuadsDemoMenuItem.getInstance());
+			menuItemList.add(NormalMapDemoMenuItem.getInstance());
 		}
 		return menuItemList;
 	}

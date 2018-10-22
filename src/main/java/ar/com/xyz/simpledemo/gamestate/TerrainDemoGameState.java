@@ -5,6 +5,7 @@ import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.cameracontroller.FollowEntityFromFixedDirectionCameraController;
+import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.ColorEnum;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
@@ -28,6 +29,8 @@ public class TerrainDemoGameState extends AbstractGameState {
 //	private static final String LEVEL = "water-demo-level" ;
 	
 	private static final boolean CAST_SHADOWS = true;
+	
+	private static final boolean NORMAL_MAP_DEMO = true;
 	
 	private Terrain terrain ;
 
@@ -103,6 +106,33 @@ public class TerrainDemoGameState extends AbstractGameState {
 			}
 		}
 		
+		if (NORMAL_MAP_DEMO) {
+		{
+			EntitySpec entitySpec = new EntitySpec("barrel") ;
+			entitySpec.setTexture("barrel");
+			entitySpec.setPosition(new Vector3f(10, terrain.getHeightOfTerrain(10, 10), 10));
+//			entitySpec.setWireframe(false);
+			entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
+			entitySpec.setScale(new Vector3f(.5f,.5f,.5f));
+			entitySpec.setEntityController(new RotationEntityController(0, 10, 0));
+//			entitySpec.setEntityController(xEntityController);
+			entitySpec.setNormalMap("barrelNormal");
+			createEntity(entitySpec);
+		}
+		
+		{
+			EntitySpec entitySpec = new EntitySpec("wall") ;
+			entitySpec.setTexture("brickDifuse.png");
+			entitySpec.setPosition(new Vector3f(20, terrain.getHeightOfTerrain(20, 20), 20));
+//			entitySpec.setWireframe(false);
+			entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
+			entitySpec.setScale(new Vector3f(5f,5f,5f));
+			entitySpec.setEntityController(new RotationEntityController(0, 10, 0));
+//			entitySpec.setEntityController(xEntityController);
+			entitySpec.setNormalMap("brickWallNormal");
+			createEntity(entitySpec);
+		}
+		}
 	}
 
 	private void loadTerrain() {
