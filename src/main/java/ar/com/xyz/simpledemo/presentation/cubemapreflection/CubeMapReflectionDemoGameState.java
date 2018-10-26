@@ -49,6 +49,9 @@ public class CubeMapReflectionDemoGameState extends AbstractGameState {
 			EntitySpec entitySpec ;
 			entitySpec = new EntitySpec(LEVEL) ;
 			entitySpec.setTexture("stone.png");
+			entitySpec.setCubeMapReflectionFactor(0);
+			entitySpec.setCubeMapRefractionFactor(.6f);
+			entitySpec.setCubeMapRefractionRatio(.2f);
 			entitySpec.setRotation(new Vector3f(0, 90, 0)) ;
 			entitySpec.setScale(new Vector3f(5,5,5));
 			entitySpec.setPosition(new Vector3f(0,5,0));
