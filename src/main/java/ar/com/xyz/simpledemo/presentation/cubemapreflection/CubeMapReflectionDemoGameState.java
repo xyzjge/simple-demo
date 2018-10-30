@@ -21,6 +21,8 @@ public class CubeMapReflectionDemoGameState extends AbstractGameState {
 	private static String[] RED_TEXTURE_FILES = {"red_rt", "red_lf", "red_up", "red_dn", "red_bk", "red_ft"} ;
 	
 	private static final String[] ENVIRO_MAP_INSIDE = {"lposx", "lnegx", "lposy", "lnegy", "lposz", "lnegz"};
+	
+	private static final String[] ENVIRO_MAP_INSIDE_2 = {"/textures/enviro/lposx", "/textures/enviro/lnegx", "/textures/enviro/lposy", "/textures/enviro/lnegy", "/textures/enviro/lposz", "/textures/enviro/lnegz"};
 
 	private SkyboxTexture daySkyboxTexture = new SkyboxTexture("/texture/skybox/", DAY_TEXTURE_FILES) ;
 	private SkyboxTexture nightSkyboxTexture = new SkyboxTexture("/texture/skybox/", NIGHT_TEXTURE_FILES) ;
@@ -82,6 +84,10 @@ public class CubeMapReflectionDemoGameState extends AbstractGameState {
 		
 		// Muestras las esferas en 000 ...
 //		enableDebugKeys();
+		activateEnvironmentCubeMap();
+		configureDynamic(new Vector3f(0,1,0));
+		
+		// configureStatic(ENVIRO_MAP_INSIDE_2) ;
 		
 	}
 	
@@ -94,11 +100,13 @@ public class CubeMapReflectionDemoGameState extends AbstractGameState {
 		}
 	}
 	
-	float xxx = 0 ;
-	
 	@Override
 	public void tick(float tpf) {
 
+		// -5.5 + (X - -5.5)
+		float z = -5.5f - (getCamera().getPosition().z + 5.5f) ; 
+		configureDynamic(new Vector3f(0,getCamera().getPosition().y /* 0 */,z/*0*/));
+		
 		if (getPlayer().getPosition().y < -100) {
 			handlePlayerDeath() ;
 		}
