@@ -20,18 +20,14 @@ import ar.com.xyz.gameengine.skybox.SkyboxTexture;
 import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
 
 /**
- * Terrain
  * @author alfredo
  *
  */
 public class CubeMapReflectionDemoGameState extends AbstractGameState implements InputEventListener {
 	
 	private static final String[] ENVIRO_MAP_INSIDE = {"lposx", "lnegx", "lposy", "lnegy", "lposz", "lnegz"};
-	
-	private static final String[] ENVIRO_MAP_INSIDE_2 = {"/textures/enviro/lposx", "/textures/enviro/lnegx", "/textures/enviro/lposy", "/textures/enviro/lnegy", "/textures/enviro/lposz", "/textures/enviro/lnegz"};
 
-	// /textures/enviro
-	private SkyboxTexture environmentMap = new SkyboxTexture("/textures/enviro/", ENVIRO_MAP_INSIDE) ;
+	private SkyboxTexture environmentImages = new SkyboxTexture("/textures/enviro/", ENVIRO_MAP_INSIDE) ;
 	
 	private EntityController entityController = new DummyEntityController() ;
 	
@@ -88,7 +84,7 @@ public class CubeMapReflectionDemoGameState extends AbstractGameState implements
 		getAmbientLight().y = .5f ;
 		getAmbientLight().z = .5f ;
 		
-		setSkyboxTextureA(environmentMap);
+		setSkyboxTextureA(environmentImages);
 
 		initTitle();
 		
@@ -175,7 +171,7 @@ public class CubeMapReflectionDemoGameState extends AbstractGameState implements
 		case Keyboard.KEY_F1:
 			model.setCaso(CubeMapReflectionDemoCaseEnum.STATIC);
 			activateEnvironmentCubeMap();
-			configureStatic(ENVIRO_MAP_INSIDE_2) ;
+			configureStatic(environmentImages) ;
 			break;
 		case Keyboard.KEY_F2:
 			model.setCaso(CubeMapReflectionDemoCaseEnum.DYNAMIC);
