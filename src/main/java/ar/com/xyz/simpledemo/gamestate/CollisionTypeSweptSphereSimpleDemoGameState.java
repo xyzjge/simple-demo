@@ -140,7 +140,7 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameSta
 			float rotY = getPlayer().getRotation().y ;
 			Vector3f rayDirection = new Vector3f(
 				(float)Math.sin(Math.toRadians(rotY)), 
-				(float) - Math.sin(Math.toRadians(getCamera().getPitch())) , 
+				(float) - Math.sin(Math.toRadians(getCamera().getPitch())) ,
 				(float)Math.cos(Math.toRadians(rotY))
 			) ;
 
