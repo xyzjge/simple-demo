@@ -13,6 +13,9 @@ import ar.com.xyz.gameengine.debug.collision.ResaltarTrianguloYCaso;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.gui.GuiTexture;
+import ar.com.xyz.gameengine.gui.control.GuiControl;
+import ar.com.xyz.gameengine.gui.control.GuiControlListenerExample;
+import ar.com.xyz.gameengine.gui.control.GuiControlManager;
 import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
@@ -160,78 +163,19 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState implements
 
 	private void setup2dControls() {
 		{
-			float size = .05f ;
-			int tex = SingletonManager.getInstance().getTextureManager().loadTexture("red") ;
-			Vector2f pos = new Vector2f(-1 + size, 1f - size) ;
-			Vector2f scale = new Vector2f(size, size) ;
-			GuiTexture guiTexture = new GuiTexture(tex, pos, scale) ;
-			getGuis().add(guiTexture) ;
+			GuiControl guiControl = new GuiControl(.05f, 0, 0, "green", "red", true, new GuiControlListenerExample("Uno")) ;
+			GuiControlManager.getInstance().add(guiControl, this);
 		}
 		{
-			float size = .05f ; // En realidad size es la mitad ??
-			float posEnX = .05f * 4; // Si posEnX es size queda montado, si es size * 2 queda pegado, si es size por 3 queda separado por medio espacio y si es size por 4 queda bien
-			int tex = SingletonManager.getInstance().getTextureManager().loadTexture("red") ;
-			// Vector2f pos = new Vector2f(-1 + size /* el centro queda a size del borde */ + size + size + size + size, 1f - size) ;
-			Vector2f pos = new Vector2f(-1 + size + posEnX, 1f - size) ;
-			Vector2f scale = new Vector2f(size, size) ;
-			GuiTexture guiTexture = new GuiTexture(tex, pos, scale) ;
-			getGuis().add(guiTexture) ;
+			GuiControl guiControl = new GuiControl(.05f, .05f * 4, 0, "green", "red", true, new GuiControlListenerExample("Dos")) ;
+			GuiControlManager.getInstance().add(guiControl, this);
 		}
 		{
-			float size = .05f ; // En realidad size es la mitad ??
-			float posEnX = .05f * 2; // Si posEnX es size queda montado, si es size * 2 queda pegado, si es size por 3 queda separado por medio espacio y si es size por 4 queda bien
-			int tex = SingletonManager.getInstance().getTextureManager().loadTexture("red") ;
-			// Vector2f pos = new Vector2f(-1 + size /* el centro queda a size del borde */ + size + size + size + size, 1f - size) ;
-			Vector2f pos = new Vector2f(-1 + size + posEnX, 1f - size - (size)) ;
-			Vector2f scale = new Vector2f(size, size) ;
-			GuiTexture guiTexture = new GuiTexture(tex, pos, scale) ;
-			getGuis().add(guiTexture) ;
+			GuiControl guiControl = new GuiControl(.05f, .05f * 2, .05f, "green", "red", true, new GuiControlListenerExample("Tres")) ;
+			GuiControlManager.getInstance().add(guiControl, this);
 		}
 		// Con ESC que ponga el mouse visible y que "active los clicks en los controles 2d"
 		// Ver como transfomar de lo que retorna el mouse a lo que ocupan los controles 2d
-	}
-	
-	private void setup2dControls___() {
-		float size = .25f ;
-		int tex = SingletonManager.getInstance().getTextureManager().loadTexture("red") ;
-		Vector2f pos = new Vector2f(-1 + size /* con esto uno de .25 queda apoyado a izquierda */, 1f - size /* con esto uno de .25 queda apoyado arriba */) ;
-		Vector2f scale = new Vector2f(size, size) ;
-		GuiTexture guiTexture = new GuiTexture(tex, pos, scale) ;
-		getGuis().add(guiTexture) ;
-	}
-	
-	private void setup2dControls__() {
-		int tex = SingletonManager.getInstance().getTextureManager().loadTexture("red") ;
-		Vector2f pos = new Vector2f(-.75f /* con esto uno de .25 queda apoyado a izquierda */, 1f - 0.25f /* con esto uno de .25 queda apoyado arriba */) ;
-		Vector2f scale = new Vector2f(.25f, .25f) ;
-		GuiTexture guiTexture = new GuiTexture(tex, pos, scale) ;
-		getGuis().add(guiTexture) ;
-	}
-	
-	private void setup2dControls_() {
-		// Guay ... las texturas son cuadradas y si se ubican en 00 con scala 1 ocupan toda la pantalla ... no importa el tamaño de la imagen
-		// Entonces es mas facil ... para que ocupe la mitad .5 y asi siguiendo ...
-		// Las texturas se deforman de acuerdo al tamaño del display
-		// Las ubicaciones van desde -1,-1 (abajo a la izquierda) a 1,1 (arriba a la derecha) e indican el centro de la imagen
-		
-		// A perr, si quiero que una textura me ocupe el cuadrado de abajo a la izquierda que tengo que hacer ???
-		// La escala se que es .5 pero la posicion q caracso tendria q ser ??? -.5 ? a perrr, SIII TM es un capo!!!
-		
-		// Bueno, en base a esto poner un < y un > a perr
-//			GuiTexture fondoGuiTexture = new GuiTexture(
-//				SingletonManager.getInstance().getTextureManager().loadTexture("red"), 
-//				// SingletonManager.getInstance().getTextureManager().loadTexture("box.jpg"),
-//				new Vector2f(1, 1), // new Vector2f(0, 0), // new Vector2f(-0.5f, -0.5f), 
-//				new Vector2f(.9f, .9f)
-//			) ;
-		
-		GuiTexture fondoGuiTexture = new GuiTexture(
-			SingletonManager.getInstance().getTextureManager().loadTexture("red"), 
-			// SingletonManager.getInstance().getTextureManager().loadTexture("box.jpg"),
-			new Vector2f(-.5f + .01f, -.5f + .01f), // new Vector2f(0, 0), // new Vector2f(-0.5f, -0.5f), 
-			new Vector2f(.5f, .5f)
-		) ;
-		getGuis().add(fondoGuiTexture) ;
 	}
 	
 	float seconds = 0 ;
@@ -328,6 +272,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState implements
 						Vector2f pos = getInputManager().getMousePosition() ;
 						System.out.println("click boton izq (" + pos + ")");
 						// float mouseY = 1 - ( (pos.y + 1f) / 2f );
+						GuiControlManager.getInstance().notifyClick(pos);
 					}
 				}
 			}
@@ -366,8 +311,19 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState implements
 			guiControlsEnabled = !guiControlsEnabled ;
 			if (guiControlsEnabled) {
 				releaseMouseIfGrabbed() ;
+				getInputManager().stackPush();
+				getInputEventListenerSet().add(this) ;
+				// TODO: Que la camara deje de estar asociada al mouse ...
+				// Avisarle al default camera controller que no tiene que hacer nada ... o al camera controller que este mejor dicho ...
+				// getCamera().getCameraController().ignoreMouseEvents
+				
+				
+				// Mmmm otra seria que el DCC use un IEL y sacar ese IEL de la lista de IEL activos ... lo mismo para el IEL del player ...
+				
+				// Esta es la que va ... que el DCC use un IEL ... <<<<<<<<<<<<<< !!!!!!!!!!
 			} else {
 				grabMouseIfNotGrabbed() ;
+				getInputManager().stackPop();
 			}
 		}
 		return false;
