@@ -7,14 +7,14 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.cameracontroller.DefaultCameraController;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
-import ar.com.xyz.gameengine.debug.collision.DetailedCollisionDataPlayer;
-import ar.com.xyz.gameengine.debug.collision.Player;
+import ar.com.xyz.gameengine.debug.collision.GuiControlHelper;
+import ar.com.xyz.gameengine.debug.collision.NewDetailedCollisionDataPlayer;
 import ar.com.xyz.gameengine.debug.collision.ResaltarTrianguloYCaso;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.gui.GuiTexture;
 import ar.com.xyz.gameengine.gui.control.GuiControl;
-import ar.com.xyz.gameengine.gui.control.GuiControlListenerExample;
+import ar.com.xyz.gameengine.gui.control.GuiControlListener;
 import ar.com.xyz.gameengine.gui.control.GuiControlManager;
 import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
@@ -26,11 +26,11 @@ import ar.com.xyz.simpledemo.handler.PlayerDeathHandler;
 import ar.com.xyz.simpledemo.handler.RemoveEntitySweepSphereInAABBHandler;
 import ar.com.xyz.simpledemo.handler.UpdateHUDSweepSphereInAABBHandler;
 
-public class CollisionTypeNoneDemoGameState extends AbstractGameState implements InputEventListener {
+public class CollisionTypeNoneDemoGameState extends AbstractGameState implements InputEventListener, GuiControlListener {
 	
 	private static final boolean PLAY = true ;
 	
-	private Player collisionDataPlayer ;
+	private NewDetailedCollisionDataPlayer collisionDataPlayer ;
 	
 	private static final String LEVEL = "simple-environment" ;
 	
@@ -42,6 +42,8 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState implements
 	private ResaltarTrianguloYCaso resaltarTrianguloYCaso = new ResaltarTrianguloYCaso(this) ;
 	
 	private boolean guiControlsEnabled = false ;
+	
+	private GuiControlHelper guiControlHelper = new GuiControlHelper() ;
 	
 	public CollisionTypeNoneDemoGameState() {
 		
@@ -111,35 +113,6 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState implements
 		
 		this.getGuis().add(sweepSphereInAABBGuiTexture) ;
 		
-		// Este esta en plano con normal Y=1 y funciona ok
-		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(0, 0), /*.25f*/ .75f)) ;
-		
-		// A ver si le pongo un toque de pitch ...
-		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(45, 0), /*.25f*/ .75f)) ;
-		
-		// Este esta en plano con normal Y=-1 y funciona ok
-		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 4 /* height */, new Vector2f(8, 10), new Vector2f(180, 0), /*.25f*/ .75f)) ;
-		
-		
-		
-		// Este esta en plano Z=1 y funciona ok
-		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(90, 0), /*.25f*/ .75f)) ;
-		
-		
-		// Esta funciono bien!!!!
-		//this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(80, 0), /*.25f*/ .75f)) ;
-		// Probe con varios valores de X entre 0 y 180 y va ... a ver mas de 180 ... parece que funciona
-		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(220, 0), /*.25f*/ .75f)) ;
-		
-		// Este esta en plano Z=1 y funciona ok
-		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(270, 0), /*.25f*/ .75f)) ;
-		
-		// Aparentemente es lo mismo para X=1 y X=-1
-		// Este esta en plano con normal X=-1 y funciona ok
-		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(0, 90), /*.25f*/ .75f)) ;
-		
-		// Este esta en plano con normal X=1 y funciona ok
-		// this.getReflectiveQuadTileList().add(new ReflectiveQuadTile(0, /*0*/ 4, 0.01f, new Vector2f(8, 10), new Vector2f(0, 270), /*.25f*/ .75f)) ;
 	}
 	
 	@Override
@@ -150,32 +123,14 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState implements
 			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 			addInputEventListener(this);
 			
-			if (!PLAY) {
-				SingletonManager.getInstance().getCollisionDataRecorder().setActive(true);
+			if (PLAY) {
+				collisionDataPlayer = new NewDetailedCollisionDataPlayer(this) ;
+				guiControlHelper.setup2dControls(this, this, collisionDataPlayer);
 			} else {
-				// collisionDataPlayer = new CollisionDataPlayer(this) ;
-				collisionDataPlayer = new DetailedCollisionDataPlayer(this) ;
+				SingletonManager.getInstance().getCollisionDataRecorder().setActive(true);
 			}
 			
-			setup2dControls();
 		}
-	}
-
-	private void setup2dControls() {
-		{
-			GuiControl guiControl = new GuiControl(.05f, 0, 0, "green", "red", true, new GuiControlListenerExample("Uno")) ;
-			GuiControlManager.getInstance().add(guiControl, this);
-		}
-		{
-			GuiControl guiControl = new GuiControl(.05f, .05f * 4, 0, "green", "red", true, new GuiControlListenerExample("Dos")) ;
-			GuiControlManager.getInstance().add(guiControl, this);
-		}
-		{
-			GuiControl guiControl = new GuiControl(.05f, .05f * 2, .05f, "green", "red", true, new GuiControlListenerExample("Tres")) ;
-			GuiControlManager.getInstance().add(guiControl, this);
-		}
-		// Con ESC que ponga el mouse visible y que "active los clicks en los controles 2d"
-		// Ver como transfomar de lo que retorna el mouse a lo que ocupan los controles 2d
 	}
 	
 	float seconds = 0 ;
@@ -187,7 +142,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState implements
 	public void tick(float tpf) {
 		
 		if (PLAY) {
-			collisionDataPlayer.tick(tpf);
+//			collisionDataPlayer.tick(tpf);
 //			return ;
 		}
 		
@@ -285,10 +240,10 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState implements
 		}
 		if (keyOrButton == Keyboard.KEY_Y && type == EventTypeEnum.PRESSED) {
 			Vector3f rayOrigin = new Vector3f(
-					getPlayer().getPosition().x, 
-					getPlayer().getPosition().y + (getPlayer().getESpaceUtil().getRadius().y * 2) * getPlayer().getPorcentajeAltura(), 
-					getPlayer().getPosition().z
-				) ;
+				getPlayer().getPosition().x, 
+				getPlayer().getPosition().y + (getPlayer().getESpaceUtil().getRadius().y * 2) * getPlayer().getPorcentajeAltura(), 
+				getPlayer().getPosition().z
+			) ;
 			
 			float rotY = getPlayer().getRotation().y ;
 			Vector3f rayDirection = new Vector3f(
@@ -339,5 +294,15 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState implements
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void handleEvent(String id) {
+		System.out.println("Click on " + id);
+		if (PLAY) {
+			guiControlHelper.handleEvent(id);
+			System.out.println(collisionDataPlayer.getIndex());
+		}
+	}
+
 
 }
