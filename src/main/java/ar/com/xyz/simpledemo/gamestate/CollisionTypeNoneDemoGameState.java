@@ -7,13 +7,13 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.cameracontroller.DefaultCameraController;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
+import ar.com.xyz.gameengine.collision.ESpaceUtil;
 import ar.com.xyz.gameengine.debug.collision.GuiControlHelper;
 import ar.com.xyz.gameengine.debug.collision.NewDetailedCollisionDataPlayer;
 import ar.com.xyz.gameengine.debug.collision.ResaltarTrianguloYCaso;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.gui.GuiTexture;
-import ar.com.xyz.gameengine.gui.control.GuiControl;
 import ar.com.xyz.gameengine.gui.control.GuiControlListener;
 import ar.com.xyz.gameengine.gui.control.GuiControlManager;
 import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
@@ -124,7 +124,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState implements
 			addInputEventListener(this);
 			
 			if (PLAY) {
-				collisionDataPlayer = new NewDetailedCollisionDataPlayer(this) ;
+				collisionDataPlayer = new NewDetailedCollisionDataPlayer(this, new ESpaceUtil(new Vector3f(.5f, 1f, .5f))) ;
 				guiControlHelper.setup2dControls(this, this, collisionDataPlayer);
 			} else {
 				SingletonManager.getInstance().getCollisionDataRecorder().setActive(true);
@@ -142,7 +142,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState implements
 	public void tick(float tpf) {
 		
 		if (PLAY) {
-//			collisionDataPlayer.tick(tpf);
+			collisionDataPlayer.tick(guiControlHelper);
 //			return ;
 		}
 		
