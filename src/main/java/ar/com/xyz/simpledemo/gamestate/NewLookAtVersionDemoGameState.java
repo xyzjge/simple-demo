@@ -301,7 +301,7 @@ public class NewLookAtVersionDemoGameState extends AbstractGameState implements 
 			
 			// TODO: Pq sera necesario el ignore ??? En teoria los triangulos no estan enfrentados al rayo ...
 			// RayTracerVO rayTracerVO = getMainGameLoop().getRayTracer().getTriangle(rayOrigin, rayDirection, 1/* 20*/, getAabbManager()) ;
-			RayTracerVO rayTracerVO = getMainGameLoop().getRayTracer().getTriangle(rayOrigin, rayDirection, 5/* 20*/, getAabbManager(), getPlayer(), false, null) ;
+			RayTracerVO rayTracerVO = getMainGameLoop().getRayTracer().getTriangle(rayOrigin, rayDirection, 5/* 20*/, getAabbManager(), getPlayer(), null) ;
 			if (rayTracerVO != null) {
 				Triangle triangle = rayTracerVO.getTriangle() ;
 				
