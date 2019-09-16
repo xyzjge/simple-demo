@@ -28,8 +28,8 @@ public class ObjMultipleTextureGameState extends AbstractGameState implements Cr
 		setupPlayerAndCamera() ;
 		
 		{
-			SingletonManager.getInstance().getObjWithMaterialFileLoader().addObjPath("/models/presentation") ;
-			SingletonManager.getInstance().getObjWithMaterialFileLoader().addMtlPath("/models/presentation") ;
+			SingletonManager.getInstance().getObjLoader().addObjPath("/models/presentation") ;
+			SingletonManager.getInstance().getObjLoader().addMtlPath("/models/presentation") ;
 			SingletonManager.getInstance().getTextureManager().addTexturePath("/home/alfredo/tiles-jpg/");
 			EntitySpec entitySpec ;
 			entitySpec = new EntitySpec("e1m1-full") ;

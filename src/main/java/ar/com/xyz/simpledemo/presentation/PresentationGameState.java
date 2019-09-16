@@ -37,8 +37,8 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 	
 	public PresentationGameState() {
 		
-		SingletonManager.getInstance().getObjWithMaterialFileLoader().addObjPath("/models/presentation") ;
-		SingletonManager.getInstance().getObjWithMaterialFileLoader().addMtlPath("/models/presentation") ;
+		SingletonManager.getInstance().getObjLoader().addObjPath("/models/presentation") ;
+		SingletonManager.getInstance().getObjLoader().addMtlPath("/models/presentation") ;
 		SingletonManager.getInstance().getTextureManager().addTexturePath("/texture/presentation/");
 		
 		setupPlayerAndCamera() ;
