@@ -26,6 +26,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.NewLookAtVersionDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.NormalMapDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ObjLoaderDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ParentChildDemoMenuItem;
+import ar.com.xyz.simpledemo.gamestate.menuitem.RagDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ReflectiveQuadsDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.TerrainDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ViewStaticSceneDemoMenuItem;
@@ -63,6 +64,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuItemBasedMenuGameState 
 			menuItemList.add(new ViewStaticSceneDemoMenuItem());
 			menuItemList.add(new LightsDemoMenuItem());
 			menuItemList.add(new WaterDemoMenuItem());
+			menuItemList.add(new RagDemoMenuItem());
 			menuItemList.add(new GuiDemoMenuItem());
 			menuItemList.add(LightsAndShadowsMenuMenuItem.getInstance());
 			menuItemList.add(new TerrainDemoMenuItem());
