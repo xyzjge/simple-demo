@@ -47,3 +47,4 @@ Go to Arguments -> VM arguments: and type "-Djava.library.path=<path to lwjgl na
 Point library.path in pom.xml to the lwjgl native libs
 
 mvn clean install exec:exec
+
