@@ -5,13 +5,14 @@ import org.lwjgl.util.vector.Vector3f;
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
-import ar.com.xyz.gameengine.entity.SweepSphereCollisionEntity;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
+import ar.com.xyz.gameengine.entity.spec.RagEntitySpec;
+import ar.com.xyz.gameengine.format.obj.Material;
+import ar.com.xyz.gameengine.format.obj.Mesh;
+import ar.com.xyz.gameengine.format.obj.MeshModel;
 import ar.com.xyz.gameengine.light.DirectionalLight;
-import ar.com.xyz.gameengine.postprocessing.fisheye.FishEyePostProcessingFilter;
-import ar.com.xyz.gameengine.rag.RagTile;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.gameengine.water.WaterTile;
+import ar.com.xyz.gameengine.util.rag.RagGridUtil;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 /**
@@ -66,7 +67,33 @@ public class RagDemoGameState extends AbstractGameState implements CrushHandler 
 //		getWaterTileList().add(new WaterTile(mid(-12, -2) -2 + 1, mid(-4, 10) + 2, -10 - .4f /*+ 1*/, 7)) ;
 //		getWaterTileList().add(new WaterTile(mid(-2, 11) + 2, mid(-4, 10) + 1, -10 - .2f, 8)) ;
 		
-		getRagTileList().add(new RagTile(0, 0, 0 /* 100 */, 100)) ;
+		// getRagTileList().add(new RagTile(0, 0, 0 /* 100 */, 100)) ;
+		
+		{
+			RagEntitySpec entitySpec ;
+			entitySpec = new RagEntitySpec(null) ;
+			entitySpec.setTexture("tile0146.jpg");
+//			entitySpec.setScale(new Vector3f(2,2,2));
+//			entitySpec.setPosition(new Vector3f(-7,-10 + 1,-4));
+			
+			
+//			MeshModel meshModel = RagGridUtil.getInstance().createGrid(40, 4, true) ;
+//			MeshModel meshModel = RagGridUtil.getInstance().createGrid(2, 4, true, 2, 1) ;
+			MeshModel meshModel = RagGridUtil.getInstance().createGrid(40, 4, true, 8, 1) ;
+			Mesh mesh = new Mesh() ;
+			Material material = new Material("Custom") ;
+			material.setR(1);
+			material.setG(0);
+			material.setB(0);
+			mesh.add(material, meshModel.getVertices(), meshModel.getTextureCoords(), null, null, meshModel.getIndices());
+			mesh.calculateMeshModel(); // TODO: En este caso no deberia ser necesario o si ?
+			entitySpec.setMesh(mesh);
+			
+			entitySpec.setScale(new Vector3f(1, 2, 1));
+			entitySpec.setRemoveBackwardFacingFaces(false);
+			entitySpec.setId("RAG");
+			createEntity(entitySpec);
+		}
 		
 		// DirectionalLight directionalLight = new DirectionalLight(new Vector3f(.5f,.5f,.5f), new Vector3f(-10000,-10000,-10000), 1) ;
 		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1,.5f,.5f), new Vector3f(-10000,-10000,-10000), 1) ;
