@@ -73,6 +73,9 @@ public class RagDemoGameState extends AbstractGameState implements CrushHandler 
 			RagEntitySpec entitySpec ;
 			entitySpec = new RagEntitySpec(null) ;
 			entitySpec.setTexture("tile0146.jpg");
+			
+			entitySpec.setAmplitude(.25f);
+			entitySpec.setPeriod(2f);
 //			entitySpec.setScale(new Vector3f(2,2,2));
 //			entitySpec.setPosition(new Vector3f(-7,-10 + 1,-4));
 			
