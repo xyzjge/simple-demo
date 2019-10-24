@@ -76,6 +76,10 @@ public class RagDemoGameState extends AbstractGameState implements CrushHandler 
 			
 			entitySpec.setAmplitude(.25f);
 			entitySpec.setPeriod(2f);
+			entitySpec.setWindSpeed(5f);
+			entitySpec.setMovementAmplitude(0.01f);
+			entitySpec.setPivotPosition(0);
+			
 //			entitySpec.setScale(new Vector3f(2,2,2));
 //			entitySpec.setPosition(new Vector3f(-7,-10 + 1,-4));
 			
@@ -113,10 +117,6 @@ public class RagDemoGameState extends AbstractGameState implements CrushHandler 
 		}
 	}
 	
-	private float mid(float inicio, float fin) {
-		return (fin - inicio) / 2 + inicio ;
-	}
-
 	@Override
 	public void tick(float tpf) {
 
