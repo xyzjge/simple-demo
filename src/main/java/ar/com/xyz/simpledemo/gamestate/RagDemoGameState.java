@@ -6,6 +6,7 @@ import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
+import ar.com.xyz.gameengine.entity.spec.RagEntityPivotPositionEnum;
 import ar.com.xyz.gameengine.entity.spec.RagEntitySpec;
 import ar.com.xyz.gameengine.format.obj.Material;
 import ar.com.xyz.gameengine.format.obj.Mesh;
@@ -78,7 +79,7 @@ public class RagDemoGameState extends AbstractGameState implements CrushHandler 
 			entitySpec.setPeriod(2f);
 			entitySpec.setWindSpeed(5f);
 			entitySpec.setMovementAmplitude(0.01f);
-			entitySpec.setPivotPosition(0);
+			entitySpec.setPivotPosition(RagEntityPivotPositionEnum.TOP);
 			
 //			entitySpec.setScale(new Vector3f(2,2,2));
 //			entitySpec.setPosition(new Vector3f(-7,-10 + 1,-4));
