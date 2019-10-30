@@ -64,11 +64,6 @@ public class RagDemoGameState extends AbstractGameState implements CrushHandler 
 		
 		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).setAbstractGameState(this);
 		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).setAbstractGameState(this);
-
-//		getWaterTileList().add(new WaterTile(mid(-12, -2) -2 + 1, mid(-4, 10) + 2, -10 - .4f /*+ 1*/, 7)) ;
-//		getWaterTileList().add(new WaterTile(mid(-2, 11) + 2, mid(-4, 10) + 1, -10 - .2f, 8)) ;
-		
-		// getRagTileList().add(new RagTile(0, 0, 0 /* 100 */, 100)) ;
 		
 		{
 			RagEntitySpec entitySpec ;
@@ -79,11 +74,7 @@ public class RagDemoGameState extends AbstractGameState implements CrushHandler 
 			entitySpec.setPeriod(2f);
 			entitySpec.setWindSpeed(5f);
 			entitySpec.setMovementAmplitude(0.01f);
-			entitySpec.setPivotPosition(RagEntityPivotPositionEnum.TOP);
-			
-//			entitySpec.setScale(new Vector3f(2,2,2));
-//			entitySpec.setPosition(new Vector3f(-7,-10 + 1,-4));
-			
+			entitySpec.setPivotPosition(RagEntityPivotPositionEnum.TOP);			
 			
 //			MeshModel meshModel = RagGridUtil.getInstance().createGrid(40, 4, true) ;
 //			MeshModel meshModel = RagGridUtil.getInstance().createGrid(2, 4, true, 2, 1) ;
