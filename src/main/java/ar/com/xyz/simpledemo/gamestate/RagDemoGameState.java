@@ -78,7 +78,7 @@ public class RagDemoGameState extends AbstractGameState implements CrushHandler 
 			
 //			MeshModel meshModel = RagGridUtil.getInstance().createGrid(40, 4, true) ;
 //			MeshModel meshModel = RagGridUtil.getInstance().createGrid(2, 4, true, 2, 1) ;
-			MeshModel meshModel = RagGridUtil.getInstance().createGrid(40, 4, true, 8, 1) ;
+			MeshModel meshModel = RagGridUtil.getInstance().createGrid(40, 4, true, 8, 2) ;
 			Mesh mesh = new Mesh() ;
 			Material material = new Material("Custom") ;
 			material.setR(1);
@@ -94,9 +94,40 @@ public class RagDemoGameState extends AbstractGameState implements CrushHandler 
 			createEntity(entitySpec);
 		}
 		
+		{
+			RagEntitySpec entitySpec ;
+			entitySpec = new RagEntitySpec(40, 4, .25f, 2f, 5f, 0.01f, RagEntityPivotPositionEnum.TOP, "tile0146.jpg", 8f, 1f) ;
+			
+			entitySpec.setPosition(new Vector3f(1, 0, 1));
+			entitySpec.setScale(new Vector3f(1, 2, 1));
+			entitySpec.setId("RAG2");
+			createEntity(entitySpec);
+		}
+		
+		{
+			RagEntitySpec entitySpec ;
+			entitySpec = new RagEntitySpec(40, 4, .25f, 2f, 5f, 0.01f, RagEntityPivotPositionEnum.TOP, .5f, 0, 0) ;
+			
+			entitySpec.setPosition(new Vector3f(2, 0, 2));
+			entitySpec.setScale(new Vector3f(1, 2, 1));
+			entitySpec.setId("RAG3");
+			createEntity(entitySpec);
+		}
+		
+		{
+			RagEntitySpec entitySpec ;
+			entitySpec = new RagEntitySpec(40, 4, .0f, 1f, 5f, .0f, RagEntityPivotPositionEnum.TOP, "tile0146.jpg", .5f, 1f) ;
+			
+			entitySpec.setPosition(new Vector3f(3, 0, 3));
+			entitySpec.setScale(new Vector3f(1, 2, 1));
+			entitySpec.setId("RAG4");
+			createEntity(entitySpec);
+		}
+		
 		// DirectionalLight directionalLight = new DirectionalLight(new Vector3f(.5f,.5f,.5f), new Vector3f(-10000,-10000,-10000), 1) ;
-		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1,.5f,.5f), new Vector3f(-10000,-10000,-10000), 1) ;
+		// DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1,.5f,.5f), new Vector3f(-10000,-10000,-10000), 1) ;
 		// DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1,0,0), new Vector3f(-10000,-10000,-10000), 1) ;
+		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(.5f,.5f,.5f), new Vector3f(10000,-10000,10000), 1) ;
 		directionalLight.setCastShadows(CAST_SHADOWS);
 		setDirectionalLight(directionalLight);
 	}
@@ -152,3 +183,4 @@ public class RagDemoGameState extends AbstractGameState implements CrushHandler 
 	}
 
 }
+
