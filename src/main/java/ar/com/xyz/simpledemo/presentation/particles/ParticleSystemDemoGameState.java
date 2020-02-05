@@ -9,7 +9,7 @@ import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
 
 /**
- * Terrain
+ * ParticleSystemDemoGameState
  * @author alfredo
  *
  */
