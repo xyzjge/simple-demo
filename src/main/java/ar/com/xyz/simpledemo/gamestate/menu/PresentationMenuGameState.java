@@ -11,6 +11,7 @@ import ar.com.xyz.gameengine.util.FontSpec;
 import ar.com.xyz.gameengine.util.MenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.TerrainDemoMenuItem;
+import ar.com.xyz.simpledemo.presentation.menuitem.AnotherParticleSystemDemoMenuItem;
 import ar.com.xyz.simpledemo.presentation.menuitem.ColladaAnimationDemoMenuItem;
 import ar.com.xyz.simpledemo.presentation.menuitem.CubeMapReflectionDemoMenuItem;
 import ar.com.xyz.simpledemo.presentation.menuitem.ObjMultipleTextureMenuItem;
@@ -46,6 +47,7 @@ public class PresentationMenuGameState extends AbstractMenuItemBasedMenuGameStat
 			menuItemList.add(new SoundDemoMenuItem()) ;
 			menuItemList.add(new SkyboxDemoMenuItem());
 			menuItemList.add(new ParticleSystemDemoMenuItem());
+			menuItemList.add(new AnotherParticleSystemDemoMenuItem());
 			menuItemList.add(new CubeMapReflectionDemoMenuItem());
 			menuItemList.add(SimpleDemoMenuMenuItem.getInstance());
 			
