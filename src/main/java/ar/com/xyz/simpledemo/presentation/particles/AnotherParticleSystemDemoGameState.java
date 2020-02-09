@@ -13,8 +13,20 @@ import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
 
 import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateStateEnum.*;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateSubStateEnum.*;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateVectorCoordinateEnum.* ;
 
 /**
+ * 0-9 cambiar texturas / ParticleEmission
+ * 
+ * F1-F12 seleccionar variable a modificar
+ * 
+ * E: Para cambiar el error
+ * 
+ * Boolean: s/n p y/n para setear el valor
+ * Numero: +- para cambiar el valor
+ * Vector: xyz para seleccionar la coordenada
+ * 
  * 0-9: cambiar de emisor (para probar diferentes texturas)
  * 
  * F1: liveFor (+-)
@@ -36,9 +48,20 @@ import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystem
  */
 public class AnotherParticleSystemDemoGameState extends AbstractGameState implements InputEventListener {
 	
+	/**
+	 * TODO: Mostrar los valores
+	 * 
+	 * Agregar los PS ...
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
 	private static final String LEVEL = "s-box" ;
 	
 	private AnotherParticleSystemDemoGameStateStateEnum status = null ;
+	private AnotherParticleSystemDemoGameStateSubStateEnum subStatus = AnotherParticleSystemDemoGameStateSubStateEnum.ORIGINAL ;
+	private AnotherParticleSystemDemoGameStateVectorCoordinateEnum vectorCoordinate = AnotherParticleSystemDemoGameStateVectorCoordinateEnum.X ;
 	
 	public AnotherParticleSystemDemoGameState() {
 		
@@ -166,14 +189,27 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 	//////
 	
 	private int pps = 10 ;
+	
 	private float speed = 10 ;
+	private float speedError = 0 ;
+	
 	private float gravity = 1 ;
+	private float gravityError = 1 ;
+	
 	private float lifeLenght = 1 ;
+	private float lifeLenghtError = 1 ;
+	
 	private float scale = 1 ;
+	private float scaleError = 1 ;
+	
 	private boolean randomRotation = true ;
+	
 	private boolean activarDireccion = false;
 	private Vector3f direccion = new Vector3f(1, 0, 0) ;
 	private float desvioDireccion = 25 ;
+	
+	private float atlasTransitionSpeed = 1 ;
+	
 	private boolean additiveBlending = false ;
 	
 	@Override
@@ -207,7 +243,7 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 			// disturb: por ahora no lo voy a implementar
 			break;
 		case Keyboard.KEY_F3:
-			// pps: por ahora no lo voy a implementar
+			// Particulas por segundo
 			status = PPS ;
 			break;
 		case Keyboard.KEY_F4:
@@ -233,10 +269,25 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 			status = DIRECCION ;
 			break;
 		case Keyboard.KEY_F11:
-			status = DESVIO_DIRECCION ;
+			status = ATLAS_TRANSITION_SPEED ; // TODO: ...
 			break;
 		case Keyboard.KEY_F12:
 			status = ADDITIVE_BLENDING ;
+			break;
+		case Keyboard.KEY_O:
+			subStatus = ORIGINAL ;
+			break;
+		case Keyboard.KEY_E:
+			subStatus = ERROR ;
+			break;
+		case Keyboard.KEY_X:
+			vectorCoordinate = X ;
+			break;
+		case Keyboard.KEY_Y:
+			vectorCoordinate = Y ;
+			break;
+		case Keyboard.KEY_Z:
+			vectorCoordinate = Z ;
 			break;
 		case Keyboard.KEY_ADD:
 			handleAdd() ;
@@ -274,19 +325,35 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 			pps++ ;
 			break;
 		case SPEED:
-			speed += .1f ;
+			if (subStatus.equals(ORIGINAL)) {
+				speed += .1f ;
+			} else {
+				speedError += .1f ;
+			}
 			break;
 		case GRAVITY:
-			gravity += .1f ;
-			if (gravity > 1) {
-				gravity = 1 ;
+			if (subStatus.equals(ORIGINAL)) {
+				gravity += .1f ;
+				if (gravity > 1) {
+					gravity = 1 ;
+				}
+			} else {
+				gravityError += .1f ;
 			}
 			break;
 		case LIFE_LENGTH:
-			lifeLenght += .1f ;
+			if (subStatus.equals(ORIGINAL)) {
+				lifeLenght += .1f ;
+			} else {
+				lifeLenghtError += .1f ;
+			}
 			break;
 		case SCALE:
-			scale += .1f ;
+			if (subStatus.equals(ORIGINAL)) {
+				scale+= .1f ;
+			} else {
+				scaleError += .1f ;
+			}
 			break;
 		case RANDOM_ROT:
 			randomRotation = true ;
@@ -295,14 +362,29 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 			activarDireccion = true ;
 			break;
 		case DIRECCION:
-			// TODO: direccion teniendo en cuenta XYZ ...
+			if (subStatus.equals(ORIGINAL)) {
+				switch (vectorCoordinate) {
+				case X:
+					direccion.x += .1f ;
+					break;
+				case Y:
+					direccion.y += .1f ;
+					break;
+				case Z:
+					direccion.z += .1f ;
+					break;
+				default:
+					break;
+				}
+			} else {
+				desvioDireccion += .1f ;
+			}
 			break;
-		case DESVIO_DIRECCION:
-			desvioDireccion++ ;
+		case ATLAS_TRANSITION_SPEED:
+			atlasTransitionSpeed += .1f ;
 			break;
 		case ADDITIVE_BLENDING:
 			additiveBlending = true ;
-			status = PPS ;
 			break;
 		default:
 			break;
@@ -311,7 +393,79 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 	}
 
 	private void handleMinus() {
-		// TODO Auto-generated method stub
+		if (status == null) {
+			return ;
+		}
+		
+		switch (status) {
+		case PPS:
+			pps-- ;
+			break;
+		case SPEED:
+			if (subStatus.equals(ORIGINAL)) {
+				speed -= .1f ;
+			} else {
+				speedError -= .1f ;
+			}
+			break;
+		case GRAVITY:
+			if (subStatus.equals(ORIGINAL)) {
+				gravity -= .1f ;
+				if (gravity < 0) {
+					gravity = 0 ;
+				}
+			} else {
+				gravityError -= .1f ;
+			}
+			break;
+		case LIFE_LENGTH:
+			if (subStatus.equals(ORIGINAL)) {
+				lifeLenght -= .1f ;
+			} else {
+				lifeLenghtError -= .1f ;
+			}
+			break;
+		case SCALE:
+			if (subStatus.equals(ORIGINAL)) {
+				scale -= .1f ;
+			} else {
+				scaleError -= .1f ;
+			}
+			break;
+		case RANDOM_ROT:
+			randomRotation = false ;
+			break;
+		case ACTIVAR_DIRECCION:
+			activarDireccion = false ;
+			break;
+		case DIRECCION:
+			if (subStatus.equals(ORIGINAL)) {
+				switch (vectorCoordinate) {
+				case X:
+					direccion.x -= .1f ;
+					break;
+				case Y:
+					direccion.y -= .1f ;
+					break;
+				case Z:
+					direccion.z -= .1f ;
+					break;
+				default:
+					break;
+				}
+			} else {
+				desvioDireccion -= .1f ;
+			}
+			break;
+		case ATLAS_TRANSITION_SPEED:
+			atlasTransitionSpeed -= .1f ;
+			break;
+		case ADDITIVE_BLENDING:
+			additiveBlending = false ;
+			break;
+		default:
+			break;
+		}
 		
 	}
 
