@@ -1,20 +1,37 @@
 package ar.com.xyz.simpledemo.presentation.particles;
 
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateStateEnum.ACTIVAR_DIRECCION;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateStateEnum.ADDITIVE_BLENDING;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateStateEnum.ATLAS_TRANSITION_SPEED;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateStateEnum.DIRECCION;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateStateEnum.GRAVITY;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateStateEnum.LIFE_LENGTH;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateStateEnum.PPS;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateStateEnum.RANDOM_ROT;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateStateEnum.SCALE;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateStateEnum.SPEED;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateSubStateEnum.ERROR;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateSubStateEnum.ORIGINAL;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateVectorCoordinateEnum.X;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateVectorCoordinateEnum.Y;
+import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateVectorCoordinateEnum.Z;
+
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
+import ar.com.xyz.gameengine.font.fontMeshCreator.FontType;
+import ar.com.xyz.gameengine.font.fontMeshCreator.GUIText;
 import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.particle.ParticleEmission;
+import ar.com.xyz.gameengine.particle.ParticleSystem;
+import ar.com.xyz.gameengine.particle.ParticleTexture;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
-
-import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateStateEnum.*;
-import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateSubStateEnum.*;
-import static ar.com.xyz.simpledemo.presentation.particles.AnotherParticleSystemDemoGameStateVectorCoordinateEnum.* ;
 
 /**
  * 0-9 cambiar texturas / ParticleEmission
@@ -57,18 +74,78 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 	 * 
 	 * 
 	 */
+	
+	private static final FontType FONT_TYPE = SingletonManager.getInstance().getFontTypeManager().getFontType("arial") ;
+	
 	private static final String LEVEL = "s-box" ;
 	
 	private AnotherParticleSystemDemoGameStateStateEnum status = null ;
 	private AnotherParticleSystemDemoGameStateSubStateEnum subStatus = AnotherParticleSystemDemoGameStateSubStateEnum.ORIGINAL ;
 	private AnotherParticleSystemDemoGameStateVectorCoordinateEnum vectorCoordinate = AnotherParticleSystemDemoGameStateVectorCoordinateEnum.X ;
 	
+	//////
+	
+	private int pps = 10 ;
+	
+	private float speed = 10 ;
+	private float speedError = 0 ;
+	
+	private float gravity = 1 ;
+	private float gravityError = 1 ;
+	
+	private float lifeLenght = 1 ;
+	private float lifeLenghtError = 1 ;
+	
+	private float scale = 1 ;
+	private float scaleError = 1 ;
+	
+	private boolean randomRotation = true ;
+	
+	private boolean activarDireccion = false;
+	private Vector3f direccion = new Vector3f(1, 0, 0) ;
+	private float desvioDireccion = 25 ;
+	
+	private float atlasTransitionSpeed = 1 ;
+	
+	private boolean additiveBlending = false ;
+	
+	////
+	
+	// Para mostrar estado, subEstado y vectorCoordinate
+	private GUIText statusGUIText ;
+	
+	private GUIText ppsGUIText ;
+	
+	private GUIText speedGUIText ;
+	
+	private GUIText gravityGUIText ;
+	
+	private GUIText lifeLenghtGUIText ;
+	
+	private GUIText scaleGUIText ;
+	
+	private GUIText randomRotationGUIText ;
+	
+	private GUIText activarDireccionGUIText ;
+	
+	private GUIText direccionGUIText ;
+	
+	private GUIText atlasTransitionSpeedGUIText ;
+	
+	private GUIText additiveBlendingGUIText ;
+	
+	
+	private ParticleTexture particleTexture ;
+	private ParticleSystem particleSystem ;
+	private ParticleEmission particleEmission ;
+	
 	public AnotherParticleSystemDemoGameState() {
 		
 		SingletonManager.getInstance().getTextureManager().addTexturePath("/textures/particles");
-		particleEmission = new ParticleEmission(ParticleSystemSingleton.getInstance().getParticleSystemDust(), new Vector3f(0,1,0)) ;
-		particleEmission.setLiveFor(5f);
-		addParticleEmission(particleEmission);
+
+		particleTexture = new ParticleTexture(SingletonManager.getInstance().getTextureManager().loadTexture("particleAtlas"), 4, additiveBlending) ;
+		particleSystem = new ParticleSystem(particleTexture, pps, speed, gravity, lifeLenght, scale) ;
+		particleEmission = new ParticleEmission(particleSystem, new Vector3f(0,1,0)) ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
@@ -101,6 +178,7 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 		getAmbientLight().y = .5f ;
 		getAmbientLight().z = .5f ;
 		
+		addParticleEmission(particleEmission);
 		// Muestras las esferas en 000 ...
 //		enableDebugKeys();
 		
@@ -112,52 +190,80 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 		if (getInputManager().getNumberOfConfiguredInputEventListener() == 0) {
 			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
 		}
+		addInputEventListener(this) ;
 	}
-	
-	float xxx = 0 ;
-
-	private int current = 0 ;
-	
-	ParticleEmission particleEmission = null ;
 	
 	@Override
 	public void tick(float tpf) {
-		 
-		xxx+=tpf ;
 
 		if (getPlayer().getPosition().y < -100) {
 			handlePlayerDeath() ;
 		}
 		
-//		getHandlePlayerInput().handlePlayerInput();
-
-		if (xxx> 6) {
-			xxx = 0 ;
-			current++ ;
-			if (current > 2) {
-				current = 0 ;
-			}
-			switch (current) {
-			case 0:
-				particleEmission = new ParticleEmission(ParticleSystemSingleton.getInstance().getParticleSystemDust(), new Vector3f(0,1,0)) ;
-				break;
-			case 1:
-				particleEmission = new ParticleEmission(ParticleSystemSingleton.getInstance().getParticleSystemFire(), new Vector3f(0,1,0)) ;
-				break;
-			case 2:
-				particleEmission = new ParticleEmission(ParticleSystemSingleton.getInstance().getParticleSystemExplosion(), new Vector3f(0,1,0)) ;
-				break;
-			default:
-				break;
-			}
-			
-			particleEmission.setLiveFor(5f);
-			addParticleEmission(particleEmission);
+		updateGuiText() ;
 		
-		}
+		updateParticleTextureAndParticleEmission();
 
 	}
 
+	private void updateParticleTextureAndParticleEmission() {
+		if (particleTexture.usesAdditiveBlending() != additiveBlending) {
+			particleTexture.setAdditive(additiveBlending);
+		}
+		
+		if (particleSystem.getPps() != pps) {
+			particleSystem.setPps(pps);
+		}
+		
+		if (particleSystem.getAverageSpeed() != speed) {
+			particleSystem.setAverageSpeed(speed);
+		}
+		if (particleSystem.getSpeedError() != speedError) {
+			particleSystem.setSpeedError(speedError);
+		}
+		
+		if (particleSystem.getGravityComplient() != gravity) {
+			particleSystem.setGravityComplient(gravity);
+		}
+//		if (particleSystem.getGravityComplientError() != speedError) {
+//			particleSystem.setSpeedError(speedError);
+//		}
+		
+		if (particleSystem.getAverageLifeLength() != lifeLenght) {
+			particleSystem.setAverageLifeLength(lifeLenght);
+		}
+		if (particleSystem.getLifeError() != lifeLenghtError) {
+			particleSystem.setLifeError(lifeLenghtError);
+		}
+		
+		if (particleSystem.getAverageScale() != scale) {
+			particleSystem.setAverageScale(lifeLenght);
+		}
+		if (particleSystem.getScaleError() != scaleError) {
+			particleSystem.setScaleError(lifeLenghtError);
+		}
+
+		if (particleSystem.isRandomRotation() != randomRotation) {
+			particleSystem.setRandomRotation(randomRotation);
+		}
+
+		if (activarDireccion) {
+			if (particleSystem.getDirection() == null) {
+				particleSystem.setDirection(direccion);
+			}
+			if (particleSystem.getDirectionDeviation() != desvioDireccion) {
+				particleSystem.setDirectionDeviation(desvioDireccion);
+			}
+		} else {
+			if (particleSystem.getDirection() != null) {
+				particleSystem.setDirection(null);
+			}
+		}
+		
+		// TODO: atlasTransitionSpeed
+		
+	}
+	
 	private void setupPlayerAndCamera() {
 
 		setupPlayerAndCamera(
@@ -186,31 +292,6 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 		getMainGameLoop().setNextGameState(PresentationMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
-	//////
-	
-	private int pps = 10 ;
-	
-	private float speed = 10 ;
-	private float speedError = 0 ;
-	
-	private float gravity = 1 ;
-	private float gravityError = 1 ;
-	
-	private float lifeLenght = 1 ;
-	private float lifeLenghtError = 1 ;
-	
-	private float scale = 1 ;
-	private float scaleError = 1 ;
-	
-	private boolean randomRotation = true ;
-	
-	private boolean activarDireccion = false;
-	private Vector3f direccion = new Vector3f(1, 0, 0) ;
-	private float desvioDireccion = 25 ;
-	
-	private float atlasTransitionSpeed = 1 ;
-	
-	private boolean additiveBlending = false ;
 	
 	@Override
 	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
@@ -274,11 +355,12 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 		case Keyboard.KEY_F12:
 			status = ADDITIVE_BLENDING ;
 			break;
-		case Keyboard.KEY_O:
-			subStatus = ORIGINAL ;
-			break;
-		case Keyboard.KEY_E:
-			subStatus = ERROR ;
+		case 0x9c: // Enter del pad
+			if (subStatus != ORIGINAL) {
+				subStatus = ORIGINAL ;
+			} else {
+				subStatus = ERROR ;
+			}
 			break;
 		case Keyboard.KEY_X:
 			vectorCoordinate = X ;
@@ -289,13 +371,14 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 		case Keyboard.KEY_Z:
 			vectorCoordinate = Z ;
 			break;
-		case Keyboard.KEY_ADD:
+		case 0x4e: // + del pad
 			handleAdd() ;
 			break;
-		case Keyboard.KEY_MINUS:
+		case 0x4a: // - del pad
 			handleMinus() ;
 			break;
 		default:
+			System.out.println(Integer.toHexString(keyOrButton));
 			break;
 		}
 		return false;
@@ -303,7 +386,7 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 
 	@Override
 	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		if (origin == EventOriginEnum.KEYBOARD) {
+		if (origin == EventOriginEnum.KEYBOARD && type == EventTypeEnum.RELEASED) {
 			return true ;
 		}
 		return false;
@@ -467,6 +550,134 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 			break;
 		}
 		
+	}
+
+	private void updateGuiText() {
+		updateStatus() ;
+		updatePPS() ;
+		updateSpeed() ;
+		updateGravity() ;
+		updateLifeLenght() ;
+		updateScale() ;
+		updateRandomRotation() ;
+		updateActivarDireccion() ;
+		updateDireccion() ;
+		updateAtlasTransitionSpeed() ;
+		updateAdditiveBlending() ;
+	}
+	
+	private static final float fontSize = 1f ;
+	
+	private static final float yBase = 0.05f ;
+	private static final float yStep = 0.05f ;
+	
+	private void updateStatus() {
+		if (statusGUIText != null) {
+			statusGUIText.remove();
+		}
+		StringBuffer sb = new StringBuffer() ;
+		if (status != null) {
+			sb.append(status) ;
+			if (subStatus != null) {
+				sb.append("/" + subStatus) ;
+				if (status == DIRECCION && subStatus == ORIGINAL && vectorCoordinate != null) {
+					sb.append("/" + vectorCoordinate) ;
+				}
+			}
+		}
+		statusGUIText = new GUIText("Status: " + sb.toString(), fontSize, FONT_TYPE, new Vector2f(0.7f, yBase), 1f, false, this);
+		statusGUIText .setColour(0, 1, 0);
+		statusGUIText.show();
+	}
+	
+	private void updatePPS() {
+		if (ppsGUIText != null) {
+			ppsGUIText.remove();
+		}
+		ppsGUIText = new GUIText("PPS: " + pps, fontSize, FONT_TYPE, new Vector2f(0.7f, yBase + yStep), 1f, false, this);
+		ppsGUIText .setColour(0, 1, 0);
+		ppsGUIText.show();
+	}
+	
+	private void updateSpeed() {
+		if (speedGUIText != null) {
+			speedGUIText.remove();
+		}
+		speedGUIText = new GUIText("Speed: " + speed + " (" + speedError + ")", fontSize, FONT_TYPE, new Vector2f(0.7f, yBase + (yStep*2)), 1f, false, this);
+		speedGUIText .setColour(0, 1, 0);
+		speedGUIText.show();
+	}
+	
+	private void updateGravity() {
+		if (gravityGUIText != null) {
+			gravityGUIText.remove();
+		}
+		gravityGUIText = new GUIText("Gravity: " + gravity + " (" + gravityError + ")", fontSize, FONT_TYPE, new Vector2f(0.7f, yBase + (yStep*3)), 1f, false, this);
+		gravityGUIText .setColour(0, 1, 0);
+		gravityGUIText.show();
+	}
+	
+	private void updateLifeLenght() {
+		if (lifeLenghtGUIText != null) {
+			lifeLenghtGUIText.remove();
+		}
+		lifeLenghtGUIText = new GUIText("lifeLenght: " + lifeLenght + " (" + lifeLenghtError + ")", fontSize, FONT_TYPE, new Vector2f(0.7f, yBase + (yStep*4)), 1f, false, this);
+		lifeLenghtGUIText .setColour(0, 1, 0);
+		lifeLenghtGUIText.show();
+	}
+	
+	private void updateScale() {
+		if (scaleGUIText != null) {
+			scaleGUIText.remove();
+		}
+		scaleGUIText = new GUIText("scale: " + scale + " (" + scaleError + ")", fontSize, FONT_TYPE, new Vector2f(0.7f, yBase + (yStep*5)), 1f, false, this);
+		scaleGUIText .setColour(0, 1, 0);
+		scaleGUIText.show();
+	}
+	
+	private void updateRandomRotation() {
+		if (randomRotationGUIText != null) {
+			randomRotationGUIText.remove();
+		}
+		randomRotationGUIText = new GUIText("randomRotation: " + randomRotation , fontSize, FONT_TYPE, new Vector2f(0.7f, yBase + (yStep*6)), 1f, false, this);
+		randomRotationGUIText .setColour(0, 1, 0);
+		randomRotationGUIText.show();
+	}
+	
+	private void updateActivarDireccion() {
+		if (activarDireccionGUIText != null) {
+			activarDireccionGUIText.remove();
+		}
+		activarDireccionGUIText = new GUIText("activarDireccion: " + activarDireccion , fontSize, FONT_TYPE, new Vector2f(0.7f, yBase + (yStep*7)), 1f, false, this);
+		activarDireccionGUIText .setColour(0, 1, 0);
+		activarDireccionGUIText.show();
+	}
+	
+	private void updateDireccion() {
+		if (direccionGUIText != null) {
+			direccionGUIText.remove();
+		}
+		direccionGUIText = new GUIText("direccion: " + direccion + "(" + desvioDireccion + ")", fontSize, FONT_TYPE, new Vector2f(0.7f, yBase + (yStep*8)), 1f, false, this);
+		direccionGUIText .setColour(0, 1, 0);
+		direccionGUIText.show();
+	}
+	
+	private void updateAtlasTransitionSpeed() {
+		if (atlasTransitionSpeedGUIText != null) {
+			atlasTransitionSpeedGUIText.remove();
+		}
+		atlasTransitionSpeedGUIText = new GUIText("atlasTransitionSpeed: " + atlasTransitionSpeed + "(TODO)", fontSize, FONT_TYPE, new Vector2f(0.7f, yBase + (yStep*9)), 1f, false, this);
+		atlasTransitionSpeedGUIText .setColour(0, 1, 0);
+		atlasTransitionSpeedGUIText.show();
+	}
+	
+	private void updateAdditiveBlending() {
+		if (additiveBlendingGUIText != null) {
+			additiveBlendingGUIText.remove();
+		}
+		additiveBlendingGUIText = new GUIText("additiveBlending: " + additiveBlending, fontSize, FONT_TYPE, new Vector2f(0.7f, yBase + (yStep*10)), 1f, false, this);
+		additiveBlendingGUIText .setColour(0, 1, 0);
+		additiveBlendingGUIText.show();
 	}
 
 }
