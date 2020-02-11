@@ -27,9 +27,9 @@ public class ParticleSystemSingleton {
 			particleSystemBlood = new ParticleSystem(particleTexture, 15, 5, 2f, .5f, .1f) ;
 			particleSystemBlood.randomizeRotation();
 			particleSystemBlood.setDirection(new Vector3f(0,1,0), 0.1f);
-			particleSystemBlood.setLifeError(0.1f);
-			particleSystemBlood.setSpeedError(0.1f);
-			particleSystemBlood.setScaleError(0.1f);
+//			particleSystemBlood.setLifeError(0.1f);
+//			particleSystemBlood.setSpeedError(0.1f);
+//			particleSystemBlood.setScaleError(0.1f);
 		}
 		return particleSystemBlood ;
 	}
@@ -46,9 +46,9 @@ public class ParticleSystemSingleton {
 			particleSystemGhost = new ParticleSystem(particleTexture, 20f, 2f, .5f, .5f, 2f) ;
 			// particleSystemGhost.randomizeRotation();
 			particleSystemGhost.setDirection(new Vector3f(0,1,0), 0.2f);
-			particleSystemGhost.setLifeError(0.1f);
-			particleSystemGhost.setSpeedError(0.1f);
-			particleSystemGhost.setScaleError(0.1f);
+//			particleSystemGhost.setLifeError(0.1f);
+//			particleSystemGhost.setSpeedError(0.1f);
+//			particleSystemGhost.setScaleError(0.1f);
 		}
 		return particleSystemGhost ;
 	}
@@ -61,9 +61,9 @@ public class ParticleSystemSingleton {
 			particleSystemFire = new ParticleSystem(particleTexture, 15, 5, 0.3f, .2f, .5f) ;
 			particleSystemFire.randomizeRotation();
 			particleSystemFire.setDirection(new Vector3f(0,1,0), 0.1f);
-			particleSystemFire.setLifeError(0.1f);
-			particleSystemFire.setSpeedError(0.1f);
-			particleSystemFire.setScaleError(0.1f);
+//			particleSystemFire.setLifeError(0.1f);
+//			particleSystemFire.setSpeedError(0.1f);
+//			particleSystemFire.setScaleError(0.1f);
 		}
 		return particleSystemFire ;
 	}
@@ -105,9 +105,9 @@ public class ParticleSystemSingleton {
 			particleSystemExplosion = new ParticleSystem(particleTexture, 15, 5, 0.3f, .2f, 2.5f) ;
 			particleSystemExplosion.randomizeRotation();
 			particleSystemExplosion.setDirection(new Vector3f(0,1,0), 0.1f);
-			particleSystemExplosion.setLifeError(0.1f);
-			particleSystemExplosion.setSpeedError(0.1f);
-			particleSystemExplosion.setScaleError(0.1f);
+//			particleSystemExplosion.setLifeError(0.1f);
+//			particleSystemExplosion.setSpeedError(0.1f);
+//			particleSystemExplosion.setScaleError(0.1f);
 		}
 		return particleSystemExplosion ;
 	}

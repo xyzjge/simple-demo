@@ -32,7 +32,7 @@ public enum AnotherParticleSystemDemoGameStateStateEnum {
 	ACTIVAR_DIRECCION, // Las particulas se generan en un cono (boolean) 
 	DIRECCION, // La direccion del cono (vetor3f) - el error es el angulo (float)
 	// DESVIO_DIRECCION,
-	ATLAS_TRANSITION_SPEED, // TODO: cuan rapido recorren el atlas (podria tener error)
+//	ATLAS_TRANSITION_SPEED, // TODO: cuan rapido recorren el atlas (podria tener error) NOOO, es lo mismo que live lenght ...
 	ADDITIVE_BLENDING // Additive blending si/no 
 	;
 	

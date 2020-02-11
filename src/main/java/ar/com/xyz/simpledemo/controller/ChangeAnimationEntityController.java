@@ -61,9 +61,9 @@ public class ChangeAnimationEntityController extends EntityController implements
 		ParticleSystem particleSystem = new ParticleSystem(particleTexture, 15, 5, 0.3f, 1f, .2f) ;
 		particleSystem.randomizeRotation();
 		particleSystem.setDirection(new Vector3f(0,1,0), 0.1f);
-		particleSystem.setLifeError(0.1f);
-		particleSystem.setSpeedError(0.1f);
-		particleSystem.setScaleError(0.1f);
+//		particleSystem.setLifeError(0.1f);
+//		particleSystem.setSpeedError(0.1f);
+//		particleSystem.setScaleError(0.1f);
 		
 		Vector3f position = VectorUtil.getInstance().clone( getEntity().getPosition() ) ;
 		position.y += .5f ;
