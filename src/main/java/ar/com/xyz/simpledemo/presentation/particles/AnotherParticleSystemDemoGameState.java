@@ -108,7 +108,7 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 	private float highestSpeed = 1f ;
 	
 	private float lowestGravity = -2 ;
-	private float higestGravity = -1 ; // TODO: Tambien estaria bueno que vaya cambiando durante la vida de la particula ...
+	private float higestGravity = -1 ;
 	
 	private float lowestLifeLength = 1 ;
 	private float higestLifeLenght = 1 ;
@@ -121,8 +121,6 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 	private boolean activarDireccion = false;
 	private Vector3f direccion = new Vector3f(1, 0, 0) ;
 	private float desvioDireccion = 25 ;
-	
-//	private float atlasTransitionSpeed = 1 ;
 	
 	private boolean additiveBlending = false ;
 	
@@ -146,8 +144,6 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 	private GUIText activarDireccionGUIText ;
 	
 	private GUIText direccionGUIText ;
-	
-//	private GUIText atlasTransitionSpeedGUIText ;
 	
 	private GUIText additiveBlendingGUIText ;
 	
@@ -196,6 +192,7 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 		getAmbientLight().z = .5f ;
 		
 		addParticleEmission(particleEmission);
+		
 		// Muestras las esferas en 000 ...
 //		enableDebugKeys();
 		
@@ -277,8 +274,6 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 			}
 		}
 		
-		// TODO: atlasTransitionSpeed
-		
 	}
 	
 	private void setupPlayerAndCamera() {
@@ -292,12 +287,6 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 			new Vector3f(.5f, .5f, .5f), null, true,
 			null
 		) ;
-
-		// getCamera().decPitch(-90);
-		
-//		getPlayer().setCrushHandler(this);
-		
-//		SingletonManager.getInstance().getEntityUtil().lookAt(getPlayer(), new Vector3f(0, 0, 0));
 
 		getPlayer().setRunSpeed(3);
 		getPlayer().setStrafeSpeed(3);
@@ -366,9 +355,6 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 		case Keyboard.KEY_F10:
 			status = DIRECCION ;
 			break;
-//		case Keyboard.KEY_F11: Igual no andaba el F11 ... lo tomaba 1ro el X ...
-//			status = ATLAS_TRANSITION_SPEED ; // TODO: ...
-//			break;
 		case Keyboard.KEY_F12:
 			status = ADDITIVE_BLENDING ;
 			break;
@@ -504,9 +490,6 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 				desvioDireccion += .1f ;
 			}
 			break;
-//		case ATLAS_TRANSITION_SPEED:
-//			atlasTransitionSpeed += .1f ;
-//			break;
 		case ADDITIVE_BLENDING:
 			additiveBlending = true ;
 			break;
@@ -611,9 +594,6 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 				desvioDireccion -= .1f ;
 			}
 			break;
-//		case ATLAS_TRANSITION_SPEED:
-//			atlasTransitionSpeed -= .1f ;
-//			break;
 		case ADDITIVE_BLENDING:
 			additiveBlending = false ;
 			break;
@@ -633,7 +613,6 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 		updateRandomRotation() ;
 		updateActivarDireccion() ;
 		updateDireccion() ;
-//		updateAtlasTransitionSpeed() ;
 		updateAdditiveBlending() ;
 	}
 	
@@ -727,15 +706,6 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 		direccionGUIText .setColour(0, 1, 0);
 		direccionGUIText.show();
 	}
-	
-//	private void updateAtlasTransitionSpeed() {
-//		if (atlasTransitionSpeedGUIText != null) {
-//			atlasTransitionSpeedGUIText.remove();
-//		}
-//		atlasTransitionSpeedGUIText = new GUIText("atlasTransitionSpeed: " + atlasTransitionSpeed + "(TODO)", fontSize, FONT_TYPE, new Vector2f(0.7f, yBase + (yStep*9)), 1f, false, this);
-//		atlasTransitionSpeedGUIText .setColour(0, 1, 0);
-//		atlasTransitionSpeedGUIText.show();
-//	}
 	
 	private void updateAdditiveBlending() {
 		if (additiveBlendingGUIText != null) {
