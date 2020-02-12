@@ -79,8 +79,8 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 	private static final String TEXTURE_ATLAS_STAR = "particleStar";
 	private static final int TEXTURE_ATLAS_STAR_SIZE = 1 ;
 	
-	private static final String TEXTURE_ATLAS = TEXTURE_ATLAS_DUST;
-	private static final int TEXTURE_ATLAS_SIZE = TEXTURE_ATLAS_DUST_SIZE ;
+	private static final String TEXTURE_ATLAS = TEXTURE_ATLAS_FUEGO;
+	private static final int TEXTURE_ATLAS_SIZE = TEXTURE_ATLAS_FUEGO_SIZE ;
 	
 	/**
 	 * TODO: Mostrar los valores
@@ -105,24 +105,24 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 	private float pps = 2 ;
 	
 	private float lowestSpeed = 1f ;
-	private float highestSpeed = 1f ;
+	private float highestSpeed = 2f ;
 	
-	private float lowestGravity = -2 ;
-	private float higestGravity = -1 ;
+	private float lowestGravity = -.2f ;
+	private float higestGravity = -.1f ;
 	
 	private float lowestLifeLength = 1 ;
-	private float higestLifeLenght = 1 ;
+	private float higestLifeLenght = 1.5f ;
 	
 	private float lowestScale = 1 ;
-	private float higestScale = 1 ;
+	private float higestScale = 2 ;
 	
 	private boolean randomRotation = true ;
 	
-	private boolean activarDireccion = false;
-	private Vector3f direccion = new Vector3f(1, 0, 0) ;
+	private boolean activarDireccion = true;
+	private Vector3f direccion = new Vector3f(0, 1, 0) ;
 	private float desvioDireccion = 25 ;
 	
-	private boolean additiveBlending = false ;
+	private boolean additiveBlending = true ;
 	
 	////
 	
@@ -717,12 +717,12 @@ public class AnotherParticleSystemDemoGameState extends AbstractGameState implem
 	}
 
 	private void printValues() {
-		System.out.println("particleTexture = new ParticleTexture(SingletonManager.getInstance().getTextureManager().loadTexture(\"" + TEXTURE_ATLAS + "\"), " + TEXTURE_ATLAS_SIZE + ", additiveBlending)") ;
+		System.out.println("particleTexture = new ParticleTexture(SingletonManager.getInstance().getTextureManager().loadTexture(\"" + TEXTURE_ATLAS + "\"), " + TEXTURE_ATLAS_SIZE + ", " + additiveBlending + ")") ;
 		
 		System.out.println("particleSystem = new ParticleSystem(particleTexture, " + pps + "f, " + lowestSpeed + "f, " + lowestGravity + "f, " + lowestLifeLength + "f, " + lowestScale + "f)") ;
-		System.out.println("particleSystem.setSpeedError(" + highestSpeed + "f)") ;
-		System.out.println("particleSystem.setLifeError(" + higestLifeLenght + "f)") ;
-		System.out.println("particleSystem.setScaleError(" + higestScale + "f)") ;
+		System.out.println("particleSystem.setHighestSpeed(" + highestSpeed + "f)") ;
+		System.out.println("particleSystem.setHigestLifeLenght(" + higestLifeLenght + "f)") ;
+		System.out.println("particleSystem.setHigestScale(" + higestScale + "f)") ;
 		System.out.println("particleSystem.setRandomRotation(" + randomRotation + ")") ;
 		if (activarDireccion) {
 			System.out.println("particleSystem.setDirection(" + direccion + ", " + desvioDireccion + "f)") ;
