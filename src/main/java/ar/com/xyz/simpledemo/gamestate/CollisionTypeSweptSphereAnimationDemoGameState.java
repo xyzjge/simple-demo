@@ -7,7 +7,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.collada.AlfreAnimationInfo;
+import ar.com.xyz.gameengine.collada.AnimationInstance;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.AnimatedEntitySpec;
@@ -59,7 +59,7 @@ public class CollisionTypeSweptSphereAnimationDemoGameState extends AbstractGame
 		{
 			ChangeAnimationEntityController basicEnemyEntityController = new ChangeAnimationEntityController() ;
 		
-			AlfreAnimationInfo animationInfo = new AlfreAnimationInfo("wait", 1f) ;
+			AnimationInstance animationInfo = new AnimationInstance("wait", 1f) ;
 			animationInfo.setAnimationEventHandler(basicEnemyEntityController);
 			AnimatedEntitySpec animatedEntitySpec = new AnimatedEntitySpec(axeZombieMoldel, animationMap, animationInfo) ;
 			

@@ -3,7 +3,7 @@ package ar.com.xyz.simpledemo.controller;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.collada.AlfreAnimationInfo;
+import ar.com.xyz.gameengine.collada.AnimationInstance;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.font.fontMeshCreator.FontType;
@@ -17,10 +17,10 @@ import ar.com.xyz.gameengine.util.VectorUtil;
 
 public class ChangeAnimationEntityController extends EntityController implements CrushHandler, AnimationEventHandler { 
 	
-	private AlfreAnimationInfo runAnimationInfo = new AlfreAnimationInfo("run", .25f) ;
-	private AlfreAnimationInfo walkAnimationInfo = new AlfreAnimationInfo("walk", .25f) ;
-	private AlfreAnimationInfo waitAnimationInfo = new AlfreAnimationInfo("wait", .25f) ;
-	private AlfreAnimationInfo attackAnimationInfo = new AlfreAnimationInfo("attack", .25f) ;
+	private AnimationInstance runAnimationInfo = new AnimationInstance("run", .25f) ;
+	private AnimationInstance walkAnimationInfo = new AnimationInstance("walk", .25f) ;
+	private AnimationInstance waitAnimationInfo = new AnimationInstance("wait", .25f) ;
+	private AnimationInstance attackAnimationInfo = new AnimationInstance("attack", .25f) ;
 	
 	private String[] animations = {"run", "walk", "wait", "attack", "wait", "walk"} ;
 	// private String[] animations = { "walk", "wait", "attack", "wait"} ;
@@ -85,7 +85,7 @@ public class ChangeAnimationEntityController extends EntityController implements
 		currentAnimationIndex++ ;
 		currentAnimationIndex %= animations.length ;
 		
-		AlfreAnimationInfo animationInfo ;
+		AnimationInstance animationInfo ;
 		if (animations[currentAnimationIndex].equals("run")) {
 			animationInfo = runAnimationInfo ;
 		} else if (animations[currentAnimationIndex].equals("walk")) {

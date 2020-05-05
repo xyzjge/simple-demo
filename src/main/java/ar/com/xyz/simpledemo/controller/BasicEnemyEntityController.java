@@ -3,7 +3,7 @@ package ar.com.xyz.simpledemo.controller;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.collada.AlfreAnimationInfo;
+import ar.com.xyz.gameengine.collada.AnimationInstance;
 import ar.com.xyz.gameengine.collision.EntityUtil;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.EntityController;
@@ -26,10 +26,10 @@ public class BasicEnemyEntityController extends EntityController implements Crus
 	private static final float WALK_SPEED = 2f /* 5 */ /* 10 */ ;
 	private static final float RUN_SPEED = 6f /* 10 *//* 20 */ ;
 	
-	private AlfreAnimationInfo runAnimationInfo = new AlfreAnimationInfo("run", 2) ;
-	private AlfreAnimationInfo walkAnimationInfo = new AlfreAnimationInfo("walk", 1) ;
-	private AlfreAnimationInfo waitAnimationInfo = new AlfreAnimationInfo("wait", .25f) ;
-	private AlfreAnimationInfo attackAnimationInfo = new AlfreAnimationInfo("attack", 2f) ;
+	private AnimationInstance runAnimationInfo = new AnimationInstance("run", 2) ;
+	private AnimationInstance walkAnimationInfo = new AnimationInstance("walk", 1) ;
+	private AnimationInstance waitAnimationInfo = new AnimationInstance("wait", .25f) ;
+	private AnimationInstance attackAnimationInfo = new AnimationInstance("attack", 2f) ;
 	
 	private SweepSphereCollisionEntity player ;
 	
