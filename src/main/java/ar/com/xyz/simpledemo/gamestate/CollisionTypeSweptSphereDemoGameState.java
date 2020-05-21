@@ -117,7 +117,7 @@ public class CollisionTypeSweptSphereDemoGameState extends AbstractGameState imp
 			true,
 			new Vector3f(.5f, 1f, .5f),
 			new Vector3f(.5f, .5f, .5f), null, true,
-			null
+			null, true
 		) ;
 
 		// getCamera().decPitch(-90);

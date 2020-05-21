@@ -202,7 +202,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState implements
 			true,
 			new Vector3f(.5f, 1f, .5f),
 			new Vector3f(.5f, .5f, .5f), null, false,
-			null
+			null, true
 		) ;
 
 		((DefaultCameraController)getCamera().getCameraController()).decPitch(-90);
