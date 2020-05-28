@@ -42,6 +42,10 @@
 			<groupId>ar.com.xyz</groupId>
 			<artifactId>game-engine</artifactId>
 			<version>1.0.1-SNAPSHOT</version>
+			<!-- Descomentar para probar sin acceder al repo (util proguard) 
+			<scope>system</scope>
+			<systemPath>/home/alfredo/.m2/repository/ar/com/xyz/game-engine/1.0.1-SNAPSHOT/game-engine-1.0.1-SNAPSHOT.jar</systemPath>
+			-->
 		</dependency>
 		<dependency>
 			<groupId>slick-util</groupId>
