@@ -13,7 +13,7 @@ import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
+import ar.com.xyz.simpledemo.presentation.menuitem.EntitiesMenuMenuItem;
 
 public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener {
 	
@@ -150,7 +150,7 @@ public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGame
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
+		getMainGameLoop().setNextGameState(EntitiesMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 	@Override

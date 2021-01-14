@@ -12,15 +12,8 @@ import ar.com.xyz.gameengine.util.MenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.Animation2DDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.CameraControllerDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.CameraQuadsDemoMenuItem;
-import ar.com.xyz.simpledemo.gamestate.menuitem.CollisionTypeNoneDemoMenuItem;
-import ar.com.xyz.simpledemo.gamestate.menuitem.CollisionTypeSolidDynamicDemoMenuItem;
-import ar.com.xyz.simpledemo.gamestate.menuitem.CollisionTypeSolidDynamicRotationDemoMenuItem;
-import ar.com.xyz.simpledemo.gamestate.menuitem.CollisionTypeSweptSphereAnimationDemoMenuItem;
-import ar.com.xyz.simpledemo.gamestate.menuitem.CollisionTypeSweptSphereDemoMenuItem;
-import ar.com.xyz.simpledemo.gamestate.menuitem.CollisionTypeSweptSphereSimpleDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.GuiDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.LightsDemoMenuItem;
-import ar.com.xyz.simpledemo.gamestate.menuitem.LocationAndRotationDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.LookAtDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.NewLookAtVersionDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.NormalMapDemoMenuItem;
@@ -32,6 +25,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.TerrainDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ViewStaticSceneDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.WaterDemoMenuItem;
 import ar.com.xyz.simpledemo.lightandshadow.menuitem.LightsAndShadowsMenuMenuItem;
+import ar.com.xyz.simpledemo.presentation.menuitem.EntitiesMenuMenuItem;
 import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
 
 public class SimpleDemoMenuGameState extends AbstractMenuItemBasedMenuGameState {
@@ -48,13 +42,9 @@ public class SimpleDemoMenuGameState extends AbstractMenuItemBasedMenuGameState 
 	@Override
 	protected List<MenuItem> getMenuItemList() {
 		if (menuItemList.size() == 0) {
-			menuItemList.add(new CollisionTypeNoneDemoMenuItem()) ;
-			menuItemList.add(new CollisionTypeSolidDynamicDemoMenuItem()) ;
-			menuItemList.add(new CollisionTypeSolidDynamicRotationDemoMenuItem()) ;
-			menuItemList.add(new CollisionTypeSweptSphereSimpleDemoMenuItem()) ;
-			menuItemList.add(new CollisionTypeSweptSphereDemoMenuItem()) ;
-			menuItemList.add(new CollisionTypeSweptSphereAnimationDemoMenuItem()) ;
-			menuItemList.add(new LocationAndRotationDemoMenuItem()) ;
+
+			menuItemList.add(EntitiesMenuMenuItem.getInstance());
+			
 			menuItemList.add(new LookAtDemoMenuItem()) ;
 			menuItemList.add(new NewLookAtVersionDemoMenuItem());
 			menuItemList.add(new Animation2DDemoMenuItem());

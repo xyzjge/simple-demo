@@ -13,13 +13,17 @@ import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.controller.LocationAndRotationEntityController;
-import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
+import ar.com.xyz.simpledemo.presentation.menuitem.EntitiesMenuMenuItem;
 
 public class LocationAndRotationDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener {
 	
 	private static final String LEVEL = "s-box" ;
 	
 	public LocationAndRotationDemoGameState() {
+		
+		SingletonManager.getInstance().getObjLoader().addObjPath("/models") ;
+		SingletonManager.getInstance().getObjLoader().addMtlPath("/models") ;
+		
 		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
@@ -144,7 +148,7 @@ public class LocationAndRotationDemoGameState extends AbstractGameState implemen
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
+		getMainGameLoop().setNextGameState(EntitiesMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 	@Override

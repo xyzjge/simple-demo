@@ -28,7 +28,7 @@ import ar.com.xyz.simpledemo.handler.UpdateHUDSweepSphereInAABBHandler;
 
 public class CollisionTypeNoneDemoGameState extends AbstractGameState implements InputEventListener, GuiControlListener {
 	
-	private static final boolean PLAY = true ;
+	private static final boolean PLAY = false ;
 	
 	private NewDetailedCollisionDataPlayer collisionDataPlayer ;
 	
@@ -46,6 +46,9 @@ public class CollisionTypeNoneDemoGameState extends AbstractGameState implements
 	private GuiControlHelper guiControlHelper = new GuiControlHelper() ;
 	
 	public CollisionTypeNoneDemoGameState() {
+		
+		SingletonManager.getInstance().getObjLoader().addObjPath("/models") ;
+		SingletonManager.getInstance().getObjLoader().addMtlPath("/models") ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
