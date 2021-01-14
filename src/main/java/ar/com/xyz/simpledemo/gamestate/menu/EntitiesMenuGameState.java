@@ -16,6 +16,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.CollisionTypeSweptSphereAnimatio
 import ar.com.xyz.simpledemo.gamestate.menuitem.CollisionTypeSweptSphereDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.CollisionTypeSweptSphereSimpleDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.LocationAndRotationDemoMenuItem;
+import ar.com.xyz.simpledemo.gamestate.menuitem.ParentChildDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
 public class EntitiesMenuGameState extends AbstractMenuItemBasedMenuGameState {
@@ -40,6 +41,8 @@ public class EntitiesMenuGameState extends AbstractMenuItemBasedMenuGameState {
 			menuItemList.add(new CollisionTypeSweptSphereAnimationDemoMenuItem()) ;
 			menuItemList.add(new LocationAndRotationDemoMenuItem()) ;
 
+			menuItemList.add(new ParentChildDemoMenuItem());
+			
 			menuItemList.add(SimpleDemoMenuMenuItem.getInstance());
 			
 		}

@@ -16,7 +16,7 @@ import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
-import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
+import ar.com.xyz.simpledemo.presentation.menuitem.EntitiesMenuMenuItem;
 
 public class ParentChildDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener {
 	
@@ -384,7 +384,7 @@ public class ParentChildDemoGameState extends AbstractGameState implements Crush
 	}
 
 	private void handlePlayerDeath() {
-		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
+		getMainGameLoop().setNextGameState(EntitiesMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 
 	private void cleanup() {

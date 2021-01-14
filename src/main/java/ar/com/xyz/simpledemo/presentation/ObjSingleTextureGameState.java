@@ -26,6 +26,9 @@ public class ObjSingleTextureGameState extends AbstractGameState implements Crus
 	
 	public ObjSingleTextureGameState() {
 		
+		SingletonManager.getInstance().getObjLoader().addObjPath("/models") ;
+		SingletonManager.getInstance().getObjLoader().addMtlPath("/models") ;
+		
 		setupPlayerAndCamera() ;
 		
 		{

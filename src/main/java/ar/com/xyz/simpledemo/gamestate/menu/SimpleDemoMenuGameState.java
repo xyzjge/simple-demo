@@ -49,7 +49,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuItemBasedMenuGameState 
 			menuItemList.add(new NewLookAtVersionDemoMenuItem());
 			menuItemList.add(new Animation2DDemoMenuItem());
 			menuItemList.add(new CameraControllerDemoMenuItem());
-			menuItemList.add(new ParentChildDemoMenuItem());
+			
 			menuItemList.add(new ObjLoaderDemoMenuItem());
 			menuItemList.add(new ViewStaticSceneDemoMenuItem());
 			menuItemList.add(new LightsDemoMenuItem());

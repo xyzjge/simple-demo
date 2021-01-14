@@ -188,15 +188,15 @@ public class PresentationGameState extends AbstractGameState implements CrushHan
 		
 		getPlayer().setCrushHandler(this);
 		
-		SingletonManager.getInstance().getEntityUtil().lookAt(getPlayer(), new Vector3f(0, 0, 0));
+//		SingletonManager.getInstance().getEntityUtil().lookAt(getPlayer(), new Vector3f(0, 0, 0));
 		
 		Vector3f lookAt = SingletonManager.getInstance().getEntityUtil().lookAt3d(getCamera().getCameraController().getPosition(), new Vector3f(0, 0, 0));
 		
 		System.out.println("lookAt: " + lookAt);
 		
-		getCamera().getCameraController().getRotation().x = -lookAt.x ;
+/*		getCamera().getCameraController().getRotation().x = -lookAt.x ;
 		getCamera().getCameraController().getRotation().y = lookAt.y ;
-		getCamera().getCameraController().getRotation().z = lookAt.z ;
+		getCamera().getCameraController().getRotation().z = lookAt.z ;*/
 
 		this.enableDebug(getPlayer());
 		
