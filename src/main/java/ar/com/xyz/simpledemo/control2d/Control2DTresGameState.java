@@ -67,10 +67,14 @@ public class Control2DTresGameState extends AbstractGameState {
 			}
 		});
 		
-		panel2d.add(new TextArea2d(new Vector2f(0.0f,0.0f), new Vector2f(1f,.5f), NORMAL));
+		TextArea2d textArea2d = new TextArea2d(new Vector2f(0.0f,0.0f), new Vector2f(1f,.5f), NORMAL) ;
+		panel2d.add(textArea2d);
 		
 		panel2d.show(this);
 
+		textArea2d.addTextLine("Hola", this);
+		textArea2d.addTextLine("que tal", this);
+		textArea2d.addTextLine("como estas?", this);
 	}
 	
 	@Override
