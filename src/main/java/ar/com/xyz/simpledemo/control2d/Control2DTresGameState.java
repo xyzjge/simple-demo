@@ -35,21 +35,28 @@ public class Control2DTresGameState extends AbstractGameState {
 		
 		Panel2d panel2d = new Panel2d(new Vector2f(0,0), new Vector2f(1,1), this) ;
 		
+		TextArea2d textArea2d = new TextArea2d(new Vector2f(0.0f,0.0f), new Vector2f(1f,.5f), NORMAL) ;
+		
 		// Cuadrante arriba a la izquierda
-		panel2d.add(new Button2d(new Vector2f(0.0f,0.75f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK) {
-			@Override
-			protected void clickHandler() {
-				System.out.println("En clickHandler arriba a la izquierda !!!");
-			}
-		});
+		BotonLimpiar botonLimpiar = new BotonLimpiar(new Vector2f(0.0f,0.75f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK, textArea2d) ;
+		panel2d.add( botonLimpiar ) ;
+//		panel2d.add(new Button2d(new Vector2f(0.0f,0.75f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK) {
+//			@Override
+//			protected void clickHandler() {
+//				System.out.println("En clickHandler arriba a la izquierda !!!");
+//			}
+//		});
 		
 		// Cuadrante arriba a la derecha
-		panel2d.add(new Button2d(new Vector2f(0.5f,0.75f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK) {
-			@Override
-			protected void clickHandler() {
-				System.out.println("En clickHandler arriba a la derecha !!!");
-			}
-		});
+		BotonEscribir botonEscribir = new BotonEscribir(new Vector2f(0.5f,0.75f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK, textArea2d, this) ;
+		panel2d.add( botonEscribir ) ;
+		
+//		panel2d.add(new Button2d(new Vector2f(0.5f,0.75f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK) {
+//			@Override
+//			protected void clickHandler() {
+//				System.out.println("En clickHandler arriba a la derecha !!!");
+//			}
+//		});
 		
 		// Cuadrante abajo a la derecha
 		panel2d.add(new Button2d(new Vector2f(0.5f,0.5f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK) {
@@ -67,7 +74,6 @@ public class Control2DTresGameState extends AbstractGameState {
 			}
 		});
 		
-		TextArea2d textArea2d = new TextArea2d(new Vector2f(0.0f,0.0f), new Vector2f(1f,.5f), NORMAL) ;
 		panel2d.add(textArea2d);
 		
 		panel2d.show(this);
