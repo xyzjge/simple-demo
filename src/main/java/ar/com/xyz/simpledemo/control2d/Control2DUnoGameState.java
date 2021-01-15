@@ -41,7 +41,13 @@ public class Control2DUnoGameState extends AbstractGameState {
 //		panel2d.add(new Button2d(new Vector2f(0.5f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow"));
 		
 		// Cuadrante abajo a la izquierda
-		panel2d.add(new Button2d(new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow"));
+		panel2d.add(new Button2d(new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow") {
+				@Override
+				protected void clickHandler() {
+					System.out.println("En clickHandler !!!");
+				}
+			}
+		);
 		
 		
 //		panel2d.add(new Button2d(new Vector2f(0.25f,0.25f), new Vector2f(.5f,.5f), "green", "red", "yellow"));

@@ -31,16 +31,36 @@ public class Control2DDosGameState extends AbstractGameState {
 		Panel2d panel2d = new Panel2d(new Vector2f(0,0), new Vector2f(1,1), this) ;
 		
 		// Cuadrante arriba a la izquierda
-		panel2d.add(new Button2d(new Vector2f(0.0f,0.5f), new Vector2f(.5f,.5f), "green", "red", "yellow"));
+		panel2d.add(new Button2d(new Vector2f(0.0f,0.5f), new Vector2f(.5f,.5f), "green", "red", "yellow") {
+			@Override
+			protected void clickHandler() {
+				System.out.println("En clickHandler arriba a la izquierda !!!");
+			}
+		});
 		
 		// Cuadrante arriba a la derecha
-		panel2d.add(new Button2d(new Vector2f(0.5f,0.5f), new Vector2f(.5f,.5f), "green", "red", "yellow"));
+		panel2d.add(new Button2d(new Vector2f(0.5f,0.5f), new Vector2f(.5f,.5f), "green", "red", "yellow") {
+			@Override
+			protected void clickHandler() {
+				System.out.println("En clickHandler arriba a la derecha !!!");
+			}
+		});
 		
 		// Cuadrante abajo a la derecha
-		panel2d.add(new Button2d(new Vector2f(0.5f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow"));
+		panel2d.add(new Button2d(new Vector2f(0.5f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow") {
+			@Override
+			protected void clickHandler() {
+				System.out.println("En clickHandler abajo a la derecha !!!");
+			}
+		});
 		
 		// Cuadrante abajo a la izquierda
-		panel2d.add(new Button2d(new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow"));
+		panel2d.add(new Button2d(new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow") {
+			@Override
+			protected void clickHandler() {
+				System.out.println("En clickHandler abajo a la izquierda !!!");
+			}
+		});
 		
 		panel2d.show(this);
 
