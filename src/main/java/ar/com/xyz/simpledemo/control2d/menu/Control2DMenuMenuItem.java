@@ -1,4 +1,4 @@
-package ar.com.xyz.simpledemo.control2d;
+package ar.com.xyz.simpledemo.control2d.menu;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.util.MenuItem;

@@ -1,4 +1,4 @@
-package ar.com.xyz.simpledemo.control2d;
+package ar.com.xyz.simpledemo.control2d.menu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +38,7 @@ public class Control2DMenuGameState extends AbstractMenuItemBasedMenuGameState {
 	protected List<MenuItem> getMenuItemList() {
 		if (menuItemList.size() == 0) {
 			menuItemList.add(new Control2DUnoMenuItem()) ;
+			menuItemList.add(new Control2DDosMenuItem()) ;
 			menuItemList.add(SimpleDemoMenuMenuItem.getInstance());
 			
 		}

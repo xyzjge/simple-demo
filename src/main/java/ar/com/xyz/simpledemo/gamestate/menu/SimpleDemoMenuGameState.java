@@ -9,7 +9,7 @@ import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.util.AbstractMenuItemBasedMenuGameState;
 import ar.com.xyz.gameengine.util.FontSpec;
 import ar.com.xyz.gameengine.util.MenuItem;
-import ar.com.xyz.simpledemo.control2d.Control2DMenuMenuItem;
+import ar.com.xyz.simpledemo.control2d.menu.Control2DMenuMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.Animation2DDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.CameraControllerDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.CameraQuadsDemoMenuItem;
