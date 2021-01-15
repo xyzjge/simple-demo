@@ -9,6 +9,7 @@ import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.util.AbstractMenuItemBasedMenuGameState;
 import ar.com.xyz.gameengine.util.FontSpec;
 import ar.com.xyz.gameengine.util.MenuItem;
+import ar.com.xyz.simpledemo.control2d.Control2DMenuMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.Animation2DDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.CameraControllerDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.CameraQuadsDemoMenuItem;
@@ -18,7 +19,6 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.LookAtDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.NewLookAtVersionDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.NormalMapDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ObjLoaderDemoMenuItem;
-import ar.com.xyz.simpledemo.gamestate.menuitem.ParentChildDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.RagDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ReflectiveQuadsDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.TerrainDemoMenuItem;
@@ -43,6 +43,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuItemBasedMenuGameState 
 	protected List<MenuItem> getMenuItemList() {
 		if (menuItemList.size() == 0) {
 
+			menuItemList.add(Control2DMenuMenuItem.getInstance());
 			menuItemList.add(EntitiesMenuMenuItem.getInstance());
 			
 			menuItemList.add(new LookAtDemoMenuItem()) ;
