@@ -10,18 +10,6 @@ import ar.com.xyz.gameengine.util.AbstractMenuItemBasedMenuGameState;
 import ar.com.xyz.gameengine.util.FontSpec;
 import ar.com.xyz.gameengine.util.MenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
-import ar.com.xyz.simpledemo.gamestate.menuitem.TerrainDemoMenuItem;
-import ar.com.xyz.simpledemo.presentation.menuitem.AnotherParticleSystemDemoMenuItem;
-import ar.com.xyz.simpledemo.presentation.menuitem.ColladaAnimationDemoMenuItem;
-import ar.com.xyz.simpledemo.presentation.menuitem.CubeMapReflectionDemoMenuItem;
-import ar.com.xyz.simpledemo.presentation.menuitem.ObjMultipleTextureMenuItem;
-import ar.com.xyz.simpledemo.presentation.menuitem.ObjSingleTextureMenuItem;
-import ar.com.xyz.simpledemo.presentation.menuitem.ParentChildRelationshipMenuItem;
-import ar.com.xyz.simpledemo.presentation.menuitem.ParticleSystemDemoMenuItem;
-import ar.com.xyz.simpledemo.presentation.menuitem.PositionRotationScaleMenuItem;
-import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuItem;
-import ar.com.xyz.simpledemo.presentation.menuitem.SkyboxDemoMenuItem;
-import ar.com.xyz.simpledemo.presentation.menuitem.SoundDemoMenuItem;
 
 public class Control2DMenuGameState extends AbstractMenuItemBasedMenuGameState {
 	
@@ -39,8 +27,8 @@ public class Control2DMenuGameState extends AbstractMenuItemBasedMenuGameState {
 		if (menuItemList.size() == 0) {
 			menuItemList.add(new Control2DUnoMenuItem()) ;
 			menuItemList.add(new Control2DDosMenuItem()) ;
+			menuItemList.add(new Control2DTresMenuItem()) ;
 			menuItemList.add(SimpleDemoMenuMenuItem.getInstance());
-			
 		}
 		return menuItemList;
 	}
