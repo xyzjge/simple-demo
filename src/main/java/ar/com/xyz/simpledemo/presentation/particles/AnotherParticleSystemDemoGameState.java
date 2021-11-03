@@ -19,7 +19,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.font.fontMeshCreator.FontType;
 import ar.com.xyz.gameengine.font.fontMeshCreator.GUIText;
@@ -63,7 +63,7 @@ import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
  * @author alfredo
  *
  */
-public class AnotherParticleSystemDemoGameState extends AbstractGameState implements InputEventListener {
+public class AnotherParticleSystemDemoGameState extends AbstractMainCharacterGameState implements InputEventListener {
 	
 	private static final float fontSize = 1f ;
 	

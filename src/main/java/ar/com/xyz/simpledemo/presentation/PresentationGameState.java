@@ -3,7 +3,7 @@ package ar.com.xyz.simpledemo.presentation;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.cameracontroller.DefaultCameraController;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
@@ -21,7 +21,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
  * @author alfredo
  *
  */
-public class PresentationGameState extends AbstractGameState implements CrushHandler, InputEventListener {
+public class PresentationGameState extends AbstractMainCharacterGameState implements CrushHandler, InputEventListener {
 
 	public static final float ROT_VEL = 200f ;
 	public static final float LOC_VEL = 2.5f ;

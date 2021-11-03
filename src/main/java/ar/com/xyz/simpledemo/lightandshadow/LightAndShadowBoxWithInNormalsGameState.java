@@ -3,7 +3,7 @@ package ar.com.xyz.simpledemo.lightandshadow;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.debug.ResaltarXYZ;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -16,14 +16,13 @@ import ar.com.xyz.gameengine.light.PointLight;
 import ar.com.xyz.gameengine.light.SpotLight;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.enumerator.LigthsDemoEnum;
-import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 import ar.com.xyz.simpledemo.lightandshadow.menuitem.LightsAndShadowsMenuMenuItem;
 
 /**
  * @author alfredo
  *
  */
-public class LightAndShadowBoxWithInNormalsGameState extends AbstractGameState implements CrushHandler /*, InputHandler */{
+public class LightAndShadowBoxWithInNormalsGameState extends AbstractMainCharacterGameState implements CrushHandler /*, InputHandler */{
 
 	private static final int CAMERA_DISTANCE = 2;
 

@@ -3,7 +3,7 @@ package ar.com.xyz.simpledemo.presentation.lights;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.client.entitycontroller.DummyEntityController;
 import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -27,7 +27,7 @@ import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
  * @author alfredo
  *
  */
-public class TerrainDemoGameState extends AbstractGameState implements InputEventListener {
+public class TerrainDemoGameState extends AbstractMainCharacterGameState implements InputEventListener {
 	
 	private static final boolean CAST_SHADOWS = true;
 	

@@ -2,7 +2,7 @@ package ar.com.xyz.simpledemo.gamestate;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -21,7 +21,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
  * @author alfredo
  *
  */
-public class RagDemoGameState extends AbstractGameState implements CrushHandler {
+public class RagDemoGameState extends AbstractMainCharacterGameState implements CrushHandler {
 
 	private static final boolean CAST_SHADOWS = true;
 

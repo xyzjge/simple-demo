@@ -1,6 +1,6 @@
 package ar.com.xyz.simpledemo.handler;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.AbstractMainGameLoop;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.simpledemo.presentation.menuitem.EntitiesMenuMenuItem;
@@ -12,11 +12,11 @@ import ar.com.xyz.simpledemo.presentation.menuitem.EntitiesMenuMenuItem;
  */
 public class PlayerDeathHandler implements CrushHandler {
 
-	private AbstractGameState gameState ;
+	private AbstractMainCharacterGameState gameState ;
 	
 	private AbstractMainGameLoop mainGameLoop ;
 	
-	public PlayerDeathHandler(AbstractMainGameLoop mainGameLoop, AbstractGameState gameState) {
+	public PlayerDeathHandler(AbstractMainGameLoop mainGameLoop, AbstractMainCharacterGameState gameState) {
 		this.gameState = gameState ;
 		this.mainGameLoop = mainGameLoop ;
 	}

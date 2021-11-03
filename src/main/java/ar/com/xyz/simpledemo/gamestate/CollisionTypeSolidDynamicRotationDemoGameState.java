@@ -3,7 +3,7 @@ package ar.com.xyz.simpledemo.gamestate;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
@@ -15,7 +15,7 @@ import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.presentation.menuitem.EntitiesMenuMenuItem;
 
-public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener {
+public class CollisionTypeSolidDynamicRotationDemoGameState extends AbstractMainCharacterGameState implements CrushHandler, InputEventListener {
 	
 	private static final String LEVEL = "s-box" ;
 	

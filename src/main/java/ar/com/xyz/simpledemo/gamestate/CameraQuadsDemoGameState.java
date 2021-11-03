@@ -4,11 +4,10 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.cameracontroller.PositionAndRotationCameraController;
 import ar.com.xyz.gameengine.cameraquad.CameraQuadTile;
 import ar.com.xyz.gameengine.client.entitycontroller.DummyEntityController;
-import ar.com.xyz.gameengine.debug.ResaltarXYZ;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -17,7 +16,6 @@ import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
-import ar.com.xyz.gameengine.reflectivequad.ReflectiveQuadTile;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.lightandshadow.menuitem.LightsAndShadowsMenuMenuItem;
 
@@ -25,7 +23,7 @@ import ar.com.xyz.simpledemo.lightandshadow.menuitem.LightsAndShadowsMenuMenuIte
  * @author alfredo
  *
  */
-public class CameraQuadsDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener {
+public class CameraQuadsDemoGameState extends AbstractMainCharacterGameState implements CrushHandler, InputEventListener {
 	
 //	private ResaltarXYZ resaltarXYZ ;
 	

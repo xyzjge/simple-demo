@@ -1,14 +1,14 @@
 package ar.com.xyz.simpledemo.presentation.lights;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.light.PointLight;
 
 public class PointLightDemoController {
 
-	private AbstractGameState gameState ;
+	private AbstractMainCharacterGameState gameState ;
 	
-	public PointLightDemoController(AbstractGameState gameState) {
+	public PointLightDemoController(AbstractMainCharacterGameState gameState) {
 		this.gameState = gameState ;
 	}
 	

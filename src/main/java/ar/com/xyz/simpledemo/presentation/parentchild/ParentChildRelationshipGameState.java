@@ -6,7 +6,7 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
@@ -23,7 +23,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
  * @author alfredo
  *
  */
-public class ParentChildRelationshipGameState extends AbstractGameState implements CrushHandler, InputEventListener {
+public class ParentChildRelationshipGameState extends AbstractMainCharacterGameState implements CrushHandler, InputEventListener {
 	
 	private List<EntityController> entityControllerList = new ArrayList<EntityController>() ;
 	

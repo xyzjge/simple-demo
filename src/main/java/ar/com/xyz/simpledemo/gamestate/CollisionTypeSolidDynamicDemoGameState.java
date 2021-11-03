@@ -3,7 +3,7 @@ package ar.com.xyz.simpledemo.gamestate;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.cameracontroller.DefaultCameraController;
 import ar.com.xyz.gameengine.client.entitycontroller.PositionEntityController;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
@@ -13,7 +13,7 @@ import ar.com.xyz.gameengine.gui.GuiTexture;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.handler.PlayerDeathHandler;
 
-public class CollisionTypeSolidDynamicDemoGameState extends AbstractGameState {
+public class CollisionTypeSolidDynamicDemoGameState extends AbstractMainCharacterGameState {
 	
 	private static final String LEVEL = "simple-environment" ;
 	

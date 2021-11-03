@@ -2,7 +2,7 @@ package ar.com.xyz.simpledemo.presentation.sound;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.audio.AudioMaster;
 import ar.com.xyz.gameengine.audio.Source;
 import ar.com.xyz.gameengine.client.entitycontroller.PositionEntityController;
@@ -15,7 +15,7 @@ import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
  * @author alfredo
  *
  */
-public class SoundDemoGameState extends AbstractGameState {
+public class SoundDemoGameState extends AbstractMainCharacterGameState {
 
 	private static final String LEVEL = "s-box" ;
 	

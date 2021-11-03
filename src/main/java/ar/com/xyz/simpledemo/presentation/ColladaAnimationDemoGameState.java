@@ -6,7 +6,7 @@ import java.util.Map;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.cameracontroller.CameraController;
 import ar.com.xyz.gameengine.collada.AnimationInstance;
 import ar.com.xyz.gameengine.configuration.Configuration;
@@ -20,7 +20,7 @@ import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
-public class ColladaAnimationDemoGameState extends AbstractGameState implements CrushHandler, CameraController, InputEventListener {
+public class ColladaAnimationDemoGameState extends AbstractMainCharacterGameState implements CrushHandler, CameraController, InputEventListener {
 	
 	private static final String LEVEL = "s-box" ;
 		

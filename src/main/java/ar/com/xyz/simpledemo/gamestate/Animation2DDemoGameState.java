@@ -6,7 +6,7 @@ import java.util.Map;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.gui.AnimatedGuiTexture;
@@ -15,7 +15,7 @@ import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.util.SpriteSheetAnimationEventHandler;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
-public class Animation2DDemoGameState extends AbstractGameState implements CrushHandler, SpriteSheetAnimationEventHandler {
+public class Animation2DDemoGameState extends AbstractMainCharacterGameState implements CrushHandler, SpriteSheetAnimationEventHandler {
 	
 	private static final String LEVEL = "s-box" ;
 	

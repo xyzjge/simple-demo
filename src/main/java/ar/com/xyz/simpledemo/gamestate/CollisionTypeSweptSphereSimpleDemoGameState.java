@@ -3,7 +3,7 @@ package ar.com.xyz.simpledemo.gamestate;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.collision.Triangle;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.debug.collision.DetailedCollisionDataPlayer;
@@ -22,7 +22,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
  * @author alfredo
  *
  */
-public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener {
+public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractMainCharacterGameState implements CrushHandler, InputEventListener {
 	
 	private static final String LEVEL = "s-box" ;
 	

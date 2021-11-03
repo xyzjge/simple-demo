@@ -4,7 +4,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.cameracontroller.DefaultCameraController;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.collision.ESpaceUtil;
@@ -26,7 +26,7 @@ import ar.com.xyz.simpledemo.handler.PlayerDeathHandler;
 import ar.com.xyz.simpledemo.handler.RemoveEntitySweepSphereInAABBHandler;
 import ar.com.xyz.simpledemo.handler.UpdateHUDSweepSphereInAABBHandler;
 
-public class CollisionTypeNoneDemoGameState extends AbstractGameState implements InputEventListener, GuiControlListener {
+public class CollisionTypeNoneDemoGameState extends AbstractMainCharacterGameState implements InputEventListener, GuiControlListener {
 	
 	private static final boolean PLAY = false ;
 	

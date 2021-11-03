@@ -6,7 +6,7 @@ import java.util.Map;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.collada.AnimationInstance;
 import ar.com.xyz.gameengine.configuration.Configuration;
 import ar.com.xyz.gameengine.entity.CrushHandler;
@@ -20,7 +20,7 @@ import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.controller.BasicEnemyEntityController;
 import ar.com.xyz.simpledemo.presentation.menuitem.EntitiesMenuMenuItem;
 
-public class CollisionTypeSweptSphereDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener {
+public class CollisionTypeSweptSphereDemoGameState extends AbstractMainCharacterGameState implements CrushHandler, InputEventListener {
 	
 	private static final String LEVEL = "s-box" ;
 	

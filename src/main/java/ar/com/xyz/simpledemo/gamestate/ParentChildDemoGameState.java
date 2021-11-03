@@ -3,7 +3,7 @@ package ar.com.xyz.simpledemo.gamestate;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.client.entitycontroller.DummyEntityController;
 import ar.com.xyz.gameengine.client.entitycontroller.PositionEntityController;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
@@ -18,7 +18,7 @@ import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.presentation.menuitem.EntitiesMenuMenuItem;
 
-public class ParentChildDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener {
+public class ParentChildDemoGameState extends AbstractMainCharacterGameState implements CrushHandler, InputEventListener {
 	
 	private static final float Y_ROT_VEL = 10;
 

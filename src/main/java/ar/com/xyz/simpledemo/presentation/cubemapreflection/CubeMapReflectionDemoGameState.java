@@ -4,7 +4,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.client.entitycontroller.DummyEntityController;
 import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -23,7 +23,7 @@ import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
  * @author alfredo
  *
  */
-public class CubeMapReflectionDemoGameState extends AbstractGameState implements InputEventListener {
+public class CubeMapReflectionDemoGameState extends AbstractMainCharacterGameState implements InputEventListener {
 	
 	private static final String[] ENVIRO_MAP_INSIDE = {"lposx", "lnegx", "lposy", "lnegy", "lposz", "lnegz"};
 

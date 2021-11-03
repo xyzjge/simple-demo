@@ -2,7 +2,7 @@ package ar.com.xyz.simpledemo.gamestate;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -10,7 +10,7 @@ import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
-public class ObjLoaderDemoGameState extends AbstractGameState implements CrushHandler {
+public class ObjLoaderDemoGameState extends AbstractMainCharacterGameState implements CrushHandler {
 
 	private static final String LEVEL = "s-box" ;
 	

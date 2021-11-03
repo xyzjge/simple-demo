@@ -3,7 +3,7 @@ package ar.com.xyz.simpledemo.gamestate;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.cameracontroller.FollowEntityFromFixedDirectionCameraController;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -24,7 +24,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
  * @author alfredo
  *
  */
-public class TerrainDemoGameState extends AbstractGameState {
+public class TerrainDemoGameState extends AbstractMainCharacterGameState {
 
 //	private static final String LEVEL = "water-demo-level" ;
 	

@@ -2,7 +2,7 @@ package ar.com.xyz.simpledemo.presentation.skybox;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.skybox.SkyboxTexture;
 import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
@@ -12,7 +12,7 @@ import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
  * @author alfredo
  *
  */
-public class SkyboxDemoGameState extends AbstractGameState {
+public class SkyboxDemoGameState extends AbstractMainCharacterGameState {
 
 	private static float STATE_TIME_UNIT = 8 ;
 	

@@ -4,7 +4,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.debug.ResaltarXYZ;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -20,7 +20,7 @@ import ar.com.xyz.simpledemo.lightandshadow.menuitem.LightsAndShadowsMenuMenuIte
  * @author alfredo
  *
  */
-public class ReflectiveQuadsGameState extends AbstractGameState implements CrushHandler, InputEventListener {
+public class ReflectiveQuadsGameState extends AbstractMainCharacterGameState implements CrushHandler, InputEventListener {
 	
 	private ResaltarXYZ resaltarXYZ ;
 	

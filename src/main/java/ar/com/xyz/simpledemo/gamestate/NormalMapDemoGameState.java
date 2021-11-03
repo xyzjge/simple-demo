@@ -1,15 +1,13 @@
 package ar.com.xyz.simpledemo.gamestate;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.client.entitycontroller.RotationEntityController;
 import ar.com.xyz.gameengine.debug.ResaltarXYZ;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
-import ar.com.xyz.gameengine.enumerator.ColorEnum;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
@@ -17,14 +15,13 @@ import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.light.PointLight;
 import ar.com.xyz.gameengine.light.SpotLight;
-import ar.com.xyz.gameengine.reflectivequad.ReflectiveQuadTile;
 import ar.com.xyz.simpledemo.lightandshadow.menuitem.LightsAndShadowsMenuMenuItem;
 
 /**
  * @author alfredo
  *
  */
-public class NormalMapDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener {
+public class NormalMapDemoGameState extends AbstractMainCharacterGameState implements CrushHandler, InputEventListener {
 	
 	private ResaltarXYZ resaltarXYZ ;
 	

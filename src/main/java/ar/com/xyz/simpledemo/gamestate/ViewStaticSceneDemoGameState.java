@@ -2,7 +2,7 @@ package ar.com.xyz.simpledemo.gamestate;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.collision.ESpaceUtil;
 import ar.com.xyz.gameengine.collision.Triangle;
 import ar.com.xyz.gameengine.configuration.Configuration;
@@ -19,7 +19,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
  * @author alfredo
  *
  */
-public class ViewStaticSceneDemoGameState extends AbstractGameState implements CrushHandler {
+public class ViewStaticSceneDemoGameState extends AbstractMainCharacterGameState implements CrushHandler {
 
 	// Caso viejo (cuando se salia del mapa)
 //	private static final Vector3f POSICION_INICIAL = new Vector3f(-6.834506f,-0.75807726f + 1,96.00639f);

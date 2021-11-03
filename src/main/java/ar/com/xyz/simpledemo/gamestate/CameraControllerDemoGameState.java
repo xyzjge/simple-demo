@@ -3,7 +3,7 @@ package ar.com.xyz.simpledemo.gamestate;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.cameracontroller.CameraController;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -13,7 +13,7 @@ import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
-public class CameraControllerDemoGameState extends AbstractGameState implements CrushHandler, InputEventListener, CameraController {
+public class CameraControllerDemoGameState extends AbstractMainCharacterGameState implements CrushHandler, InputEventListener, CameraController {
 	
 	private static final String LEVEL = "s-box" ;
 	private static final float VELOCITY = 50;

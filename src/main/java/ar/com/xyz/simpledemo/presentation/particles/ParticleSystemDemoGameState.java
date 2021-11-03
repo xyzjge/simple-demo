@@ -2,7 +2,7 @@ package ar.com.xyz.simpledemo.presentation.particles;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.particle.ParticleEmission;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
@@ -13,7 +13,7 @@ import ar.com.xyz.simpledemo.presentation.menuitem.PresentationMenuMenuItem;
  * @author alfredo
  *
  */
-public class ParticleSystemDemoGameState extends AbstractGameState {
+public class ParticleSystemDemoGameState extends AbstractMainCharacterGameState {
 	
 	private static final String LEVEL = "s-box" ;
 	

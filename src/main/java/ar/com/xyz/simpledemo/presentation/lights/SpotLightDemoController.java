@@ -2,14 +2,14 @@ package ar.com.xyz.simpledemo.presentation.lights;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.light.SpotLight;
 
 public class SpotLightDemoController {
 
-	private AbstractGameState gameState ;
+	private AbstractMainCharacterGameState gameState ;
 	
-	public SpotLightDemoController(AbstractGameState gameState) {
+	public SpotLightDemoController(AbstractMainCharacterGameState gameState) {
 		this.gameState = gameState ;
 	}
 	

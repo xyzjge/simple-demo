@@ -1,10 +1,11 @@
 package ar.com.xyz.simpledemo.handler;
 
+import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
 import ar.com.xyz.gameengine.entity.SweepSphereCollisionEntity;
 import ar.com.xyz.gameengine.entity.SweepSphereInAABBHandler;
 import ar.com.xyz.simpledemo.gamestate.CollisionTypeNoneDemoGameState;
 
-public class UpdateHUDSweepSphereInAABBHandler extends SweepSphereInAABBHandler {
+public class UpdateHUDSweepSphereInAABBHandler extends SweepSphereInAABBHandler<AbstractMainCharacterGameState> {
 	
 	@Override
 	public void handleSweepSphereInAABB(SweepSphereCollisionEntity sweepSphere) {
