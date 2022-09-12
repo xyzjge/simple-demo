@@ -131,7 +131,7 @@ public class NormalMapDemoGameState extends AbstractMainCharacterGameState imple
 			handlePlayerDeath() ;
 		}
 		
-		resaltarXYZ.restaltar(getPlayer().getPosition(), 3);
+		resaltarXYZ.resaltar(getPlayer().getPosition(), 3);
 		
 	}
 

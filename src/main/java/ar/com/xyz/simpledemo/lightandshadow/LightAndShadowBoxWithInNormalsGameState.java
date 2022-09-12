@@ -124,7 +124,7 @@ public class LightAndShadowBoxWithInNormalsGameState extends AbstractMainCharact
 		
 //		getHandlePlayerInput().handlePlayerInput();
 		
-		resaltarXYZ.restaltar(getPlayer().getPosition(), 3);
+		resaltarXYZ.resaltar(getPlayer().getPosition(), 3);
 	}
 
 	private void setupPlayerAndCamera() {

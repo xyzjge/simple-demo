@@ -7,7 +7,7 @@ import ar.com.xyz.gameengine.control2d.Button2d;
 import ar.com.xyz.gameengine.control2d.Panel2d;
 
 /**
- * Un control que ocupe toda la pantalla y que detecte mouse over y click
+ * Muestra un botón en el cuadrante inferior izquierdo. Detecta mouse over y click.
  * @author alfredo
  *
  */

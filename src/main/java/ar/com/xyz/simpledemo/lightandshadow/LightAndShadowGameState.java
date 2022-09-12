@@ -110,7 +110,7 @@ public class LightAndShadowGameState extends AbstractMainCharacterGameState impl
 		
 //		getHandlePlayerInput().handlePlayerInput();
 		
-		resaltarXYZ.restaltar(getPlayer().getPosition(), 3);
+		resaltarXYZ.resaltar(getPlayer().getPosition(), 3);
 
 	}
 

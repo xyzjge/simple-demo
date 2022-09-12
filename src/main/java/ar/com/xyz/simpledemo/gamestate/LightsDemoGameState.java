@@ -133,7 +133,7 @@ public class LightsDemoGameState extends AbstractMainCharacterGameState implemen
 		
 //		getHandlePlayerInput().handlePlayerInput();
 		
-		resaltarXYZ.restaltar(getPlayer().getPosition(), 3);
+		resaltarXYZ.resaltar(getPlayer().getPosition(), 3);
 		// Actualizar la posicion y la direccion de la spotLight en funcion de la posicion y la direccion del jugador (como si fuese una linterna)
 		if (state.equals(LigthsDemoEnum.SPOT)) {
 			if (getSpotLightList().isEmpty()) {

@@ -3,12 +3,12 @@ package ar.com.xyz.simpledemo.control2d;
 import org.lwjgl.util.vector.Vector2f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
-import ar.com.xyz.gameengine.control2d.Button2d;
 import ar.com.xyz.gameengine.control2d.Panel2d;
 import ar.com.xyz.gameengine.control2d.TextArea2d;
 
 /**
- * Cuatro botones y un text area en la que se vaya mostrando la actividad
+ * Cuatro botones y un text area en la que se vaya mostrando la actividad.
+ * El 1ro limpia el text area y los otros tres escriben en el text area.
  * @author alfredo
  *
  */
@@ -48,31 +48,16 @@ public class Control2DTresGameState extends AbstractGameState {
 //		});
 		
 		// Cuadrante arriba a la derecha
-		BotonEscribir botonEscribir = new BotonEscribir(new Vector2f(0.5f,0.75f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK, textArea2d, this) ;
+		BotonEscribir botonEscribir = new BotonEscribir(new Vector2f(0.5f,0.75f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK, textArea2d, this, "Superior derecho") ;
 		panel2d.add( botonEscribir ) ;
 		
-//		panel2d.add(new Button2d(new Vector2f(0.5f,0.75f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK) {
-//			@Override
-//			protected void clickHandler() {
-//				System.out.println("En clickHandler arriba a la derecha !!!");
-//			}
-//		});
-		
 		// Cuadrante abajo a la derecha
-		panel2d.add(new Button2d(new Vector2f(0.5f,0.5f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK) {
-			@Override
-			protected void clickHandler() {
-				System.out.println("En clickHandler abajo a la derecha !!!");
-			}
-		});
+		BotonEscribir botonEscribirInferiorDerecho = new BotonEscribir(new Vector2f(0.5f,0.5f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK, textArea2d, this, "Inferior derecho") ;
+		panel2d.add(botonEscribirInferiorDerecho);
 		
 		// Cuadrante abajo a la izquierda
-		panel2d.add(new Button2d(new Vector2f(0.0f,0.5f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK) {
-			@Override
-			protected void clickHandler() {
-				System.out.println("En clickHandler abajo a la izquierda !!!");
-			}
-		});
+		BotonEscribir botonEscribirInferiorIzquierdo = new BotonEscribir(new Vector2f(0.0f,0.5f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK, textArea2d, this, "Inferior izquierdo") ;
+		panel2d.add(botonEscribirInferiorIzquierdo);
 		
 		panel2d.add(textArea2d);
 		

@@ -77,7 +77,7 @@ public class ReflectiveQuadsGameState extends AbstractMainCharacterGameState imp
 			handlePlayerDeath() ;
 		}
 		
-		resaltarXYZ.restaltar(getPlayer().getPosition(), 3);
+		resaltarXYZ.resaltar(getPlayer().getPosition(), 3);
 		
 		if (getReflectiveQuadTileList().isEmpty()) {
 			return ;
