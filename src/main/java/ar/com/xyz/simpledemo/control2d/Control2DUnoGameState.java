@@ -28,7 +28,7 @@ public class Control2DUnoGameState extends AbstractGameState {
 		getDefaultColor().y = GREEN ;
 		getDefaultColor().z = BLUE ;
 		
-		Panel2d panel2d = new Panel2d(new Vector2f(0,0), new Vector2f(1,1), this) ;
+		Panel2d panel2d = new Panel2d(this, new Vector2f(0,0), new Vector2f(1,1)) ;
 //		panel2d.add(new Button2d(new Vector2f(0.5f,0.5f), new Vector2f(.25f,.25f), "green", "red", "yellow"));
 		
 		// Cuadrante arriba a la izquierda
@@ -41,7 +41,7 @@ public class Control2DUnoGameState extends AbstractGameState {
 //		panel2d.add(new Button2d(new Vector2f(0.5f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow"));
 		
 		// Cuadrante abajo a la izquierda
-		panel2d.add(new Button2d(new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow") {
+		panel2d.add(new Button2d(this, new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow", "white") {
 				@Override
 				protected void clickHandler() {
 					System.out.println("En clickHandler !!!");
@@ -51,7 +51,7 @@ public class Control2DUnoGameState extends AbstractGameState {
 		
 		
 //		panel2d.add(new Button2d(new Vector2f(0.25f,0.25f), new Vector2f(.5f,.5f), "green", "red", "yellow"));
-		panel2d.show(this);
+		panel2d.show();
 
 	}
 	

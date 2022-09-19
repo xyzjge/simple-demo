@@ -9,23 +9,22 @@ import ar.com.xyz.gameengine.control2d.TextArea2d;
 public class BotonEscribir extends Button2d {
 
 	private TextArea2d textArea2d ;
-	private AbstractGameState gameState ;
 	
 	private String text ;
 	
 	public BotonEscribir(
-		Vector2f origin, Vector2f size, String texturaNormal, String texturaMouseOver, String texturaClick, 
-		TextArea2d textArea2d, AbstractGameState gameState, String text
+		AbstractGameState gameState,
+		Vector2f origin, Vector2f size, String texturaNormal, String texturaMouseOver, String texturaClick, String texturaDisabled,
+		TextArea2d textArea2d, String text
 	) {
-		super(origin, size, texturaNormal, texturaMouseOver, texturaClick);
+		super(gameState, origin, size, texturaNormal, texturaMouseOver, texturaClick, texturaDisabled);
 		this.textArea2d = textArea2d ;
-		this.gameState = gameState ;
 		this.text = text ;
 	}
 
 	@Override
 	protected void clickHandler() {
-		textArea2d.addTextLine(text, gameState);
+		textArea2d.addTextLine(text);
 	}
 
 }
