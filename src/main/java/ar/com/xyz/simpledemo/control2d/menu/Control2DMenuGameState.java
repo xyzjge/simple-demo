@@ -30,6 +30,7 @@ public class Control2DMenuGameState extends AbstractMenuItemBasedMenuGameState {
 			menuItemList.add(new Control2DTresMenuItem()) ;
 			menuItemList.add(new Control2DCuatroMenuItem()) ;
 			menuItemList.add(new Control2DCincoMenuItem()) ;
+			menuItemList.add(new Control2DSeisMenuItem()) ;
 			menuItemList.add(SimpleDemoMenuMenuItem.getInstance());
 		}
 		return menuItemList;
