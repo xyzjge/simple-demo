@@ -11,13 +11,13 @@ import ar.com.xyz.gameengine.control2d.Panel2d;
  * @author alfredo
  *
  */
-public class Control2DCuatroGameState extends AbstractGameState {
+public class Control2D004GameState extends AbstractGameState {
 	
 	private static final float RED = 0.5f ;
 	private static final float GREEN = 0.5f ;
 	private static final float BLUE = 0.5f ;
 	
-	public Control2DCuatroGameState() {
+	public Control2D004GameState() {
 		
 		getDefaultColor().x = RED ;
 		getDefaultColor().y = GREEN ;

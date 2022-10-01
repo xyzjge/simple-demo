@@ -12,7 +12,7 @@ import ar.com.xyz.gameengine.control2d.TextArea2d;
  * @author alfredo
  *
  */
-public class Control2DTresGameState extends AbstractGameState {
+public class Control2D003GameState extends AbstractGameState {
 	
 	private static final String NORMAL = "olive";
 	private static final String MOUSE_OVER = "lime";
@@ -23,7 +23,7 @@ public class Control2DTresGameState extends AbstractGameState {
 	private static final float GREEN = 0.5f ;
 	private static final float BLUE = 0.5f ;
 	
-	public Control2DTresGameState() {
+	public Control2D003GameState() {
 		
 //		guiUno = createGuiTexture() ;
 //		getGuis().add(guiUno) ;

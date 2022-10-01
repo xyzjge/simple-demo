@@ -4,39 +4,31 @@ import org.lwjgl.util.vector.Vector2f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.control2d.Button2d;
-import ar.com.xyz.gameengine.control2d.Check2d;
 import ar.com.xyz.gameengine.control2d.Panel2d;
-import ar.com.xyz.gameengine.control2d.Text2d;
 
 /**
- * Mostrar un check y un boton y cuando se clicke el boton que imprima el estado del radio
+ * Muestra un botón en el cuadrante inferior izquierdo. Detecta mouse over y click.
  * @author alfredo
  *
  */
-public class Control2DSeisGameState extends AbstractGameState {
+public class Control2D001GameState extends AbstractGameState {
 	
 	private static final float RED = 0.5f ;
 	private static final float GREEN = 0.5f ;
 	private static final float BLUE = 0.5f ;
 	
-	public Control2DSeisGameState() {
+	public Control2D001GameState() {
+		
+//		guiUno = createGuiTexture() ;
+//		getGuis().add(guiUno) ;
+				
+//		grabMouseIfNotGrabbed() ;
 		
 		getDefaultColor().x = RED ;
 		getDefaultColor().y = GREEN ;
 		getDefaultColor().z = BLUE ;
 		
 		Panel2d panel2d = new Panel2d(this, new Vector2f(0,0), new Vector2f(1,1)) ;
-		
-		final Text2d text = new Text2d(this, new Vector2f(0.5f,0.75f), new Vector2f(.5f,.25f), "Voces:") ;
-		panel2d.add(text);
-		
-		final Check2d check = new Check2d(this, new Vector2f(0.5f,0.5f), new Vector2f(.5f,.25f), "green", "red", "gray", "Uno") {
-			@Override
-			protected void clickHandler() {
-				
-			}
-		};
-		panel2d.add(check);
 //		panel2d.add(new Button2d(new Vector2f(0.5f,0.5f), new Vector2f(.25f,.25f), "green", "red", "yellow"));
 		
 		// Cuadrante arriba a la izquierda
@@ -52,7 +44,7 @@ public class Control2DSeisGameState extends AbstractGameState {
 		panel2d.add(new Button2d(this, new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow", "white", "Text!!!") {
 				@Override
 				protected void clickHandler() {
-					System.out.println("En clickHandler !!! " + check.isSelected());
+					System.out.println("En clickHandler !!!");
 				}
 			}
 		);

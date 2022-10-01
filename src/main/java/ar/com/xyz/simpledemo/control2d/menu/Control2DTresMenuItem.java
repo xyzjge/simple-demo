@@ -2,7 +2,7 @@ package ar.com.xyz.simpledemo.control2d.menu;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.util.MenuItem;
-import ar.com.xyz.simpledemo.control2d.Control2DTresGameState;
+import ar.com.xyz.simpledemo.control2d.Control2D003GameState;
 
 public class Control2DTresMenuItem extends MenuItem {
 
@@ -12,7 +12,7 @@ public class Control2DTresMenuItem extends MenuItem {
 
 	@Override
 	public AbstractGameState getGameStateInstance() {
-		return new Control2DTresGameState();
+		return new Control2D003GameState();
 	}
 
 }
