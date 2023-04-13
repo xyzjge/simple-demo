@@ -24,6 +24,9 @@ public class CollisionTypeSolidDynamicDemoGameState extends AbstractMainCharacte
 	
 	public CollisionTypeSolidDynamicDemoGameState() {
 		
+		SingletonManager.getInstance().getObjLoader().addObjPath("/models") ;
+		SingletonManager.getInstance().getObjLoader().addMtlPath("/models") ;
+		
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
 			entitySpec = new EntitySpec(LEVEL) ;
