@@ -3,6 +3,7 @@ package ar.com.xyz.simpledemo.gamestate;
 import org.lwjgl.util.vector.Vector3f;
 
 import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
+import ar.com.xyz.gameengine.cameracontroller.CameraController;
 import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
@@ -10,8 +11,10 @@ import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
-public class PentagonAnimationGameState extends AbstractMainCharacterGameState implements CrushHandler {
+public class PentagonAnimationGameState extends AbstractMainCharacterGameState implements CrushHandler, CameraController {
 
+	private static final float VELOCITY = 1;
+	
 	private static final String LEVEL = "s-box" ;
 	
 	EntityController grandparentEntityController = null ;
@@ -34,7 +37,7 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 			entitySpec.setPosition(new Vector3f(0,-50,0));
 			createEntity(entitySpec);
 		}
-		
+		/*
 		{	// Create SOLID_STATIC for X+
 			EntitySpec entitySpec ;
 			entitySpec = new EntitySpec(LEVEL) ;
@@ -82,7 +85,7 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 			entitySpec.setPosition(new Vector3f(0,1,-20));
 			createEntity(entitySpec);
 		}
-		
+		*/
 		{ // Load obj ...
 /*			{
 //				LapidaDravenEntityController lapidaDravenEntityController = new LapidaDravenEntityController() ;
@@ -99,19 +102,7 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 //				entitySpec.setRayHitHandler(lapidaDravenEntityController);
 				createEntity(entitySpec);
 			}*/
-			{
-//				LapidaDravenEntityController lapidaDravenEntityController = new LapidaDravenEntityController() ;
-				EntitySpec entitySpec = new EntitySpec("pentagon1") ;
-				entitySpec.setTexture("pentagon1.png");
-				
-				entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.SOLID_DYNAMIC);
-//				entitySpec.setEntityController(lapidaDravenEntityController);
-				entitySpec.setModelRotation(new Vector3f(0,0,0));
-//				entitySpec.setPosition(new Vector3f(-14.79f, 1.5f, 73));
-				entitySpec.setPosition(new Vector3f(0, 0, 0));
-//				entitySpec.setRayHitHandler(lapidaDravenEntityController);
-				createEntity(entitySpec);
-			}
+			colocarPentagonos();
 		}
 		
 		grabMouseIfNotGrabbed() ;
@@ -120,12 +111,30 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 		setShowPlayerPosition(true);
 		
 	}
+
+	private void colocarPentagonos() {
+		for (int i = 0; i < 10; i++) {
+			colocarPentagono(new Vector3f(- (i*10),0,0), new Vector3f((i%2)*180,0,0));
+		}
+	}
+
+	private void colocarPentagono(Vector3f position, Vector3f rotation) {
+//		LapidaDravenEntityController lapidaDravenEntityController = new LapidaDravenEntityController() ;
+		EntitySpec entitySpec = new EntitySpec("pentagon1") ;
+		entitySpec.setTexture("pentagon1.png");
+		entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.NONE);
+//		entitySpec.setEntityController(lapidaDravenEntityController);
+		entitySpec.setModelRotation(rotation);
+		entitySpec.setPosition(position);
+		createEntity(entitySpec);
+	}
 	
 	@Override
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
 		if (getInputManager().getNumberOfConfiguredInputEventListener() == 0) {
 			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
+			getCamera().setCameraController(this);
 		}
 	}
 	
@@ -134,15 +143,12 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 		if (getPlayer().getPosition().y < -10) {
 			handlePlayerDeath() ;
 		}
-		
-//		getHandlePlayerInput().handlePlayerInput();
-		
 	}
 
 	private void setupPlayerAndCamera() {
 
 		setupPlayerAndCamera(
-			new Vector3f(5, 5, 5),
+			new Vector3f(15, 5, 5),
 			new Vector3f(0, 0, 0),
 			new Vector3f(1, 1, 1),
 			true,
@@ -157,7 +163,6 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 
 		this.enableDebug(getPlayer());
 		
-		
 	}
 
 	@Override
@@ -168,6 +173,56 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 
 	private void handlePlayerDeath() {
 		getMainGameLoop().setNextGameState(SimpleDemoMenuMenuItem.getInstance().getGameStateInstance()) ;
+	}
+
+	// Camera Controller
+	private Vector3f cameraPosition = new Vector3f(10,0,0) ;
+	private Vector3f cameraRotation = new Vector3f(0,-90,0) ;
+	
+	@Override
+	public Vector3f getPosition() {
+		return cameraPosition;
+	}
+	
+	@Override
+	public Vector3f getRotation() {
+		return cameraRotation;
+	}
+
+	@Override
+	public float getPitch() {
+		return cameraRotation.x;
+	}
+
+	@Override
+	public void setPitch(float pitch) {
+		cameraRotation.x = pitch ;
+	}
+	
+	@Override
+	public float getYaw() {
+		return cameraRotation.y;
+	}
+
+	@Override
+	public float getRoll() {
+		return cameraRotation.z;
+	}
+		
+	@Override
+	public void update(float fts) {
+		cameraPosition.x -= (fts * VELOCITY) ;
+		
+	}
+
+	@Override
+	public void resetDefaults() {
+		cameraPosition.x = 0;
+		cameraPosition.y = 0;
+		cameraPosition.z = 0;
+		cameraRotation.x = 0;
+		cameraRotation.y = 0;
+		cameraRotation.z = 0;
 	}
 
 }
