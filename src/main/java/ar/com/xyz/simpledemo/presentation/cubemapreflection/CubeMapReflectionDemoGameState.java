@@ -14,6 +14,7 @@ import ar.com.xyz.gameengine.font.fontMeshCreator.FontType;
 import ar.com.xyz.gameengine.font.fontMeshCreator.GUIText;
 import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEvent;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.gameengine.skybox.SkyboxTexture;
@@ -166,8 +167,8 @@ public class CubeMapReflectionDemoGameState extends AbstractMainCharacterGameSta
 	}
 	
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		switch (keyOrButton) {
+	public boolean handleEvent(InputEvent inputEvent) {
+		switch (inputEvent.getEventKeyOrButton()) {
 		case Keyboard.KEY_F1:
 			model.setCaso(CubeMapReflectionDemoCaseEnum.STATIC);
 			activateEnvironmentCubeMap();
@@ -201,18 +202,13 @@ public class CubeMapReflectionDemoGameState extends AbstractMainCharacterGameSta
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		if (origin == EventOriginEnum.KEYBOARD && type == EventTypeEnum.RELEASED) {
+	public boolean accept(InputEvent inputEvent) {
+		if (inputEvent.getOrigin() == EventOriginEnum.KEYBOARD && inputEvent.getType() == EventTypeEnum.RELEASED) {
 			return true ;
 		}
 		return false;
 	}
-	
-	@Override
-	public void tick() {
 		
-	}
-	
 	private FontType font = SingletonManager.getInstance().getFontTypeManager().getFontType("tahoma") ;
 	private GUIText title ;
 	private GUIText subtitle ;
@@ -307,4 +303,11 @@ public class CubeMapReflectionDemoGameState extends AbstractMainCharacterGameSta
 			dynamicallyGeneratedAdjunstingCameraEnvironmentImagesGUIText.show();
 		}
 	}
+
+	@Override
+	public void tickInputEventListener(float tpf) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

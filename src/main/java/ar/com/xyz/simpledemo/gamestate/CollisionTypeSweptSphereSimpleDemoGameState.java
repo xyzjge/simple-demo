@@ -12,6 +12,7 @@ import ar.com.xyz.gameengine.entity.CrushHandler;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEvent;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.ray.RayTracerVO;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
@@ -126,8 +127,8 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractMainCha
 	}
 
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		if (keyOrButton == Keyboard.KEY_C && type == EventTypeEnum.RELEASED) {
+	public boolean handleEvent(InputEvent inputEvent) {
+		if (inputEvent.getEventKeyOrButton() == Keyboard.KEY_C && inputEvent.getType() == EventTypeEnum.RELEASED) {
 			// La posicion del jugador es en el piso, con el espace y si esta agachado o no podría determinar el y
 			// TODO: Si esta volviendo de crouch el rayo sale de mas arriba de la camara ... por ahora queda asi ...
 			Vector3f rayOrigin = new Vector3f(
@@ -152,7 +153,7 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractMainCha
 				SingletonManager.getInstance().getLogUtil().logInfo("XYZBloodLevelGameState", "testAndClearEmpujar", "Triangulo: " + triangle.toString() + ", triangle.getRayHitHandler(): " + triangle.getRayHitHandler());
 
 			}
-		} else if (keyOrButton == Keyboard.KEY_X && type == EventTypeEnum.PRESSED) {
+		} else if (inputEvent.getEventKeyOrButton() == Keyboard.KEY_X && inputEvent.getType() == EventTypeEnum.PRESSED) {
 			if (collisionDataPlayer != null) {
 				collisionDataPlayer.print();
 			}
@@ -161,12 +162,12 @@ public class CollisionTypeSweptSphereSimpleDemoGameState extends AbstractMainCha
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		return origin == EventOriginEnum.KEYBOARD ;
+	public boolean accept(InputEvent inputEvent) {
+		return inputEvent.getOrigin() == EventOriginEnum.KEYBOARD ;
 	}
 
 	@Override
-	public void tick() {
+	public void tickInputEventListener(float tpf) {
 		// TODO Auto-generated method stub
 		
 	}

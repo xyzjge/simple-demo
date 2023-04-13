@@ -35,7 +35,8 @@ public class LightsAndShadowsMenuGameState extends AbstractMenuItemBasedMenuGame
 	}
 
 	@Override
-	public void tick() {
+	public void tickInputEventListener(float tpf) {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -56,7 +56,8 @@ public class PresentationMenuGameState extends AbstractMenuItemBasedMenuGameStat
 	}
 
 	@Override
-	public void tick() {
+	public void tickInputEventListener(float tpf) {
+		// TODO Auto-generated method stub
 		
 	}
 

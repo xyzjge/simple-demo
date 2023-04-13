@@ -38,7 +38,8 @@ public class Control2DMenuGameState extends AbstractMenuItemBasedMenuGameState {
 	}
 
 	@Override
-	public void tick() {
+	public void tickInputEventListener(float tpf) {
+		// TODO Auto-generated method stub
 		
 	}
 

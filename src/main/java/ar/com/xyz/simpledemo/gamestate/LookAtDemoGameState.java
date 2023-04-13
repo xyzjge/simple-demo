@@ -12,6 +12,7 @@ import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEvent;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.controller.LookAtEntityController;
@@ -204,22 +205,22 @@ public class LookAtDemoGameState extends AbstractMainCharacterGameState implemen
 	}
 
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
+	public boolean handleEvent(InputEvent inputEvent) {
 		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_ROT_Y).hide();
 		SingletonManager.getInstance().getGraphicDebugger(Configuration.DEBUG_SS).hide();
 		return false;
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		if (origin == EventOriginEnum.KEYBOARD && type == EventTypeEnum.RELEASED && keyOrButton == Keyboard.KEY_X) {
+	public boolean accept(InputEvent inputEvent) {
+		if (inputEvent.getOrigin() == EventOriginEnum.KEYBOARD && inputEvent.getType() == EventTypeEnum.RELEASED && inputEvent.getEventKeyOrButton() == Keyboard.KEY_X) {
 			return true ;
 		}
 		return false;
 	}
 
 	@Override
-	public void tick() {
+	public void tickInputEventListener(float tpf) {
 		// TODO Auto-generated method stub
 		
 	}

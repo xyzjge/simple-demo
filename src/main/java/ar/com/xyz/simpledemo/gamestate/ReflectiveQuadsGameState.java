@@ -12,6 +12,7 @@ import ar.com.xyz.gameengine.enumerator.ColorEnum;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEvent;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.reflectivequad.ReflectiveQuadTile;
 import ar.com.xyz.simpledemo.lightandshadow.menuitem.LightsAndShadowsMenuMenuItem;
@@ -117,8 +118,8 @@ public class ReflectiveQuadsGameState extends AbstractMainCharacterGameState imp
 	}
 
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		switch (keyOrButton) {
+	public boolean handleEvent(InputEvent inputEvent) {
+		switch (inputEvent.getEventKeyOrButton()) {
 		case Keyboard.KEY_F1:
 			handleF1();
 			break;
@@ -150,18 +151,13 @@ public class ReflectiveQuadsGameState extends AbstractMainCharacterGameState imp
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		if (origin == EventOriginEnum.KEYBOARD && type == EventTypeEnum.RELEASED) {
+	public boolean accept(InputEvent inputEvent) {
+		if (inputEvent.getOrigin() == EventOriginEnum.KEYBOARD && inputEvent.getType() == EventTypeEnum.RELEASED) {
 			return true ;
 		}
 		return false;
 	}
-	
-	@Override
-	public void tick() {
 		
-	}
-	
 	private ReflectiveQuadTile reflectiveQuadTileF1 = new ReflectiveQuadTile(0, 0, -9.99f, new Vector2f(10, 10), new Vector2f(0, 0), /*.25f*/ .75f) ;
 	
 	private void handleF1() {
@@ -216,6 +212,12 @@ public class ReflectiveQuadsGameState extends AbstractMainCharacterGameState imp
 	private void handleF8() {
 		getReflectiveQuadTileList().clear() ;
 		getReflectiveQuadTileList().add(reflectiveQuadTileF8) ;
+	}
+
+	@Override
+	public void tickInputEventListener(float tpf) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

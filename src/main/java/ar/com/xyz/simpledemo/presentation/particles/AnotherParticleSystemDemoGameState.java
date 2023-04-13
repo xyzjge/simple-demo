@@ -25,6 +25,7 @@ import ar.com.xyz.gameengine.font.fontMeshCreator.FontType;
 import ar.com.xyz.gameengine.font.fontMeshCreator.GUIText;
 import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEvent;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.particle.ParticleEmission;
 import ar.com.xyz.gameengine.particle.ParticleSystem;
@@ -300,8 +301,8 @@ public class AnotherParticleSystemDemoGameState extends AbstractMainCharacterGam
 
 	
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		switch (keyOrButton) {
+	public boolean handleEvent(InputEvent inputEvent) {
+		switch (inputEvent.getEventKeyOrButton()) {
 		case Keyboard.KEY_0:
 			// Setear textura 0
 			break;
@@ -384,24 +385,18 @@ public class AnotherParticleSystemDemoGameState extends AbstractMainCharacterGam
 			printValues() ;
 			break;
 		default:
-			System.out.println(Integer.toHexString(keyOrButton));
+			System.out.println(Integer.toHexString(inputEvent.getEventKeyOrButton()));
 			break;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		if (origin == EventOriginEnum.KEYBOARD && type == EventTypeEnum.RELEASED) {
+	public boolean accept(InputEvent inputEvent) {
+		if (inputEvent.getOrigin() == EventOriginEnum.KEYBOARD && inputEvent.getType() == EventTypeEnum.RELEASED) {
 			return true ;
 		}
 		return false;
-	}
-
-	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private void handleAdd() {
@@ -730,6 +725,12 @@ public class AnotherParticleSystemDemoGameState extends AbstractMainCharacterGam
 		
 		System.out.println("particleEmission = new ParticleEmission(particleSystem, new Vector3f(0,1,0))") ;
 		System.out.println();		
+	}
+
+	@Override
+	public void tickInputEventListener(float tpf) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

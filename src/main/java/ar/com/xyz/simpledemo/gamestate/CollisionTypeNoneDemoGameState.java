@@ -18,6 +18,7 @@ import ar.com.xyz.gameengine.gui.control.GuiControlListener;
 import ar.com.xyz.gameengine.gui.control.GuiControlManager;
 import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
 import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEvent;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.ray.RayTracerVO;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
@@ -222,11 +223,12 @@ public class CollisionTypeNoneDemoGameState extends AbstractMainCharacterGameSta
 	}
 
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		if (origin == EventOriginEnum.MOUSE) {
+	// public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
+	public boolean handleEvent(InputEvent inputEvent) {
+		if (inputEvent.getOrigin() == EventOriginEnum.MOUSE) {
 			if (guiControlsEnabled) {
-				if (type == EventTypeEnum.RELEASED) {
-					if (keyOrButton == 0) {
+				if (inputEvent.getType() == EventTypeEnum.RELEASED) {
+					if (inputEvent.getEventKeyOrButton() == 0) {
 						Vector2f pos = getInputManager().getMousePosition() ;
 						System.out.println("click boton izq (" + pos + ")");
 						// float mouseY = 1 - ( (pos.y + 1f) / 2f );
@@ -236,12 +238,12 @@ public class CollisionTypeNoneDemoGameState extends AbstractMainCharacterGameSta
 			}
 			return false ;
 		}
-		if (keyOrButton == Keyboard.KEY_X && type == EventTypeEnum.PRESSED) {
+		if (inputEvent.getEventKeyOrButton() == Keyboard.KEY_X && inputEvent.getType() == EventTypeEnum.PRESSED) {
 			if (collisionDataPlayer != null) {
 				collisionDataPlayer.print();
 			}
 		}
-		if (keyOrButton == Keyboard.KEY_Y && type == EventTypeEnum.PRESSED) {
+		if (inputEvent.getEventKeyOrButton() == Keyboard.KEY_Y && inputEvent.getType() == EventTypeEnum.PRESSED) {
 			Vector3f rayOrigin = new Vector3f(
 				getPlayer().getPosition().x, 
 				getPlayer().getPosition().y + (getPlayer().getESpaceUtil().getRadius().y * 2) * getPlayer().getPorcentajeAltura(), 
@@ -265,7 +267,7 @@ public class CollisionTypeNoneDemoGameState extends AbstractMainCharacterGameSta
 			}
 			
 		}
-		if (keyOrButton == Keyboard.KEY_ESCAPE && type == EventTypeEnum.RELEASED) {
+		if (inputEvent.getEventKeyOrButton() == Keyboard.KEY_ESCAPE && inputEvent.getType() == EventTypeEnum.RELEASED) {
 			guiControlsEnabled = !guiControlsEnabled ;
 			if (guiControlsEnabled) {
 				releaseMouseIfGrabbed() ;
@@ -288,15 +290,11 @@ public class CollisionTypeNoneDemoGameState extends AbstractMainCharacterGameSta
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
+	// public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
+	public boolean accept(InputEvent inputEvent) {
 		return true ;
 	}
 
-	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
 	public void handleEvent(String id) {
@@ -305,6 +303,12 @@ public class CollisionTypeNoneDemoGameState extends AbstractMainCharacterGameSta
 			guiControlHelper.handleEvent(id);
 			System.out.println(collisionDataPlayer.getIndex());
 		}
+	}
+
+	@Override
+	public void tickInputEventListener(float tpf) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

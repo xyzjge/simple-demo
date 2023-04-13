@@ -11,7 +11,7 @@ import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.ColorEnum;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
-import ar.com.xyz.gameengine.input.manager.EventTypeEnum;
+import ar.com.xyz.gameengine.input.manager.InputEvent;
 import ar.com.xyz.gameengine.input.manager.InputEventListener;
 import ar.com.xyz.gameengine.light.DirectionalLight;
 import ar.com.xyz.gameengine.light.PointLight;
@@ -319,8 +319,8 @@ public class LightsDemoGameState extends AbstractMainCharacterGameState implemen
 	}
 
 	@Override
-	public boolean handleEvent(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		switch (keyOrButton) {
+	public boolean handleEvent(InputEvent inputEvent) {
+		switch (inputEvent.getEventKeyOrButton()) {
 		case Keyboard.KEY_G: {
 			subState = 1 ;
 			actualizarEstado(state.next()) ;
@@ -417,15 +417,16 @@ public class LightsDemoGameState extends AbstractMainCharacterGameState implemen
 	}
 
 	@Override
-	public boolean accept(EventOriginEnum origin, EventTypeEnum type, int keyOrButton, boolean isRepeatEvent) {
-		if (origin == EventOriginEnum.KEYBOARD) {
+	public boolean accept(InputEvent inputEvent) {
+		if (inputEvent.getOrigin() == EventOriginEnum.KEYBOARD) {
 			return true ;
 		}
 		return false;
 	}
 
 	@Override
-	public void tick() {
+	public void tickInputEventListener(float tpf) {
+		// TODO Auto-generated method stub
 		
 	}
 
