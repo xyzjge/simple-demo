@@ -52,6 +52,12 @@ public class ViewStaticSceneDemoGameState extends AbstractMainCharacterGameState
 	private ActualizarPosicionEntityController posicionDeContactoCorregidaEntityController ;
 	 
 	public ViewStaticSceneDemoGameState() {
+		
+		SingletonManager.getInstance().getObjLoader().addObjPath("/models") ;
+		SingletonManager.getInstance().getObjLoader().addMtlPath("/models") ;
+		
+		SingletonManager.getInstance().getTextureManager().addTexturePath("/texture");
+		
 		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL
