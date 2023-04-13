@@ -19,6 +19,7 @@ import ar.com.xyz.simpledemo.gamestate.menuitem.LookAtDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.NewLookAtVersionDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.NormalMapDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ObjLoaderDemoMenuItem;
+import ar.com.xyz.simpledemo.gamestate.menuitem.PentagonAnimationMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.RagDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.ReflectiveQuadsDemoMenuItem;
 import ar.com.xyz.simpledemo.gamestate.menuitem.TerrainDemoMenuItem;
@@ -52,6 +53,7 @@ public class SimpleDemoMenuGameState extends AbstractMenuItemBasedMenuGameState 
 			menuItemList.add(new CameraControllerDemoMenuItem());
 			
 			menuItemList.add(new ObjLoaderDemoMenuItem());
+			menuItemList.add(new PentagonAnimationMenuItem());
 			menuItemList.add(new ViewStaticSceneDemoMenuItem());
 			menuItemList.add(new LightsDemoMenuItem());
 			menuItemList.add(new WaterDemoMenuItem());

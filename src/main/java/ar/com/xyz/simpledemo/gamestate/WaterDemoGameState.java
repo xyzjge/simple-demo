@@ -31,6 +31,10 @@ public class WaterDemoGameState extends AbstractMainCharacterGameState implement
 	private FishEyePostProcessingFilter fishEyePostProcessingFilter = new FishEyePostProcessingFilter() ;
 	
 	public WaterDemoGameState() {
+		
+		SingletonManager.getInstance().getObjLoader().addObjPath("/models") ;
+		SingletonManager.getInstance().getObjLoader().addMtlPath("/models") ;
+		
 		setupPlayerAndCamera() ;
 		
 		{	// Create SOLID_STATIC for the LEVEL

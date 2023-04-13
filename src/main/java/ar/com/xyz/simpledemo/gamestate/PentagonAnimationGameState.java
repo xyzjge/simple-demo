@@ -10,7 +10,7 @@ import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
-public class ObjLoaderDemoGameState extends AbstractMainCharacterGameState implements CrushHandler {
+public class PentagonAnimationGameState extends AbstractMainCharacterGameState implements CrushHandler {
 
 	private static final String LEVEL = "s-box" ;
 	
@@ -18,7 +18,7 @@ public class ObjLoaderDemoGameState extends AbstractMainCharacterGameState imple
 	EntityController parentEntityController = null ;
 	EntityController childEntityController = null ;
 	
-	public ObjLoaderDemoGameState() {
+	public PentagonAnimationGameState() {
 		
 		SingletonManager.getInstance().getObjLoader().addObjPath("/models") ;
 		SingletonManager.getInstance().getObjLoader().addMtlPath("/models") ;
@@ -84,7 +84,7 @@ public class ObjLoaderDemoGameState extends AbstractMainCharacterGameState imple
 		}
 		
 		{ // Load obj ...
-			{
+/*			{
 //				LapidaDravenEntityController lapidaDravenEntityController = new LapidaDravenEntityController() ;
 				EntitySpec entitySpec = new EntitySpec("lapida-draven") ;
 				entitySpec.setTexture("lapida-draven.png");
@@ -96,6 +96,19 @@ public class ObjLoaderDemoGameState extends AbstractMainCharacterGameState imple
 				entitySpec.setModelRotation(new Vector3f(0,0,0));
 //				entitySpec.setPosition(new Vector3f(-14.79f, 1.5f, 73));
 				entitySpec.setPosition(new Vector3f(0, 1.5f, 0));
+//				entitySpec.setRayHitHandler(lapidaDravenEntityController);
+				createEntity(entitySpec);
+			}*/
+			{
+//				LapidaDravenEntityController lapidaDravenEntityController = new LapidaDravenEntityController() ;
+				EntitySpec entitySpec = new EntitySpec("pentagon1") ;
+				entitySpec.setTexture("pentagon1.png");
+				
+				entitySpec.setEntityCollisionType(EntityCollisionTypeEnum.SOLID_DYNAMIC);
+//				entitySpec.setEntityController(lapidaDravenEntityController);
+				entitySpec.setModelRotation(new Vector3f(0,0,0));
+//				entitySpec.setPosition(new Vector3f(-14.79f, 1.5f, 73));
+				entitySpec.setPosition(new Vector3f(0, 0, 0));
 //				entitySpec.setRayHitHandler(lapidaDravenEntityController);
 				createEntity(entitySpec);
 			}
