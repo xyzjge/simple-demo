@@ -2,24 +2,19 @@ package ar.com.xyz.simpledemo.gamestate;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import ar.com.xyz.gameengine.AbstractMainCharacterGameState;
+import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.cameracontroller.CameraController;
 import ar.com.xyz.gameengine.entity.CrushHandler;
-import ar.com.xyz.gameengine.entity.EntityController;
 import ar.com.xyz.gameengine.entity.spec.EntitySpec;
 import ar.com.xyz.gameengine.enumerator.EntityCollisionTypeEnum;
 import ar.com.xyz.gameengine.singleton.SingletonManager;
 import ar.com.xyz.simpledemo.gamestate.menuitem.SimpleDemoMenuMenuItem;
 
-public class PentagonAnimationGameState extends AbstractMainCharacterGameState implements CrushHandler, CameraController {
+public class PentagonAnimationGameState extends AbstractGameState implements CrushHandler, CameraController {
 
-	private static final float VELOCITY = 1;
+	private static final float VELOCITY = 10;
 	
 	private static final String LEVEL = "s-box" ;
-	
-	EntityController grandparentEntityController = null ;
-	EntityController parentEntityController = null ;
-	EntityController childEntityController = null ;
 	
 	public PentagonAnimationGameState() {
 		
@@ -27,7 +22,7 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 		SingletonManager.getInstance().getObjLoader().addMtlPath("/models") ;
 		
 		setupPlayerAndCamera() ;
-		
+		/*
 		{	// Create SOLID_STATIC for the LEVEL
 			EntitySpec entitySpec ;
 			entitySpec = new EntitySpec(LEVEL) ;
@@ -36,7 +31,7 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 			entitySpec.setScale(new Vector3f(50,50,50));
 			entitySpec.setPosition(new Vector3f(0,-50,0));
 			createEntity(entitySpec);
-		}
+		}*/
 		/*
 		{	// Create SOLID_STATIC for X+
 			EntitySpec entitySpec ;
@@ -107,8 +102,10 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 		
 		grabMouseIfNotGrabbed() ;
 		
-		setShowFps(true);
-		setShowPlayerPosition(true);
+		setShowFps(false);
+		setShowPlayerPosition(false);
+		
+		setCameraController(this);
 		
 	}
 
@@ -133,20 +130,23 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 	public void attachedToMainLoop() {
 		super.attachedToMainLoop();
 		if (getInputManager().getNumberOfConfiguredInputEventListener() == 0) {
-			setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
-			getCamera().setCameraController(this);
+			// setupInputEventListeners(getMainGameLoop(), getPlayer(), null) ;
+			// getCamera().setCameraController(this);
+			//addInputEventListener(this) ;
+			//addInputEventListener((InputEventListener)getCamera().getCameraController());
+
 		}
 	}
 	
 	@Override
 	public void tick(float tpf) {
-		if (getPlayer().getPosition().y < -10) {
+/*		if (getPlayer().getPosition().y < -10) {
 			handlePlayerDeath() ;
-		}
+		}*/
 	}
 
 	private void setupPlayerAndCamera() {
-
+/*
 		setupPlayerAndCamera(
 			new Vector3f(15, 5, 5),
 			new Vector3f(0, 0, 0),
@@ -162,13 +162,13 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 		SingletonManager.getInstance().getEntityUtil().lookAt(getPlayer(), new Vector3f(0, 0, 0));
 
 		this.enableDebug(getPlayer());
-		
+	*/	
 	}
 
 	@Override
 	public void crush() {
 //		handlePlayerDeath();
-		getPlayer().setPosition(new Vector3f(10, 10, 10));
+		//getPlayer().setPosition(new Vector3f(10, 10, 10));
 	}
 
 	private void handlePlayerDeath() {
@@ -176,7 +176,7 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 	}
 
 	// Camera Controller
-	private Vector3f cameraPosition = new Vector3f(10,0,0) ;
+	private Vector3f cameraPosition = new Vector3f(200,0,0) ;
 	private Vector3f cameraRotation = new Vector3f(0,-90,0) ;
 	
 	@Override
@@ -212,6 +212,7 @@ public class PentagonAnimationGameState extends AbstractMainCharacterGameState i
 	@Override
 	public void update(float fts) {
 		cameraPosition.x -= (fts * VELOCITY) ;
+		cameraRotation.z -= (fts * VELOCITY) ;
 		
 	}
 
