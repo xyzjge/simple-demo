@@ -7,10 +7,12 @@ import ar.com.xyz.gameengine.control2d.Button2d;
 import ar.com.xyz.gameengine.control2d.Check2d;
 import ar.com.xyz.gameengine.control2d.Panel2d;
 import ar.com.xyz.gameengine.control2d.Text2d;
+import ar.com.xyz.gameengine.control2d.builder.Button2dBuilder;
 import ar.com.xyz.gameengine.control2d.builder.Check2dBuilder;
+import ar.com.xyz.gameengine.control2d.builder.Control2dEventHandler;
 
 /**
- * Mostrar un check y un boton y cuando se clicke el boton que imprima el estado del radio
+ * Mostrar un check y un boton y cuando se clickee el boton que imprima el estado del radio
  * @author alfredo
  *
  */
@@ -32,19 +34,11 @@ public class Control2D006GameState extends AbstractGameState {
 		panel2d.add(text);
 		
 		final Check2d check = new Check2dBuilder(this)
-//				.setControl2dEventHandler(velocityFFFCheckEventHandler)
-				.setOriginAndSize(new Vector2f(0.5f,0.5f), new Vector2f(.5f,.25f))
-				.setTextures("green", null, "red", "gray")
-				.setLabel("Uno")
-				.build() ;
-/*		final Check2d check = new Check2d(this, new Vector2f(0.5f,0.5f), new Vector2f(.5f,.25f), "green", "red", "gray", "Uno") {
-			@Override
-			protected void clickHandler() {
-				
-			}
-		};*/
+			.setOriginAndSize(new Vector2f(0.5f,0.5f), new Vector2f(.5f,.25f))
+			.setTextures("green", null, "red", "gray")
+			.setLabel("Uno")
+			.build() ;
 		panel2d.add(check);
-//		panel2d.add(new Button2d(new Vector2f(0.5f,0.5f), new Vector2f(.25f,.25f), "green", "red", "yellow"));
 		
 		// Cuadrante arriba a la izquierda
 //		panel2d.add(new Button2d(new Vector2f(0.0f,0.5f), new Vector2f(.5f,.5f), "green", "red", "yellow"));
@@ -56,16 +50,20 @@ public class Control2D006GameState extends AbstractGameState {
 //		panel2d.add(new Button2d(new Vector2f(0.5f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow"));
 		
 		// Cuadrante abajo a la izquierda
-		panel2d.add(new Button2d(this, new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow", "white", "Text!!!") {
-				@Override
-				protected void clickHandler() {
-					System.out.println("En clickHandler !!! " + check.isSelected());
-				}
+		Control2dEventHandler buttonEventHandler = new Control2dEventHandler() {
+			@Override
+			public void clickHandler() {
+				System.out.println("En clickHandler !!! " + check.isSelected());
 			}
-		);
+		};
+		Button2d button = new Button2dBuilder(this)
+			.setControl2dEventHandler(buttonEventHandler)
+			.setOriginAndSize(new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f))
+			.setTextures("green", "red", "yellow", "white")
+			.setLabel("Label !!!")
+			.build() ;
+		panel2d.add(button);
 		
-		
-//		panel2d.add(new Button2d(new Vector2f(0.25f,0.25f), new Vector2f(.5f,.5f), "green", "red", "yellow"));
 		panel2d.show();
 
 	}

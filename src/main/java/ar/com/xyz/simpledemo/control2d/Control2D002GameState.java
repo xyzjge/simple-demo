@@ -5,6 +5,8 @@ import org.lwjgl.util.vector.Vector2f;
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.control2d.Button2d;
 import ar.com.xyz.gameengine.control2d.Panel2d;
+import ar.com.xyz.gameengine.control2d.builder.Button2dBuilder;
+import ar.com.xyz.gameengine.control2d.builder.Control2dEventHandler;
 
 /**
  * Muestra cuatro botones, uno por cuadrante. Maneja mouse over y click por separado en cada botón.
@@ -30,37 +32,73 @@ public class Control2D002GameState extends AbstractGameState {
 		
 		Panel2d panel2d = new Panel2d(this, new Vector2f(0,0), new Vector2f(1,1)) ;
 		
-		// Cuadrante arriba a la izquierda
-		panel2d.add(new Button2d(this, new Vector2f(0.0f,0.5f), new Vector2f(.5f,.5f), "green", "red", "yellow", "white") {
-			@Override
-			protected void clickHandler() {
-				System.out.println("En clickHandler arriba a la izquierda !!!");
-			}
-		});
+		{
+			// Cuadrante arriba a la izquierda
+			Control2dEventHandler buttonEventHandler = new Control2dEventHandler() {
+				@Override
+				public void clickHandler() {
+					System.out.println("En clickHandler arriba a la izquierda !!!");
+				}
+			};
+			Button2d button = new Button2dBuilder(this)
+					.setControl2dEventHandler(buttonEventHandler)
+					.setOriginAndSize(new Vector2f(0.0f,0.5f), new Vector2f(.5f,.5f))
+					.setTextures("green", "red", "yellow", "white")
+					.setLabel("Label !!!")
+					.build() ;
+			panel2d.add(button);
+		}
 		
-		// Cuadrante arriba a la derecha
-		panel2d.add(new Button2d(this, new Vector2f(0.5f,0.5f), new Vector2f(.5f,.5f), "green", "red", "yellow", "white") {
-			@Override
-			protected void clickHandler() {
-				System.out.println("En clickHandler arriba a la derecha !!!");
-			}
-		});
+		{
+			// Cuadrante arriba a la derecha
+			Control2dEventHandler buttonEventHandler = new Control2dEventHandler() {
+				@Override
+				public void clickHandler() {
+					System.out.println("En clickHandler arriba a la derecha !!!");
+				}
+			};
+			Button2d button = new Button2dBuilder(this)
+					.setControl2dEventHandler(buttonEventHandler)
+					.setOriginAndSize(new Vector2f(0.5f,0.5f), new Vector2f(.5f,.5f))
+					.setTextures("green", "red", "yellow", "white")
+					.setLabel("Label !!!")
+					.build() ;
+			panel2d.add(button);
+		}
 		
-		// Cuadrante abajo a la derecha
-		panel2d.add(new Button2d(this, new Vector2f(0.5f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow", "white") {
-			@Override
-			protected void clickHandler() {
-				System.out.println("En clickHandler abajo a la derecha !!!");
-			}
-		});
+		{
+			// Cuadrante abajo a la derecha
+			Control2dEventHandler buttonEventHandler = new Control2dEventHandler() {
+				@Override
+				public void clickHandler() {
+					System.out.println("En clickHandler abajo a la derecha !!!");
+				}
+			};
+			Button2d button = new Button2dBuilder(this)
+					.setControl2dEventHandler(buttonEventHandler)
+					.setOriginAndSize(new Vector2f(0.5f,0.0f), new Vector2f(.5f,.5f))
+					.setTextures("green", "red", "yellow", "white")
+					.setLabel("Label !!!")
+					.build() ;
+			panel2d.add(button);
+		}
 		
-		// Cuadrante abajo a la izquierda
-		panel2d.add(new Button2d(this, new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow", "white") {
-			@Override
-			protected void clickHandler() {
-				System.out.println("En clickHandler abajo a la izquierda !!!");
-			}
-		});
+		{
+			// Cuadrante abajo a la izquierda
+			Control2dEventHandler buttonEventHandler = new Control2dEventHandler() {
+				@Override
+				public void clickHandler() {
+					System.out.println("En clickHandler abajo a la izquierda !!!");
+				}
+			};
+			Button2d button = new Button2dBuilder(this)
+					.setControl2dEventHandler(buttonEventHandler)
+					.setOriginAndSize(new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f))
+					.setTextures("green", "red", "yellow", "white")
+					.setLabel("Label !!!")
+					.build() ;
+			panel2d.add(button);
+		}
 		
 		panel2d.show();
 

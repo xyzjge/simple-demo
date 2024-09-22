@@ -3,8 +3,11 @@ package ar.com.xyz.simpledemo.control2d;
 import org.lwjgl.util.vector.Vector2f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
+import ar.com.xyz.gameengine.control2d.Button2d;
 import ar.com.xyz.gameengine.control2d.Panel2d;
 import ar.com.xyz.gameengine.control2d.TextArea2d;
+import ar.com.xyz.gameengine.control2d.builder.Button2dBuilder;
+import ar.com.xyz.gameengine.control2d.builder.Control2dEventHandler;
 
 /**
  * Cuatro botones y un text area en la que se vaya mostrando la actividad.
@@ -39,26 +42,70 @@ public class Control2D003GameState extends AbstractGameState {
 		TextArea2d textArea2d = new TextArea2d(this, new Vector2f(0.0f,0.0f), new Vector2f(1f,.5f), NORMAL) ;
 		
 		// Cuadrante arriba a la izquierda
-		BotonLimpiar botonLimpiar = new BotonLimpiar(this, new Vector2f(0.0f,0.75f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK, DISABLED, textArea2d) ;
+		Control2dEventHandler botonLimpiarEventHandler = new Control2dEventHandler() {
+			@Override
+			public void clickHandler() {
+				textArea2d.removeText();
+			}
+		};
+		
+		Button2d botonLimpiar = new Button2dBuilder(this)
+				.setControl2dEventHandler(botonLimpiarEventHandler)
+				.setOriginAndSize(new Vector2f(0.0f,0.75f), new Vector2f(.5f,.25f))
+				.setTextures(NORMAL, MOUSE_OVER, CLICK, DISABLED)
+				.build() ;
 		panel2d.add( botonLimpiar ) ;
-//		panel2d.add(new Button2d(new Vector2f(0.0f,0.75f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK) {
-//			@Override
-//			protected void clickHandler() {
-//				System.out.println("En clickHandler arriba a la izquierda !!!");
-//			}
-//		});
 		
 		// Cuadrante arriba a la derecha
-		BotonEscribir botonEscribir = new BotonEscribir(this, new Vector2f(0.5f,0.75f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK, DISABLED, textArea2d,  "Superior derecho") ;
-		panel2d.add( botonEscribir ) ;
+		{
+			Control2dEventHandler botonEscribirEventHandler = new Control2dEventHandler() {
+				String text = "Superior derecho" ;
+				@Override
+				public void clickHandler() {
+					textArea2d.addTextLine(text);
+				}
+			};		
+			Button2d botonEscribir = new Button2dBuilder(this)
+				.setControl2dEventHandler(botonEscribirEventHandler)
+				.setOriginAndSize(new Vector2f(0.5f,0.75f), new Vector2f(.5f,.25f))
+				.setTextures(NORMAL, MOUSE_OVER, CLICK, DISABLED)
+				.build() ;
+			panel2d.add( botonEscribir ) ;
+		}
 		
 		// Cuadrante abajo a la derecha
-		BotonEscribir botonEscribirInferiorDerecho = new BotonEscribir(this, new Vector2f(0.5f,0.5f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK, DISABLED, textArea2d,  "Inferior derecho") ;
-		panel2d.add(botonEscribirInferiorDerecho);
+		{
+			Control2dEventHandler botonEscribirEventHandler = new Control2dEventHandler() {
+				String text = "Inferior derecho" ;
+				@Override
+				public void clickHandler() {
+					textArea2d.addTextLine(text);
+				}
+			};		
+			Button2d botonEscribir = new Button2dBuilder(this)
+				.setControl2dEventHandler(botonEscribirEventHandler)
+				.setOriginAndSize(new Vector2f(0.5f,0.5f), new Vector2f(.5f,.25f))
+				.setTextures(NORMAL, MOUSE_OVER, CLICK, DISABLED)
+				.build() ;
+			panel2d.add( botonEscribir ) ;
+		}
 		
 		// Cuadrante abajo a la izquierda
-		BotonEscribir botonEscribirInferiorIzquierdo = new BotonEscribir(this, new Vector2f(0.0f,0.5f), new Vector2f(.5f,.25f), NORMAL, MOUSE_OVER, CLICK, DISABLED, textArea2d,  "Inferior izquierdo") ;
-		panel2d.add(botonEscribirInferiorIzquierdo);
+		{
+			Control2dEventHandler botonEscribirEventHandler = new Control2dEventHandler() {
+				String text = "Inferior izquierdo" ;
+				@Override
+				public void clickHandler() {
+					textArea2d.addTextLine(text);
+				}
+			};		
+			Button2d botonEscribir = new Button2dBuilder(this)
+				.setControl2dEventHandler(botonEscribirEventHandler)
+				.setOriginAndSize(new Vector2f(0.0f,0.5f), new Vector2f(.5f,.25f))
+				.setTextures(NORMAL, MOUSE_OVER, CLICK, DISABLED)
+				.build() ;
+			panel2d.add( botonEscribir ) ;
+		}
 		
 		panel2d.add(textArea2d);
 		

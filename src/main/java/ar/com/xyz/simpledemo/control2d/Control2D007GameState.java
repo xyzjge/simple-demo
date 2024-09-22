@@ -6,10 +6,12 @@ import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.control2d.Button2d;
 import ar.com.xyz.gameengine.control2d.Control2d;
 import ar.com.xyz.gameengine.control2d.Panel2d;
+import ar.com.xyz.gameengine.control2d.builder.Button2dBuilder;
+import ar.com.xyz.gameengine.control2d.builder.Control2dEventHandler;
 
 /**
  * Cuatro paneles con dos botones cada uno.
- * Muestra cuatro botones, uno por cuadrante. Maneja mouse over y click por separado en cada botón.
+ * Maneja mouse over y click por separado en cada botón.
  * @author alfredo
  *
  */
@@ -58,21 +60,36 @@ public class Control2D007GameState extends AbstractGameState {
 	private Panel2d crearPanel(Vector2f origin, Vector2f size, String panel) {
 		Panel2d panel2d = new Panel2d(this, origin, size) ;
 		panel2d.setColor(0, 0, 1);
-		
-		panel2d.add(new Button2d(this, new Vector2f(0.0f,0.0f), new Vector2f(.5f,1f), "green", "red", "yellow", "white") {
+		{
+			Control2dEventHandler buttonEventHandler = new Control2dEventHandler() {
+				@Override
+				public void clickHandler() {
+					System.out.println("En clickHandler boton 1 !!! (panel " + panel + ")");
+				}
+			};
+			Button2d button = new Button2dBuilder(this)
+				.setControl2dEventHandler(buttonEventHandler)
+				.setOriginAndSize(new Vector2f(0.0f,0.0f), new Vector2f(.5f,1f))
+				.setTextures("green", "red", "yellow", "white")
+				.setLabel("Label !!!")
+				.build() ;
+			panel2d.add(button);
+		}
+		{
+		Control2dEventHandler buttonEventHandler = new Control2dEventHandler() {
 			@Override
-			protected void clickHandler() {
-				System.out.println("En clickHandler boton 1 !!! (panel " + panel + ")");
-			}
-		});
-		
-		panel2d.add(new Button2d(this, new Vector2f(0.5f,0.0f), new Vector2f(.5f,1f), "green", "red", "yellow", "white") {
-			@Override
-			protected void clickHandler() {
+			public void clickHandler() {
 				System.out.println("En clickHandler boton 2 !!! (panel " + panel + ")");
 			}
-		});
-		
+		};
+		Button2d button = new Button2dBuilder(this)
+			.setControl2dEventHandler(buttonEventHandler)
+			.setOriginAndSize(new Vector2f(0.5f,0.0f), new Vector2f(.5f,1f))
+			.setTextures("green", "red", "yellow", "white")
+			.setLabel("Label !!!")
+			.build() ;
+		panel2d.add(button);
+		}
 		// .005f, .005f
 //		panel2d.getPadding().x = .001f ;
 		return panel2d ;

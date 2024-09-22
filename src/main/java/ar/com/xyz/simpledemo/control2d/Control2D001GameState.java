@@ -5,6 +5,8 @@ import org.lwjgl.util.vector.Vector2f;
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.control2d.Button2d;
 import ar.com.xyz.gameengine.control2d.Panel2d;
+import ar.com.xyz.gameengine.control2d.builder.Button2dBuilder;
+import ar.com.xyz.gameengine.control2d.builder.Control2dEventHandler;
 
 /**
  * Muestra un botón en el cuadrante inferior izquierdo. Detecta mouse over y click.
@@ -41,16 +43,21 @@ public class Control2D001GameState extends AbstractGameState {
 //		panel2d.add(new Button2d(new Vector2f(0.5f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow"));
 		
 		// Cuadrante abajo a la izquierda
-		panel2d.add(new Button2d(this, new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow", "white", "Text!!!") {
-				@Override
-				protected void clickHandler() {
-					System.out.println("En clickHandler !!!");
-				}
+		Control2dEventHandler buttonEventHandler = new Control2dEventHandler() {
+			@Override
+			public void clickHandler() {
+				System.out.println("En clickHandler !!!");
 			}
-		);
+		};
+//		Button2d button = new Button2d(this, new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f), "green", "red", "yellow", "white", "Text!!!") ;
+		Button2d button = new Button2dBuilder(this)
+				.setControl2dEventHandler(buttonEventHandler)
+				.setOriginAndSize(new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f))
+				.setTextures("green", "red", "yellow", "white")
+				.setLabel("Label !!!")
+				.build() ;
+		panel2d.add( button ) ;
 		
-		
-//		panel2d.add(new Button2d(new Vector2f(0.25f,0.25f), new Vector2f(.5f,.5f), "green", "red", "yellow"));
 		panel2d.show();
 
 	}
