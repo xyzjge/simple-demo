@@ -1,5 +1,6 @@
 package ar.com.xyz.simpledemo.control2d;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
@@ -10,13 +11,17 @@ import ar.com.xyz.gameengine.control2d.Text2d;
 import ar.com.xyz.gameengine.control2d.builder.Button2dBuilder;
 import ar.com.xyz.gameengine.control2d.builder.Check2dBuilder;
 import ar.com.xyz.gameengine.control2d.builder.Control2dEventHandler;
+import ar.com.xyz.gameengine.input.manager.EventOriginEnum;
+import ar.com.xyz.gameengine.input.manager.InputEvent;
+import ar.com.xyz.gameengine.input.manager.InputEventListener;
+import ar.com.xyz.simpledemo.control2d.menu.Control2DMenuMenuItem;
 
 /**
  * Mostrar un check y un boton y cuando se clickee el boton que imprima el estado del radio
  * @author alfredo
  *
  */
-public class Control2D006GameState extends AbstractGameState {
+public class Control2D006GameState extends AbstractGameState implements InputEventListener {
 	
 	private static final float RED = 0.5f ;
 	private static final float GREEN = 0.5f ;
@@ -69,8 +74,45 @@ public class Control2D006GameState extends AbstractGameState {
 	}
 	
 	@Override
+	public void attachedToMainLoop() {
+		super.attachedToMainLoop();
+//		System.out.println("getInputManager().getNumberOfConfiguredInputEventListener(): " + getInputManager().getNumberOfConfiguredInputEventListener());
+		addInputEventListener(this);
+	}
+	
+	@Override
 	public void tick(float tpf) {
 		
+	}
+	
+	@Override
+	public boolean handleEvent(InputEvent inputEvent) {
+		switch (inputEvent.getEventKeyOrButton()) {
+		case Keyboard.KEY_ESCAPE:
+			returnToMenu() ;
+			break;
+		default:
+			break;
+		}
+		return false; 
+	}
+
+	@Override
+	public boolean accept(InputEvent inputEvent) {
+		if (inputEvent.getOrigin() == EventOriginEnum.KEYBOARD) {
+			return true ;
+		}
+		return false;
+	}
+
+	@Override
+	public void tickInputEventListener(float tpf) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void returnToMenu() {
+		getMainGameLoop().setNextGameState(Control2DMenuMenuItem.getInstance().getGameStateInstance()) ;
 	}
 	
 }
