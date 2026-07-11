@@ -52,7 +52,7 @@ public class Control2D003GameState extends AbstractGameState implements InputEve
 		};
 		
 		Button2d botonLimpiar = new Button2dBuilder(this)
-				.setControl2dActionListener(botonLimpiarEventHandler)
+				.setActionListener(botonLimpiarEventHandler)
 				.setOriginAndSize(new Vector2f(0.0f,0.75f), new Vector2f(.5f,.25f))
 				.setTextures(NORMAL, MOUSE_OVER, CLICK, DISABLED)
 				.build() ;
@@ -65,7 +65,7 @@ public class Control2D003GameState extends AbstractGameState implements InputEve
 				textArea2d.addTextLine(text);
 			};		
 			Button2d botonEscribir = new Button2dBuilder(this)
-				.setControl2dActionListener(botonEscribirEventHandler)
+				.setActionListener(botonEscribirEventHandler)
 				.setOriginAndSize(new Vector2f(0.5f,0.75f), new Vector2f(.5f,.25f))
 				.setTextures(NORMAL, MOUSE_OVER, CLICK, DISABLED)
 				.build() ;
@@ -79,7 +79,7 @@ public class Control2D003GameState extends AbstractGameState implements InputEve
 				textArea2d.addTextLine(text);
 			};		
 			Button2d botonEscribir = new Button2dBuilder(this)
-				.setControl2dActionListener(botonEscribirEventHandler)
+				.setActionListener(botonEscribirEventHandler)
 				.setOriginAndSize(new Vector2f(0.5f,0.5f), new Vector2f(.5f,.25f))
 				.setTextures(NORMAL, MOUSE_OVER, CLICK, DISABLED)
 				.build() ;
@@ -93,7 +93,7 @@ public class Control2D003GameState extends AbstractGameState implements InputEve
 				textArea2d.addTextLine(text);
 			};		
 			Button2d botonEscribir = new Button2dBuilder(this)
-				.setControl2dActionListener(botonEscribirEventHandler)
+				.setActionListener(botonEscribirEventHandler)
 				.setOriginAndSize(new Vector2f(0.0f,0.5f), new Vector2f(.5f,.25f))
 				.setTextures(NORMAL, MOUSE_OVER, CLICK, DISABLED)
 				.build() ;

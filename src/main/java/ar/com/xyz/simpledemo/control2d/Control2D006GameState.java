@@ -59,7 +59,7 @@ public class Control2D006GameState extends AbstractGameState implements InputEve
 			System.out.println("En clickHandler !!! " + check.isSelected());
 		};
 		Button2d button = new Button2dBuilder(this)
-			.setControl2dActionListener(buttonEventHandler)
+			.setActionListener(buttonEventHandler)
 			.setOriginAndSize(new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f))
 			.setTextures("green", "red", "yellow", "white")
 			.setLabel("Label !!!")

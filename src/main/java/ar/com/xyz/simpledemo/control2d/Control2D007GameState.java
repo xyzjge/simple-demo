@@ -70,7 +70,7 @@ public class Control2D007GameState extends AbstractGameState implements InputEve
 				System.out.println("En clickHandler boton 1 !!! (panel " + panel + ")");
 			};
 			Button2d button = new Button2dBuilder(this)
-				.setControl2dActionListener(buttonEventHandler)
+				.setActionListener(buttonEventHandler)
 				.setOriginAndSize(new Vector2f(0.0f,0.0f), new Vector2f(.5f,1f))
 				.setTextures("green", "red", "yellow", "white")
 				.setLabel("Label !!!")
@@ -82,7 +82,7 @@ public class Control2D007GameState extends AbstractGameState implements InputEve
 				System.out.println("En clickHandler boton 2 !!! (panel " + panel + ")");
 			};
 			Button2d button = new Button2dBuilder(this)
-				.setControl2dActionListener(buttonEventHandler)
+				.setActionListener(buttonEventHandler)
 				.setOriginAndSize(new Vector2f(0.5f,0.0f), new Vector2f(.5f,1f))
 				.setTextures("green", "red", "yellow", "white")
 				.setLabel("Label !!!")
