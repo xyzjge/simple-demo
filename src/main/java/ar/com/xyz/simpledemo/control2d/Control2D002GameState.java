@@ -4,9 +4,9 @@ import org.lwjgl.util.vector.Vector2f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.control2d.Button2d;
+import ar.com.xyz.gameengine.control2d.Control2dActionListener;
 import ar.com.xyz.gameengine.control2d.Panel2d;
 import ar.com.xyz.gameengine.control2d.builder.Button2dBuilder;
-import ar.com.xyz.gameengine.control2d.builder.Control2dEventHandler;
 
 /**
  * Muestra cuatro botones, uno por cuadrante. Maneja mouse over y click por separado en cada botón.
@@ -34,14 +34,11 @@ public class Control2D002GameState extends AbstractGameState {
 		
 		{
 			// Cuadrante arriba a la izquierda
-			Control2dEventHandler buttonEventHandler = new Control2dEventHandler() {
-				@Override
-				public void clickHandler() {
-					System.out.println("En clickHandler arriba a la izquierda !!!");
-				}
+			Control2dActionListener buttonEventHandler = source -> {
+				System.out.println("En clickHandler arriba a la izquierda !!!");
 			};
 			Button2d button = new Button2dBuilder(this)
-					.setControl2dEventHandler(buttonEventHandler)
+					.setControl2dActionListener(buttonEventHandler)
 					.setOriginAndSize(new Vector2f(0.0f,0.5f), new Vector2f(.5f,.5f))
 					.setTextures("green", "red", "yellow", "white")
 					.setLabel("Label !!!")
@@ -51,14 +48,11 @@ public class Control2D002GameState extends AbstractGameState {
 		
 		{
 			// Cuadrante arriba a la derecha
-			Control2dEventHandler buttonEventHandler = new Control2dEventHandler() {
-				@Override
-				public void clickHandler() {
-					System.out.println("En clickHandler arriba a la derecha !!!");
-				}
+			Control2dActionListener buttonEventHandler = source -> {
+				System.out.println("En clickHandler arriba a la derecha !!!");
 			};
 			Button2d button = new Button2dBuilder(this)
-					.setControl2dEventHandler(buttonEventHandler)
+					.setControl2dActionListener(buttonEventHandler)
 					.setOriginAndSize(new Vector2f(0.5f,0.5f), new Vector2f(.5f,.5f))
 					.setTextures("green", "red", "yellow", "white")
 					.setLabel("Label !!!")
@@ -68,14 +62,11 @@ public class Control2D002GameState extends AbstractGameState {
 		
 		{
 			// Cuadrante abajo a la derecha
-			Control2dEventHandler buttonEventHandler = new Control2dEventHandler() {
-				@Override
-				public void clickHandler() {
-					System.out.println("En clickHandler abajo a la derecha !!!");
-				}
+			Control2dActionListener buttonEventHandler = source -> {
+				System.out.println("En clickHandler abajo a la derecha !!!");
 			};
 			Button2d button = new Button2dBuilder(this)
-					.setControl2dEventHandler(buttonEventHandler)
+					.setControl2dActionListener(buttonEventHandler)
 					.setOriginAndSize(new Vector2f(0.5f,0.0f), new Vector2f(.5f,.5f))
 					.setTextures("green", "red", "yellow", "white")
 					.setLabel("Label !!!")
@@ -85,14 +76,11 @@ public class Control2D002GameState extends AbstractGameState {
 		
 		{
 			// Cuadrante abajo a la izquierda
-			Control2dEventHandler buttonEventHandler = new Control2dEventHandler() {
-				@Override
-				public void clickHandler() {
-					System.out.println("En clickHandler abajo a la izquierda !!!");
-				}
+			Control2dActionListener buttonEventHandler = source -> {
+				System.out.println("En clickHandler abajo a la izquierda !!!");
 			};
 			Button2d button = new Button2dBuilder(this)
-					.setControl2dEventHandler(buttonEventHandler)
+					.setControl2dActionListener(buttonEventHandler)
 					.setOriginAndSize(new Vector2f(0.0f,0.0f), new Vector2f(.5f,.5f))
 					.setTextures("green", "red", "yellow", "white")
 					.setLabel("Label !!!")

@@ -4,10 +4,10 @@ import org.lwjgl.util.vector.Vector2f;
 
 import ar.com.xyz.gameengine.AbstractGameState;
 import ar.com.xyz.gameengine.control2d.Button2d;
+import ar.com.xyz.gameengine.control2d.Control2dActionListener;
 import ar.com.xyz.gameengine.control2d.Panel2d;
 import ar.com.xyz.gameengine.control2d.TextArea2d;
 import ar.com.xyz.gameengine.control2d.builder.Button2dBuilder;
-import ar.com.xyz.gameengine.control2d.builder.Control2dEventHandler;
 
 /**
  * Cuatro botones y un text area en la que se vaya mostrando la actividad.
@@ -42,15 +42,12 @@ public class Control2D003GameState extends AbstractGameState {
 		TextArea2d textArea2d = new TextArea2d(this, new Vector2f(0.0f,0.0f), new Vector2f(1f,.5f), NORMAL) ;
 		
 		// Cuadrante arriba a la izquierda
-		Control2dEventHandler botonLimpiarEventHandler = new Control2dEventHandler() {
-			@Override
-			public void clickHandler() {
-				textArea2d.removeText();
-			}
+		Control2dActionListener botonLimpiarEventHandler = source -> {
+			textArea2d.removeText();
 		};
 		
 		Button2d botonLimpiar = new Button2dBuilder(this)
-				.setControl2dEventHandler(botonLimpiarEventHandler)
+				.setControl2dActionListener(botonLimpiarEventHandler)
 				.setOriginAndSize(new Vector2f(0.0f,0.75f), new Vector2f(.5f,.25f))
 				.setTextures(NORMAL, MOUSE_OVER, CLICK, DISABLED)
 				.build() ;
@@ -58,15 +55,12 @@ public class Control2D003GameState extends AbstractGameState {
 		
 		// Cuadrante arriba a la derecha
 		{
-			Control2dEventHandler botonEscribirEventHandler = new Control2dEventHandler() {
+			Control2dActionListener botonEscribirEventHandler = source -> {
 				String text = "Superior derecho" ;
-				@Override
-				public void clickHandler() {
-					textArea2d.addTextLine(text);
-				}
+				textArea2d.addTextLine(text);
 			};		
 			Button2d botonEscribir = new Button2dBuilder(this)
-				.setControl2dEventHandler(botonEscribirEventHandler)
+				.setControl2dActionListener(botonEscribirEventHandler)
 				.setOriginAndSize(new Vector2f(0.5f,0.75f), new Vector2f(.5f,.25f))
 				.setTextures(NORMAL, MOUSE_OVER, CLICK, DISABLED)
 				.build() ;
@@ -75,15 +69,12 @@ public class Control2D003GameState extends AbstractGameState {
 		
 		// Cuadrante abajo a la derecha
 		{
-			Control2dEventHandler botonEscribirEventHandler = new Control2dEventHandler() {
+			Control2dActionListener botonEscribirEventHandler = source -> {
 				String text = "Inferior derecho" ;
-				@Override
-				public void clickHandler() {
-					textArea2d.addTextLine(text);
-				}
+				textArea2d.addTextLine(text);
 			};		
 			Button2d botonEscribir = new Button2dBuilder(this)
-				.setControl2dEventHandler(botonEscribirEventHandler)
+				.setControl2dActionListener(botonEscribirEventHandler)
 				.setOriginAndSize(new Vector2f(0.5f,0.5f), new Vector2f(.5f,.25f))
 				.setTextures(NORMAL, MOUSE_OVER, CLICK, DISABLED)
 				.build() ;
@@ -92,15 +83,12 @@ public class Control2D003GameState extends AbstractGameState {
 		
 		// Cuadrante abajo a la izquierda
 		{
-			Control2dEventHandler botonEscribirEventHandler = new Control2dEventHandler() {
+			Control2dActionListener botonEscribirEventHandler = source -> {
 				String text = "Inferior izquierdo" ;
-				@Override
-				public void clickHandler() {
-					textArea2d.addTextLine(text);
-				}
+				textArea2d.addTextLine(text);
 			};		
 			Button2d botonEscribir = new Button2dBuilder(this)
-				.setControl2dEventHandler(botonEscribirEventHandler)
+				.setControl2dActionListener(botonEscribirEventHandler)
 				.setOriginAndSize(new Vector2f(0.0f,0.5f), new Vector2f(.5f,.25f))
 				.setTextures(NORMAL, MOUSE_OVER, CLICK, DISABLED)
 				.build() ;
